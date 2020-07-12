@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 010ee95fd587e034491c948218f65d6a, type: 3}
+  m_Name: CardScriptable 53
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  fraction: {fileID: 11400000, guid: 8bc27f0cdffdf8944893cbc5f068baee, type: 2}
+  classCard: {fileID: 11400000, guid: af433d77f38ba2349bc77eb0ecb51265, type: 2}
+  abilityPrefab: {fileID: 982859084102397786, guid: 42141c64a2605974889b0a3bbcf7bb95,
+    type: 3}
+  combatData:
+    initiative: 2
+    attack: 5
+    defense: 0
+    health: 9
+    maxCountAttackers: 2

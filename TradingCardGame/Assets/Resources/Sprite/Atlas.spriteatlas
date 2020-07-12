@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 1
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 37e7cdc659028f34aad5fd1815bc84a8, type: 3}
+    - {fileID: 102900000, guid: 24bbb597f35ae8049a94f37cfdb4e3cf, type: 3}
+    totalSpriteSurfaceArea: 70000
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 7676aa2010c0bf247a08d1feb64b422f, type: 3}
+  - {fileID: 21300000, guid: 3d51c28073370ff4c9d70a06740cac61, type: 3}
+  - {fileID: 21300000, guid: 0b5ddb4141793904eb4f0610f56eda64, type: 3}
+  - {fileID: 21300000, guid: 665e3503c4afb8e47aa22b6da307a068, type: 3}
+  - {fileID: 21300000, guid: a7d4aa93f3df9e445be822058abd9446, type: 3}
+  - {fileID: 21300000, guid: aead71a4a5d00d5429ed43a92ea528bc, type: 3}
+  - {fileID: 21300000, guid: 6ca69c950291761438a380dce4e52b0a, type: 3}
+  - {fileID: 21300000, guid: ed0d1ae959a09a3439462e885b4803cc, type: 3}
+  - {fileID: 21300000, guid: 7b937d6e28fca544b97a00f876776f42, type: 3}
+  - {fileID: 21300000, guid: 7cdc36bf7b3fa2b46b5663eeeff446c8, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Sun_ClassCard
+  - AttackUpAll
+  - HealthRecovery
+  - StandardDamage
+  - SunSet_ClassCard
+  - DefenseDamage
+  - SunAuraBroken
+  - MoonShield
+  - Moon_ClassCard
+  - Dawn_ClassCard
+  m_Tag: Atlas
+  m_IsVariant: 0
