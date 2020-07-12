@@ -1,5 +1,4 @@
 ﻿using Photon.Pun;
-using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEngine;
 
@@ -47,13 +46,14 @@ public class PhotonUnityNetwork : MonoBehaviourPunCallbacks
     {
         isConnecting = false;
         Debug.Log($"DisconnectCause: {cause}");
-        if(battelScene != null) battelScene.DisconnectedBattle(cause);
+        if(battelScene != null) battelScene.DisconnectedBattle();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.Log($"{returnCode}: {message}");
-        PhotonNetwork.Disconnect();
+
+        battelScene.DisconnectedBattle();
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
@@ -70,21 +70,19 @@ public class PhotonUnityNetwork : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log($"JoinedRoom: {PhotonNetwork.CurrentRoom.Name}");
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            var view = PhotonNetwork.Instantiate("BattleScene/PhotonView", new Vector3(0, 0, 0), Quaternion.identity);
-            photonView = view.GetPhotonView();
-        }
         battelScene.ConnectedToMaster();
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log($"PlayerEntered: {newPlayer.UserId}");
-        photonView.RPC("STARTBATTEL", RpcTarget.Others, battelScene.Battel.Player.Report);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            var view = PhotonNetwork.Instantiate("BattleScene/PhotonView", new Vector3(0, 0, 0), Quaternion.identity);
+            photonView = view.GetPhotonView();
+        }
 
-        if(PhotonNetwork.CurrentRoom == null)
+        if (PhotonNetwork.CurrentRoom == null)
             PhotonNetwork.Disconnect();
 
         // Закрыть комнату и сделать невидимой

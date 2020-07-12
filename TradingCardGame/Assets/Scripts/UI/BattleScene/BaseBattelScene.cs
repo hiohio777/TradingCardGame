@@ -6,16 +6,17 @@ using UnityEngine.UI;
 public abstract class BaseBattelScene : BaseScene
 {
     public IBattel Battel { get; private set; }
-    protected IUser player;
-    protected IBattelFieldFactory battelFieldFactory;
+    public IUser UserData { get; private set; }
+    protected BattelFieldFactory battelFieldFactory;
+    public TimerBattel timerNextTurn = null; // Нужен для режимов где на принятие решений даётся время
 
     [SerializeField] protected Button backButton = null, buttonFinishBattel = null, buttonNextTurn = null;
     private ScenesEnum carrentScene = ScenesEnum.MainScenes;
 
     protected BaseBattelScene Initialize(Action<ScenesEnum> startNewScene, IBattel battel, IUser player,
-              IBattelFieldFactory battelFieldFactory)
+              BattelFieldFactory battelFieldFactory)
     {
-        (this.startNewScene, this.Battel, this.player, this.battelFieldFactory) = (startNewScene, battel, player, battelFieldFactory);
+        (this.startNewScene, this.Battel, this.UserData, this.battelFieldFactory) = (startNewScene, battel, player, battelFieldFactory);
 
         backButton.onClick.AddListener(OnLeaveBattle);
         buttonFinishBattel.onClick.AddListener(OnLeaveBattle);
@@ -33,14 +34,14 @@ public abstract class BaseBattelScene : BaseScene
 
     protected void CreatPlayerPerson()
     {
-        Battel.Player.Creat(player.Login, player.CurrentDeck.Fraction, player.CurrentDeck.StringCards);
+        Battel.Player.Creat(UserData.Login, UserData.CurrentDeck.Fraction, UserData.CurrentDeck.StringCards);
     }
 
     protected void CreatBattelField()
     {
         battelFieldFactory.GetBattelDataPanel(Battel);
         battelFieldFactory.GetPersonsPanel(transform, Battel.Player, Battel.Enemy);
-        battelFieldFactory.GetStartingHandPanel(transform, Battel.Player, NextTurn);
+        battelFieldFactory.GetStartingHandPanel(transform, timerNextTurn, Battel.Player, NextTurn);
 
         var battleFieldCards = battelFieldFactory.GetBattleFieldCards();
         Battel.Enemy.SetAttackCardsPosition(battleFieldCards.GetAttackingCardsEnemy);
@@ -48,8 +49,8 @@ public abstract class BaseBattelScene : BaseScene
 
         buttonFinishBattel.gameObject.SetActive(true);
         buttonNextTurn.gameObject.SetActive(true);
+        backButton.gameObject.SetActive(false);
 
-        Destroy(backButton.gameObject);
         Debug.Log($"Битва началась! -> {GetType().Name}");
     }
 
@@ -57,17 +58,20 @@ public abstract class BaseBattelScene : BaseScene
 
     protected virtual void NextTurn()
     {
+        if (timerNextTurn != null)
+            timerNextTurn.HideTimer();
+
         SetInteractableButtonNextTurn(false);
         Battel.ReportReadinessPlayer();
     }
 
-    public abstract void FinishBattel(TypePersonEnum loser);
+    public abstract void FinishBattel();
     protected virtual void OnLeaveBattle()
     {
         StartNewScen(carrentScene);
     }
 
-    private void SetInteractableButtonNextTurn(bool active)
+    protected void SetInteractableButtonNextTurn(bool active)
     {
         buttonNextTurn.interactable = active;
     }

@@ -9,11 +9,16 @@ public class StartingHandPanel : MonoBehaviour, IStartingHandPanel
 
     private IBattelPerson person;
     private Action accept;
+    private TimerBattel timerNextTurn;
 
-    public StartingHandPanel Initialize(Transform parent, IBattelPerson person, Action accept)
+    public StartingHandPanel Initialize(Transform parent, TimerBattel timerNextTurn, IBattelPerson person, Action accept)
     {
-        (this.person, this.accept) = (person, accept);
+        (this.timerNextTurn, this.person, this.accept) = (timerNextTurn, person, accept);
         transform.SetParent(parent, false);
+
+        //Это необходимо, чтобы в случае истечения таймера в пвп битве интерфейс был уничтожен
+        if (timerNextTurn != null)
+            this.timerNextTurn.Execute += DestroyUI;
 
         buttonNewStartingHand.onClick.AddListener(OnNewStartingHand);
         buttonAccept.onClick.AddListener(OnAccept);
@@ -37,6 +42,13 @@ public class StartingHandPanel : MonoBehaviour, IStartingHandPanel
     private void OnAccept()
     {
         accept?.Invoke();
+        DestroyUI();
+    }
+
+    private void DestroyUI()
+    {
+        if (timerNextTurn != null)
+            timerNextTurn.Execute -= DestroyUI;
         Destroy(gameObject);
     }
 }

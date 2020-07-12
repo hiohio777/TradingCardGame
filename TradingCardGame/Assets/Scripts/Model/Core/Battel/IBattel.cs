@@ -7,7 +7,8 @@ public interface IBattelBase
     IBattelSpecific BattelSpecific { get; }
     ICardResetCounter CardResetCounter { get; }
     IBattelCombatData CombatData { get; }
-    void OnFinishBattel(TypePersonEnum loser);
+    TypePersonEnum Winner { get; set; }
+    void OnFinishBattel();
 }
 
 public interface IBattel : IBattelBase
@@ -15,8 +16,9 @@ public interface IBattel : IBattelBase
     event Action NextTurn;
     event Action<BattelStateEnum> AssignBattelState;
     event Action<bool> InteractableButtonNextTurn;
-    event Action<TypePersonEnum> FinishBattel;
+    event Action FinishBattel;
     event Action<string> SendReportRPC;
+    event Action ActiveTimerBattel;
 
     bool IsMasterServer { get; set; }
     BattelStateEnum CurrentBattelState { get; }

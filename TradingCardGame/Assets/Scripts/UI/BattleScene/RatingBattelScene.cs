@@ -1,9 +1,6 @@
-﻿using Newtonsoft.Json;
-using Photon.Pun;
-using Photon.Realtime;
+﻿using Photon.Pun;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RatingBattelScene : BaseBattelScene
@@ -11,10 +8,11 @@ public class RatingBattelScene : BaseBattelScene
     [SerializeField] private PhotonUnityNetwork photon = null;
     [SerializeField] private WaitingPanel waitingPanel = null;
 
-    public bool isEnemyCameOut = false; // Враг вышел из боя(досрочно) Ему будет засчитано поражение
+    [HideInInspector] public bool isEnemyCameOut = false; // Враг вышел из боя(досрочно) Ему будет засчитано поражение(если isStartBattel = true)
+    [HideInInspector] public bool isStartBattel = false; // Битва начата(оба игрока установили соединение)
 
     public static RatingBattelScene CreatPrefab(Action<ScenesEnum> startNewScene, IBattel battelData, IUser player,
-             IDeckBattleSelector deckBattleSelector, IBattelFieldFactory battelFieldFactory) =>
+             IDeckBattleSelector deckBattleSelector, BattelFieldFactory battelFieldFactory) =>
      (Instantiate(Resources.Load<RatingBattelScene>($"BattleScene/RatingBattelScene")).Initialize(startNewScene, battelData, player,
      battelFieldFactory) as RatingBattelScene)
      .Build(deckBattleSelector);
@@ -22,23 +20,11 @@ public class RatingBattelScene : BaseBattelScene
     private RatingBattelScene Build(IDeckBattleSelector deckBattleSelector)
     {
         deckBattleSelector.Build(transform, Connect);
+        timerNextTurn.ExecuteBlockButton += SetInteractableButtonNextTurn;
+        timerNextTurn.Execute += NextTurn;
+        Battel.ActiveTimerBattel += timerNextTurn.StartTimer;
+
         return this;
-    }
-
-    private void Connect()
-    {
-        CreatPlayerPerson();
-
-        // Серелизация данных об игроке, для последующей отправки противнику
-        Battel.Player.Report = new StartBattelDATAREPORT(player.Login, player.CurrentDeck.Fraction, player.CurrentDeck.StringCards).GetJsonString();
-
-        SetBackScene(ScenesEnum.RatingBattelScenes);
-        backButton.interactable = false;
-        backButton.onClick.RemoveAllListeners();
-        backButton.onClick.AddListener(PhotonNetwork.Disconnect);
-
-        waitingPanel.StartWaitConnection();
-        photon.Connect(this);
     }
 
     public void ConnectedToMaster()
@@ -47,17 +33,14 @@ public class RatingBattelScene : BaseBattelScene
         {
             Debug.Log($"IsMasterServer: true");
             Battel.IsMasterServer = true; // мастер сервер комнаты(управляет ходом фаз боя)
-            backButton.interactable = true;
             waitingPanel.StartWaitingEnemy();
         }
-        else
-        {
-            Battel.IsMasterServer = false;
-            backButton.interactable = true;
-        }
+        else Battel.IsMasterServer = false;
+
+        backButton.interactable = true;
     }
 
-    public void DisconnectedBattle(DisconnectCause cause)
+    public void DisconnectedBattle()
     {
         Debug.Log("DisconnectedBattle " + PhotonNetwork.IsConnected);
         if (PhotonNetwork.IsConnected)
@@ -67,15 +50,18 @@ public class RatingBattelScene : BaseBattelScene
         }
         else
         {
-            if (isEnemyCameOut) FinishBattel(TypePersonEnum.enemy);
-            else StartCoroutine(Wait());
+            timerNextTurn.HideTimer();
+            buttonFinishBattel.interactable = false;
+            buttonNextTurn.interactable = false;
+
+            StartCoroutine(Wait());
         }
     }
 
-    public override void FinishBattel(TypePersonEnum loser)
+    public override void FinishBattel()
     {
-        Battel.IsMasterServer = false;
-        battelFieldFactory.GetFinishTrainingBattel(Battel, loser, OnLeaveBattle);
+        isStartBattel = false;
+        battelFieldFactory.GetFinishTrainingBattel(Battel, DisconnectedBattle);
     }
 
     public void LeaveBattleFinith()
@@ -87,17 +73,53 @@ public class RatingBattelScene : BaseBattelScene
 
     public void StartBattel()
     {
-        backButton.onClick.RemoveAllListeners();
-        buttonFinishBattel.onClick.AddListener(PhotonNetwork.Disconnect);
+        buttonFinishBattel.onClick.RemoveAllListeners();
+        buttonFinishBattel.onClick.AddListener(DisconnectedBattle);
+
         waitingPanel.DestroyUI();
         CreatBattelField();
+        isStartBattel = true;
         Debug.Log("Начать битву!");
+    }
+
+    private void Connect()
+    {
+        CreatPlayerPerson();
+
+        SetBackScene(ScenesEnum.RatingBattelScenes);
+        backButton.interactable = false;
+        backButton.onClick.RemoveAllListeners();
+        backButton.onClick.AddListener(DisconnectedBattle);
+
+        waitingPanel.StartWaitConnection();
+        photon.Connect(this);
+    }
+
+    private void OnDisable()
+    {
+        timerNextTurn.ExecuteBlockButton -= SetInteractableButtonNextTurn;
+        timerNextTurn.Execute -= NextTurn;
+        Battel.ActiveTimerBattel -= timerNextTurn.StartTimer;
     }
 
     private IEnumerator Wait()
     {
         for (int i = 0; i < 100; i++)
             yield return null;
-        LeaveBattleFinith();
+
+        if (isStartBattel)
+        {
+            if (isEnemyCameOut) 
+            {
+                Battel.Winner = TypePersonEnum.player;
+                FinishBattel();
+            }
+            else 
+            {
+                Battel.Winner = TypePersonEnum.enemy;
+                FinishBattel();
+            }
+        }
+        else LeaveBattleFinith();
     }
 }

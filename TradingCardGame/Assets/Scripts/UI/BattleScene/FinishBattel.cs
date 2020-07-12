@@ -3,19 +3,19 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FinishTrainingBattel : MonoBehaviour, IFinishBattel
+public class FinishBattel : MonoBehaviour, IFinishBattel
 {
     private Action continueAct;
 
-    [SerializeField] private Button buttonContinue;
-    [SerializeField] private Image background, imageTextBackground;
-    [SerializeField] private LocalisationText textMessages;
-    [SerializeField] private Text textInfoResult;
-    [SerializeField] private Color colorVictory, colorDefeat;
+    [SerializeField] private Button buttonContinue = null;
+    [SerializeField] private Image background = null, imageTextBackground = null;
+    [SerializeField] private LocalisationText textMessages = null;
+    [SerializeField] private Text textInfoResult = null;
+    [SerializeField] private Color colorVictory = new Color(), colorDefeat = new Color();
     [SerializeField] private float waitTime = 0.5f;
     [SerializeField] private float finishTransparency = 0.5f, timeTransparency = 0.5f;
 
-    public IFinishBattel Initialize(IBattel battel, TypePersonEnum loser, Action continueAct, IStatisticsBattele statistics)
+    public IFinishBattel Initialize(IBattel battel, Action continueAct, IStatisticsBattele statistics)
     {
         var canvas = GetComponent<Canvas>();
         canvas.worldCamera = Camera.main;
@@ -25,7 +25,7 @@ public class FinishTrainingBattel : MonoBehaviour, IFinishBattel
         this.continueAct = continueAct;
         buttonContinue.onClick.AddListener(Continue);
 
-        if (loser == TypePersonEnum.enemy) DeclareVictory(battel, statistics);
+        if (battel.Winner == TypePersonEnum.player) DeclareVictory(battel, statistics);
         else DeclareDefeat(battel, statistics);
 
         background.gameObject.SetActive(false);
@@ -34,7 +34,11 @@ public class FinishTrainingBattel : MonoBehaviour, IFinishBattel
         return this;
     }
 
-    private void Continue() => continueAct.Invoke();
+    private void Continue()
+    {
+        buttonContinue.interactable = false;
+        continueAct.Invoke();
+    }
 
     private void DeclareVictory(IBattel battel, IStatisticsBattele statistics)
     {

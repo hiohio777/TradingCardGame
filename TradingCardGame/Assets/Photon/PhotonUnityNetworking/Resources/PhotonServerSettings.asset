@@ -49,6 +49,9 @@ MonoBehaviour:
   - FORTUNE
   - ReportReadiness
   - TACTICS
+  - StartTimer
+  - StartTimerEnd
+  - PassTimerValue
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

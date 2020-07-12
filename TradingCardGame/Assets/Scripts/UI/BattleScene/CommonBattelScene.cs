@@ -5,7 +5,7 @@ public class CommonBattelScene : BaseBattelScene
 {
 
     public static CommonBattelScene CreatPrefab(Action<ScenesEnum> startNewScene, IBattel battelData, IUser player,
-              IBattelFieldFactory battelFieldFactory) =>
+              BattelFieldFactory battelFieldFactory) =>
      (Instantiate(Resources.Load<CommonBattelScene>($"BattleScene/CommonBattelScene")).Initialize(startNewScene, battelData, player,
      battelFieldFactory) as CommonBattelScene)
      .Build();
@@ -20,7 +20,7 @@ public class CommonBattelScene : BaseBattelScene
 
     }
 
-    public override void FinishBattel(TypePersonEnum loser)
+    public override void FinishBattel()
     {
         throw new NotImplementedException();
     }

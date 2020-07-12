@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class MessagePanel : MonoBehaviour
 {
-    [SerializeField] private LocalisationText message;
-    [SerializeField] private Button OK, NO;
+    [SerializeField] private LocalisationText message = null;
+    [SerializeField] private Button OK = null, NO = null;
 
     private Action actOK;
     private Action actNO;

@@ -9,7 +9,7 @@ public class CardScriptable : ScriptableObject, ICardData
     [SerializeField, Space(10)] private ClassCardScriptable classCard = null;
     [SerializeField, Space(10)] private GameObject abilityPrefab = null;
 
-    [SerializeField] private Combat combatData;
+    [SerializeField] private Combat combatData = null;
 
     public Sprite Icon => icon;
     public string Name => name;
@@ -52,14 +52,8 @@ public class CardScriptable : ScriptableObject, ICardData
         }
 
         // TEST
-        var random = new System.Random();
-
-        combatData.attack = (sbyte)random.Next(1, 7);
-
-        var aaa = random.Next(0, 2);
-        if (aaa == 0) combatData.defense = 0;
-        else combatData.defense = (sbyte)random.Next(2, 5);
-
-        combatData.health = (sbyte)random.Next(9, 16);
+        combatData.attack = 5;
+        combatData.defense = 3;
+        combatData.health = 14;
     }
 }

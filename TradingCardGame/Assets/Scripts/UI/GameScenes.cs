@@ -108,7 +108,7 @@ public class GameScenes
         container.Register<IDeckBattleSelector>(() => Object.Instantiate(Resources.Load<DeckBattleSelector>($"BattleScene/{nameof(DeckBattleSelector)}"))
             .Initialize(container.ResolveSinglton<IDeckFactory>(), container.ResolveSinglton<IFractionsData>(), container.ResolveSinglton<User>()));
 
-        container.Register<IBattelFieldFactory>(() => new BattelFieldFactory(container.ResolveSinglton<Statistics>()));
+        container.Register<BattelFieldFactory>(() => new BattelFieldFactory(container.ResolveSinglton<Statistics>()));
 
         // Игровые сцены
         container.Register(() => Object.Instantiate(Resources.Load<MainScene>($"MainScene/MainScene"))
@@ -117,11 +117,11 @@ public class GameScenes
             .Initialize(StartScene, container.ResolveSinglton<IFractionsData>(), container.ResolveFunc<List<ICollectionPanelUI>>()));
 
         container.Register(() => TrainingBattelScene.CreatPrefab(StartScene, container.Resolve<IBattel>(), container.ResolveSinglton<User>(),
-            container.Resolve<IDeckBattleSelector>(), container.Resolve<IBattelFieldFactory>(),
+            container.Resolve<IDeckBattleSelector>(), container.Resolve<BattelFieldFactory>(),
             container.Resolve<IAlTrainingBattel>()));
         container.Register(() => CommonBattelScene.CreatPrefab(StartScene, container.Resolve<IBattel>(), container.ResolveSinglton<User>(),
-            container.Resolve<IBattelFieldFactory>()));
+            container.Resolve<BattelFieldFactory>()));
         container.Register(() => RatingBattelScene.CreatPrefab(StartScene, container.Resolve<IBattel>(), container.ResolveSinglton<User>(),
-            container.Resolve<IDeckBattleSelector>(), container.Resolve<IBattelFieldFactory>()));
+            container.Resolve<IDeckBattleSelector>(), container.Resolve<BattelFieldFactory>()));
     }
 }

@@ -43,7 +43,10 @@ public class DeathCards : QueueHendler
     private void ContinueRound(IAttackCard current)
     {
         if (current.FriendPerson.Live <= 0)
-            battel.OnFinishBattel(current.TypePerson);
+        {
+            battel.Winner = TypePersonEnum.enemy;
+            battel.OnFinishBattel();
+        }
         else RunQueue(current);
     }
 }

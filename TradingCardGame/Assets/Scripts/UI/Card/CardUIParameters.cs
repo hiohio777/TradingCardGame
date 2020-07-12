@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [Serializable]
 public class CardUIParameters : ICardUIParameters
 {
-    [SerializeField] private Color @default, buffUp, debuff;
+    [SerializeField] private Color @default = new Color(), buffUp = new Color(), debuff = new Color();
     [SerializeField] private LocalisationText name = null, description = null, fraction = null;
     [SerializeField] private Text initiative = null, attack = null, defense = null, health = null;
 

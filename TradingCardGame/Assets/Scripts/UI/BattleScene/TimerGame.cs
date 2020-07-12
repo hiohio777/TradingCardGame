@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class TimerGame : MonoBehaviour
 {
-    [SerializeField] private Text textTimer;
+    [SerializeField] private Text textTimer = null;
+    [SerializeField] private float tickTime = 1;
+    private int seconds, minutes;
 
-    private int count, seconds, minutes;
-    private Action execute;
-    private bool isEndless;
-
-    public void StartTimer(int count = 0, Action execute = null)
+    public void StartTimer()
     {
-        (this.count, this.execute, isEndless) = (count, execute, count <= 0);
         StartCoroutine(RunTimer());
 
         seconds--;
         IncreaseSeconds();
     }
 
-    public void StopTimer(bool isExecute = true)
+    public void StopTimer()
     {
         StopAllCoroutines();
-        if (isExecute) execute?.Invoke();
+        seconds = minutes = 0;
     }
 
     private void IncreaseSeconds()
@@ -37,7 +34,7 @@ public class TimerGame : MonoBehaviour
 
         if (textTimer != null)
         {
-            string strMin = minutes < 10 ? $"0{minutes}": $"{minutes}";
+            string strMin = minutes < 10 ? $"0{minutes}" : $"{minutes}";
             string strSec = seconds < 10 ? $"0{seconds}" : $"{seconds}";
 
             textTimer.text = $"{strMin} : {strSec}";
@@ -60,8 +57,6 @@ public class TimerGame : MonoBehaviour
                 IncreaseSeconds();
             }
 
-            if (time > count && isEndless == false)
-               StopTimer();
             yield return null;
         }
     }

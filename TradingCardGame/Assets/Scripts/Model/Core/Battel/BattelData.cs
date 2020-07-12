@@ -7,10 +7,10 @@ public class BattelData : IBattel, IBattelStateData
     public event Action NextTurn;
     public event Action<BattelStateEnum> AssignBattelState;
     public event Action<bool> InteractableButtonNextTurn;
-    public event Action<TypePersonEnum> FinishBattel;
+    public event Action FinishBattel;
     public event Action<string> SendReportRPC;
+    public event Action ActiveTimerBattel;
 
-    public PhotonUnityNetwork Photon { get; set; }
     public bool IsMasterServer { get; set; }
     public IBattelPerson Player { get; private set; }
     public IBattelPerson Enemy { get; private set; }
@@ -19,6 +19,7 @@ public class BattelData : IBattel, IBattelStateData
     public BattelStateEnum CurrentBattelState { get => BattelState.TypeBattelState; }
     public ICardResetCounter CardResetCounter { get; }
     public IBattelCombatData CombatData { get; private set; }
+    public TypePersonEnum Winner { get; set; }
 
     public BattelData(IBattelPerson player, IBattelPerson enemy, IBattelState battelState, ICardResetCounter cardResetCounter)
     {
@@ -48,7 +49,6 @@ public class BattelData : IBattel, IBattelStateData
         SendReportRPC?.Invoke("Fortune");
     }
 
-    public void SetInteractableButtonNextTurn(bool isInteractable) => InteractableButtonNextTurn?.Invoke(isInteractable);
     public void ReportReadinessPlayer()
     {
         if (Player.IsReadyContinue) return;
@@ -72,7 +72,9 @@ public class BattelData : IBattel, IBattelStateData
     }
 
     public void OnNextTurn() => NextTurn.Invoke();
-    public void OnFinishBattel(TypePersonEnum loser) => FinishBattel.Invoke(loser);
+    public void SetInteractableButtonNextTurn(bool isInteractable) =>
+        InteractableButtonNextTurn?.Invoke(isInteractable);
+    public void OnFinishBattel() => FinishBattel.Invoke();
 
     private void ReportReadiness(IBattelPerson person1, IBattelPerson person2)
     {
@@ -80,6 +82,15 @@ public class BattelData : IBattel, IBattelStateData
         {
             person1.IsReadyContinue = person2.IsReadyContinue = false;
             BattelState.Request(this);
+        }
+        else
+        {
+            if (IsMasterServer == false
+            || CurrentBattelState == BattelStateEnum.implementation
+            || CurrentBattelState == BattelStateEnum.round)
+                return;
+
+            ActiveTimerBattel?.Invoke();
         }
     }
 }

@@ -8,7 +8,7 @@ public class TrainingBattelScene : BaseBattelScene
     private IAlTrainingBattel alTraining;
 
     public static TrainingBattelScene CreatPrefab(Action<ScenesEnum> startNewScene, IBattel battelData, IUser player,
-             IDeckBattleSelector deckBattleSelector, IBattelFieldFactory battelFieldFactory, IAlTrainingBattel alTraining) =>
+             IDeckBattleSelector deckBattleSelector, BattelFieldFactory battelFieldFactory, IAlTrainingBattel alTraining) =>
     (Instantiate(Resources.Load<TrainingBattelScene>($"BattleScene/TrainingBattelScene")).Initialize(startNewScene, battelData, player,
      battelFieldFactory) as TrainingBattelScene)
     .Build(deckBattleSelector, alTraining);
@@ -35,8 +35,8 @@ public class TrainingBattelScene : BaseBattelScene
         base.NextTurn();
     }
 
-    public override void FinishBattel(TypePersonEnum loser)
+    public override void FinishBattel()
     {
-        battelFieldFactory.GetFinishTrainingBattel(Battel, loser, OnLeaveBattle);
+        battelFieldFactory.GetFinishTrainingBattel(Battel, OnLeaveBattle);
     }
 }
