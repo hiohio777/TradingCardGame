@@ -23,11 +23,6 @@ public class BattelPersonPlayer : BattelPersonBase, IBattelPerson
         new StartingHandLocation(ReservCards);
     }
 
-    public override void MoveToReservLocation(Action actEndRelocation, float yPosition = -450, int offset = 140)
-    {
-        new ReservLocation(ReservCards, actEndRelocation, yPosition, offset);
-    }
-
     public void BringCardsToBattlefield(float animationTime, Action actEndRelocation)
     {
         var cardAttackList = new List<IAttackCard>();
@@ -45,7 +40,7 @@ public class BattelPersonPlayer : BattelPersonBase, IBattelPerson
         {
             cardAttackList.ForEach(x => { x.SetScale(new Vector3(1, 1, 1)); x.SetSortingOrder(0); });
             AddCardsReserve(startPositionReservCard);
-            MoveToReservLocation(actEndRelocation);
+            ReservCards.ReservLocation(actEndRelocation);
         };
 
         if (cardAttackList.Count > 0)

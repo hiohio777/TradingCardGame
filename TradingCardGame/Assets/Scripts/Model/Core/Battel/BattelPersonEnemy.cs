@@ -12,11 +12,6 @@ public class BattelPersonEnemy : BattelPersonBase, IBattelPerson
     : base(fractions, collection, cardFactory)
     { TypePerson = TypePersonEnum.enemy; }
 
-    public override void MoveToReservLocation(Action action, float yPosition = -450, int offset = 140) 
-    {
-        throw new NotImplementedException("MoveToReservLocation(): Недопустимо использовать этот медод для врага");
-    }
-
     public void BringCardsToBattlefield(float animationTime, Action actEndRelocation)
     {
         var data = JsonConvert.DeserializeObject<PersonDATAREPORT>(Report);
@@ -51,6 +46,8 @@ public class BattelPersonEnemy : BattelPersonBase, IBattelPerson
         }
         else actEndRelocation?.Invoke();
     }
+
+
 
     public override void NewStartingHand()
     {

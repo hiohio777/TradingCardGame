@@ -20,7 +20,6 @@ public interface IBattelPerson
     byte Live { get; set; }
     void Creat(string name, string fraction, List<string> cards, byte live = 10);
     void NewStartingHand();
-    void MoveToReservLocation(Action action = null, float yPosition = -450, int offset = 140);
     void BringCardsToBattlefield(float animationTime, Action actEndRelocation);
     void ShuffleCards(List<ICardData> cards);
     void PlaceAttackCell(IAttackCard card, ICellBattel cell, Action finish = null);

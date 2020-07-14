@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -87,8 +86,8 @@ public class AttackCard : IAttackCard
     public void ImplementAbility(TypeSpecificityEnum specificity, Action finish)
     {
         StartSpecificity(specificity);
-        Action act = () => Moving.SetScale(1).SetWaitTime(0.3f, 0.5f).Run(0.3f, finish);
-        Moving.SetScale(1.1f).Run(0.3f, act);
+        Action act = () => Moving.SetScale(1).SetWaitTime(0.5f, 0.5f).Run(0.1f, finish);
+        Moving.SetScale(1.1f).Run(0.1f, act);
     }
 
     public void Death(Action finash)

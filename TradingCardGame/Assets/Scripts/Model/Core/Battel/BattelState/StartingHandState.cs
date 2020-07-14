@@ -20,6 +20,6 @@ public class StartingHandState : IBattelState
 
     public void ReportReadinessPlayer(Action report)
     {
-        battel.Player.MoveToReservLocation(report);
+        battel.Player.ReservCards.ReservLocation(report);
     }
 }

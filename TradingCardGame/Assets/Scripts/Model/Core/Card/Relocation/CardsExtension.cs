@@ -19,6 +19,8 @@ public static class CardsExtension
         cards.ForEach(x => x.Moving.SetPosition(x.DefaultPosition));
         cards.Relocation(execute, 0.5f);
     }
+    public static void ReservLocation(this List<IAttackCard> cards, Action actEndRelocation = null, float yPosition = -450, int offset = 140) =>
+        new ReservLocation(cards, actEndRelocation, yPosition, offset);
 
     private static void Final()
     {

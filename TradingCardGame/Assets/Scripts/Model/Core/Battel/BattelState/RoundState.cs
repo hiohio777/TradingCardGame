@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine.UIElements;
 
 public class RoundState : IBattelState
 {
@@ -18,7 +15,7 @@ public class RoundState : IBattelState
         Battel.GetAllAttackCards().ForEach(x => x.Combat.RoundData = Battel.CombatData);
 
         var startPhase = new StartRoundAbilityPhase(Battel, ApplyCardResetCounter);
-        Battel.Player.MoveToReservLocation(startPhase.Execute, -500, 90);
+        Battel.Player.ReservCards.ReservLocation(startPhase.Execute, -500, 90);
     }
 
     public void Request(IBattelStateData battel)
@@ -37,7 +34,7 @@ public class RoundState : IBattelState
     public void EndRound()
     {
         Battel.GetAllAttackCards().ForEach(x => x.Combat.CountRound += 1);
-        Battel.Player.MoveToReservLocation(finishRound);
+        Battel.Player.ReservCards.ReservLocation(finishRound);
     }
 
     public void ApplyCardResetCounter()

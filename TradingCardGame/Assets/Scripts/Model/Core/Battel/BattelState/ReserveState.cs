@@ -51,7 +51,7 @@ public class ReserveState : IBattelState
 
         ClearClickListener();
         battel.Player.PlaceAttackCell(current, cell);
-        battel.Player.MoveToReservLocation();
+        battel.Player.ReservCards.ReservLocation();
 
         current.PlaceAttackCell(cell, TypePersonEnum.player, FinishPutCardFromReserve);
     }

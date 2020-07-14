@@ -64,7 +64,6 @@ public abstract class BattelPersonBase
     }
 
     public abstract void NewStartingHand();
-    public abstract void MoveToReservLocation(Action action = null, float yPosition = -450, int offset = 140);
 
     public void PlaceAttackCell(IAttackCard card, ICellBattel cell, Action finish = null)
     {
