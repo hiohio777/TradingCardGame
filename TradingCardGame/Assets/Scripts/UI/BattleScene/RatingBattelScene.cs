@@ -9,7 +9,6 @@ public class RatingBattelScene : BaseBattelScene
     [SerializeField] private WaitingPanel waitingPanel = null;
 
     [HideInInspector] public bool isEnemyCameOut = false; // Враг вышел из боя(досрочно) Ему будет засчитано поражение(если isStartBattel = true)
-    [HideInInspector] public bool isStartBattel = false; // Битва начата(оба игрока установили соединение)
 
     public static RatingBattelScene CreatPrefab(Action<ScenesEnum> startNewScene, IBattel battelData, IUser player,
              IDeckBattleSelector deckBattleSelector, BattelFieldFactory battelFieldFactory) =>
@@ -22,53 +21,43 @@ public class RatingBattelScene : BaseBattelScene
         deckBattleSelector.Build(transform, Connect);
         timerNextTurn.ExecuteBlockButton += SetInteractableButtonNextTurn;
         timerNextTurn.Execute += NextTurn;
-        Battel.ActiveTimerBattel += timerNextTurn.StartTimer;
 
         return this;
     }
 
     public void ConnectedToMaster()
     {
+        backButton.interactable = true;
         if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log($"IsMasterServer: true");
-            Battel.IsMasterServer = true; // мастер сервер комнаты(управляет ходом фаз боя)
+            Debug.Log($"ConnectedToMaster: IsMasterServer:true");
             waitingPanel.StartWaitingEnemy();
         }
-        else Battel.IsMasterServer = false;
-
-        backButton.interactable = true;
+        else
+        {
+            Battel.IsMasterClient = PhotonNetwork.IsMasterClient;
+        }
     }
 
     public void DisconnectedBattle()
     {
-        Debug.Log("DisconnectedBattle " + PhotonNetwork.IsConnected);
-        if (PhotonNetwork.IsConnected)
+        if (PhotonNetwork.IsConnected == false)
         {
-            backButton.interactable = false;
-            PhotonNetwork.Disconnect();
-        }
-        else
-        {
-            timerNextTurn.HideTimer();
-            buttonFinishBattel.interactable = false;
-            buttonNextTurn.interactable = false;
-
             StartCoroutine(Wait());
+            return;
         }
+
+        backButton.interactable = false;
+        buttonFinishBattel.interactable = false;
+        buttonNextTurn.interactable = false;
+        timerNextTurn.SetActive(false);
+        Debug.Log($"DisconnectedBattle: isEnemyCameOut:{isEnemyCameOut}");
+        PhotonNetwork.Disconnect();
     }
 
     public override void FinishBattel()
     {
-        isStartBattel = false;
         battelFieldFactory.GetFinishTrainingBattel(Battel, DisconnectedBattle);
-    }
-
-    public void LeaveBattleFinith()
-    {
-        Debug.Log("LeaveBattle");
-        Battel.IsMasterServer = false;
-        OnLeaveBattle();
     }
 
     public void StartBattel()
@@ -78,8 +67,6 @@ public class RatingBattelScene : BaseBattelScene
 
         waitingPanel.DestroyUI();
         CreatBattelField();
-        isStartBattel = true;
-        Debug.Log("Начать битву!");
     }
 
     private void Connect()
@@ -99,7 +86,6 @@ public class RatingBattelScene : BaseBattelScene
     {
         timerNextTurn.ExecuteBlockButton -= SetInteractableButtonNextTurn;
         timerNextTurn.Execute -= NextTurn;
-        Battel.ActiveTimerBattel -= timerNextTurn.StartTimer;
     }
 
     private IEnumerator Wait()
@@ -109,17 +95,22 @@ public class RatingBattelScene : BaseBattelScene
 
         if (isStartBattel)
         {
-            if (isEnemyCameOut) 
+            if (isEnemyCameOut)
             {
                 Battel.Winner = TypePersonEnum.player;
-                FinishBattel();
             }
-            else 
+            else
             {
                 Battel.Winner = TypePersonEnum.enemy;
-                FinishBattel();
             }
+
+            isStartBattel = false;
+            FinishBattel();
         }
-        else LeaveBattleFinith();
+        else
+        {
+            Debug.Log("LeaveBattle");
+            OnLeaveBattle();
+        }
     }
 }

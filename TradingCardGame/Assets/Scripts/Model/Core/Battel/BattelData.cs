@@ -9,9 +9,9 @@ public class BattelData : IBattel, IBattelStateData
     public event Action<bool> InteractableButtonNextTurn;
     public event Action FinishBattel;
     public event Action<string> SendReportRPC;
-    public event Action ActiveTimerBattel;
+    public event Action<bool> ActiveTimerBattel;
 
-    public bool IsMasterServer { get; set; }
+    public bool IsMasterClient { get; set; }
     public IBattelPerson Player { get; private set; }
     public IBattelPerson Enemy { get; private set; }
     public IBattelSpecific BattelSpecific { get; private set; }
@@ -39,7 +39,7 @@ public class BattelData : IBattel, IBattelStateData
 
     public void InitialDefinitionFortune()
     {
-        if (!IsMasterServer)
+        if (!IsMasterClient)
             return;
 
         var random = new System.Random();
@@ -80,17 +80,18 @@ public class BattelData : IBattel, IBattelStateData
     {
         if (person2.IsReadyContinue)
         {
+            ActiveTimerBattel?.Invoke(false);
             person1.IsReadyContinue = person2.IsReadyContinue = false;
             BattelState.Request(this);
         }
         else
         {
-            if (IsMasterServer == false
+            if (IsMasterClient == false
             || CurrentBattelState == BattelStateEnum.implementation
             || CurrentBattelState == BattelStateEnum.round)
                 return;
 
-            ActiveTimerBattel?.Invoke();
+            ActiveTimerBattel?.Invoke(true);
         }
     }
 }

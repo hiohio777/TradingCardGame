@@ -1,5 +1,6 @@
 ﻿using System;
 
+
 public interface IBattelBase
 {
     IBattelPerson Player { get; }
@@ -18,9 +19,9 @@ public interface IBattel : IBattelBase
     event Action<bool> InteractableButtonNextTurn;
     event Action FinishBattel;
     event Action<string> SendReportRPC;
-    event Action ActiveTimerBattel;
+    event Action<bool> ActiveTimerBattel;
 
-    bool IsMasterServer { get; set; }
+    bool IsMasterClient { get; set; }
     BattelStateEnum CurrentBattelState { get; }
     void ReportReadinessEnemy();
     void ReportReadinessPlayer();

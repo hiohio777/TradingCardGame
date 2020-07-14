@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using UnityEngine;
 
 public class TrainingBattelScene : BaseBattelScene
@@ -22,7 +20,7 @@ public class TrainingBattelScene : BaseBattelScene
 
     private void StartBattel()
     {
-        Battel.IsMasterServer = true;
+        Battel.IsMasterClient = true;
         CreatPlayerPerson();
         alTraining.CreatEnemyPerson(Battel.Enemy);
         SetBackScene(ScenesEnum.TrainingBattelScenes);

@@ -20,7 +20,13 @@ public class TimerBattel : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void StartTimer()
+    public void SetActive(bool active)
+    {
+        if (active) StartTimer();
+        else HideTimer();
+    }
+
+    private void StartTimer()
     {
         if (isWorks) return;
 
@@ -28,7 +34,7 @@ public class TimerBattel : MonoBehaviour
         StartCoroutine(RunTimer());
     }
 
-    public void HideTimer()
+    private void HideTimer()
     {
         if (isWorks == false) return;
 
