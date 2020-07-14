@@ -7,7 +7,7 @@ public class CombatCardMoon : BaseCombatCard, ICombatCard
         : base(parameters, cardData, startSpecificity)
         { }
 
-    public override bool StandardDamage(IBattelCard enemy)
+    public override bool StandardDamage(IAttackCard enemy)
     {
         if (enemy.Combat.Attack < 5)
         {

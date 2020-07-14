@@ -7,8 +7,9 @@ public class MainRoundPhase : QueueHendler
 
     protected override void Next(IAttackCard current)
     {
-        if (current.AttackCardTarget == null || current.AttackCardTarget.BattelCard == null
-        || current.AttackCardTarget.BattelCard.Combat.Class.Type != ClassCardEnum.sunset)
+        IAttackCard target;
+        if (current.AttackTarget == -1 || (target = current.EnemyPerson.Cell[current.AttackTarget].Unit) == null
+        || target.Combat.Class.Type != ClassCardEnum.sunset)
             new CommonActionsPhase(battel, RunQueue, cards).Run(current);
         else new SunSetActionsPhase(battel, RunQueue, cards).Run(current);
     }

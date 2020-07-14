@@ -48,7 +48,7 @@ public class GameScenes
         currentScene = scene;
         //Очистить буффер фабрик
         container.ResolveSinglton<ICardFactory<ICard>>().ClearBuffer();
-        container.ResolveSinglton<ICardFactory<IBattelCard>>().ClearBuffer();
+        container.ResolveSinglton<ICardFactory<IAttackCard>>().ClearBuffer();
         container.ResolveSinglton<IDeckFactory>().ClearBuffer();
         container.ResolveSinglton<IBuffUIParametersFactory>().ClearBuffer();
 
@@ -71,15 +71,15 @@ public class GameScenes
         container.RegisterSinglton<IBuffUIParametersFactory>(() => new BuffUIParametersFactory());
         container.RegisterSinglton<IAbilityFactory>(() => new AbilityFactory(container.ResolveSinglton<ISpecificityFactory>()));
         container.RegisterSinglton<ICardFactory<ICard>>(() => new CardFactory(container.ResolveSinglton<ISpecificityFactory>()));
-        container.RegisterSinglton<ICardFactory<IBattelCard>>(() => new BattelCardFactory(container.ResolveSinglton<ISpecificityFactory>(),
+        container.RegisterSinglton<ICardFactory<IAttackCard>>(() => new BattelCardFactory(container.ResolveSinglton<ISpecificityFactory>(),
             container.ResolveSinglton<IAbilityFactory>(), container.ResolveSinglton<IBuffUIParametersFactory>()));
 
         container.Register<IAlTrainingBattel>(() => new AlTrainingBattel());
 
         container.Register<IBattel>(() => new BattelData(new BattelPersonPlayer(container.ResolveSinglton<IFractionsData>(),
-            container.ResolveSinglton<ICollectionCardsData>(), container.ResolveSinglton<ICardFactory<IBattelCard>>()),
+            container.ResolveSinglton<ICollectionCardsData>(), container.ResolveSinglton<ICardFactory<IAttackCard>>()),
             new BattelPersonEnemy(container.ResolveSinglton<IFractionsData>(), container.ResolveSinglton<ICollectionCardsData>(),
-            container.ResolveSinglton<ICardFactory<IBattelCard>>()), new StartingHandState(), new ResetCardsCounter()));
+            container.ResolveSinglton<ICardFactory<IAttackCard>>()), new StartingHandState(), new ResetCardsCounter()));
 
         // Отдельные элементы UI
         container.Register<IEditorDeckPanel>(() => Object.Instantiate(Resources.Load<DeckEditorPanel>($"CollectionScene/DeckEditorPanel"))

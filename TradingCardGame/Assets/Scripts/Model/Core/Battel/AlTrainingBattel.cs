@@ -47,15 +47,15 @@ public class AlTrainingBattel : IAlTrainingBattel
         enemy.ReservCards.ForEach(x => cardReserv.Add(x.Combat.Name));
 
         int index = 0;
-        foreach (var item in enemy.AttackCards)
+        foreach (var item in enemy.Cell)
         {
-            if (item.BattelCard == null)
+            if (item.IsExist == false)
             {
                 cardsAttack.Add(enemy.ReservCards[index].Combat.Name);
                 cardReserv.Remove(enemy.ReservCards[index].Combat.Name);
                 index++;
             }
-            else cardsAttack.Add(item.BattelCard.Combat.Name);
+            else cardsAttack.Add(item.Unit.Combat.Name);
         }
 
         var count = cardReserv.Count;
@@ -76,7 +76,7 @@ public class AlTrainingBattel : IAlTrainingBattel
         {
             foreach (var playerCard in battel.Player.AttackCards)
             {
-                if (playerCard.Enemies.Count >= playerCard.BattelCard.Combat.MaxCountAttackers)
+                if (playerCard.Enemies.Count >= playerCard.Combat.MaxCountAttackers)
                 {
                     priceHazard[playerCard.Id] = -1;
                     continue;

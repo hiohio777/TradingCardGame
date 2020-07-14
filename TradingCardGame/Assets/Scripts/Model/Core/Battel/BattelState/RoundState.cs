@@ -15,7 +15,7 @@ public class RoundState : IBattelState
         (this.Battel, finishRound) = (battel, battel.OnNextTurn);
         battel.SetInteractableButtonNextTurn(false);
 
-        GeneralFunctionsRound.CreatQueue(Battel).ForEach(x => x.BattelCard.Combat.RoundData = Battel.CombatData);
+        Battel.GetAllAttackCards().ForEach(x => x.Combat.RoundData = Battel.CombatData);
 
         var startPhase = new StartRoundAbilityPhase(Battel, ApplyCardResetCounter);
         Battel.Player.MoveToReservLocation(startPhase.Execute, -500, 90);
@@ -27,7 +27,7 @@ public class RoundState : IBattelState
         battel.Enemy.Fortune = !(battel.Player.Fortune = !battel.Player.Fortune);
 
         // Пропустить резерв, если все карты на поле боя живы
-        if (GeneralFunctionsRound.CreatQueue(Battel).Count == 8)
+        if (battel.GetAllAttackCards().Count == 8)
             battel.SetBattelState(new ImplementationState());
         else battel.SetBattelState(new ReserveState());
     }
@@ -36,13 +36,13 @@ public class RoundState : IBattelState
 
     public void EndRound()
     {
-        GeneralFunctionsRound.CreatQueue(Battel).ForEach(x => x.BattelCard.Combat.CountRound += 1);
+        Battel.GetAllAttackCards().ForEach(x => x.Combat.CountRound += 1);
         Battel.Player.MoveToReservLocation(finishRound);
     }
 
     public void ApplyCardResetCounter()
     {
-        if (GeneralFunctionsRound.CreatQueue(Battel).Count == 8)
+        if (Battel.GetAllAttackCards().Count == 8)
             Battel.CardResetCounter.OnStrengthen(Battel, () => EndRound());
         else
         {

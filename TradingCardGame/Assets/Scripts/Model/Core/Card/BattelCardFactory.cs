@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattelCardFactory : FactoryBase<CardUI>, ICardFactory<IBattelCard>
+public class BattelCardFactory : FactoryBase<CardUI>, ICardFactory<IAttackCard>
 {
     private readonly IAbilityFactory abilityFactory;
     private readonly ISpecificityFactory specificityFactory;
@@ -11,18 +11,18 @@ public class BattelCardFactory : FactoryBase<CardUI>, ICardFactory<IBattelCard>
     public BattelCardFactory(ISpecificityFactory specificityFactory, IAbilityFactory abilityFactory, IBuffUIParametersFactory buffUIFactory) =>
         (this.abilityFactory, this.specificityFactory, this.buffUIFactory) = (abilityFactory, specificityFactory, buffUIFactory);
 
-    public List<IBattelCard> GetCards(List<ICardData> cardsData) => GetCards(cardsData, new Vector3(1, 1, 1));
-    public IBattelCard GetCard(ICardData cardData) => GetCard(cardData, new Vector3(1, 1, 1));
-    public List<IBattelCard> GetCards(List<ICardData> cardsData, Vector3 scale)
+    public List<IAttackCard> GetCards(List<ICardData> cardsData) => GetCards(cardsData, new Vector3(1, 1, 1));
+    public IAttackCard GetCard(ICardData cardData) => GetCard(cardData, new Vector3(1, 1, 1));
+    public List<IAttackCard> GetCards(List<ICardData> cardsData, Vector3 scale)
     {
-        var cards = new List<IBattelCard>();
+        var cards = new List<IAttackCard>();
         foreach (var item in cardsData)
             cards.Add(GetCard(item, scale));
 
         return cards;
     }
 
-    public IBattelCard GetCard(ICardData cardData, Vector3 scale)
+    public IAttackCard GetCard(ICardData cardData, Vector3 scale)
     {
         CardUI battelCardUI;
 
@@ -45,6 +45,7 @@ public class BattelCardFactory : FactoryBase<CardUI>, ICardFactory<IBattelCard>
                 combat = new CombatCardСommon(battelCardUI.combatUI, cardData, battelCardUI.StartSpecificity); break;
         }
 
-        return battelCardUI.BuildBattelCard(cardData, scale, combat);
+        battelCardUI.BuildBattelCard(cardData, scale, combat);
+        return battelCardUI as IAttackCard;
     }
 }

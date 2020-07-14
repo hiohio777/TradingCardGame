@@ -13,7 +13,7 @@ public abstract class StandartBuffEffect : MonoBehaviour
             if (Buff(item))
             {
                 result = true;
-                item.BattelCard.StartSpecificity(specificityTarget);
+                item.StartSpecificity(specificityTarget);
             }
 
         return result;

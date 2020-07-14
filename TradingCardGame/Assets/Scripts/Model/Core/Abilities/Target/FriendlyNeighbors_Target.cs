@@ -7,10 +7,18 @@ public class FriendlyNeighbors_Target : MonoBehaviour, ITargetCards
     public List<IAttackCard> GetTargetCards(IAttackCard card, IBattelBase battel)
     {
         var cards = new List<IAttackCard>();
-        if (card.Id + 1 < card.FriendPerson.AttackCards.Count)
-            cards.Add(card.FriendPerson.AttackCards[card.Id + 1]);
+        var cells = card.FriendPerson.Cell;
+
+        if (card.Id + 1 < cells.Count)
+        {
+            if (cells[card.Id + 1].IsExist)
+                cards.Add(cells[card.Id + 1].Unit);
+        }
         if (card.Id - 1 >= 0)
-            cards.Add(card.FriendPerson.AttackCards[card.Id - 1]);
+        {
+            if (cells[card.Id - 1].IsExist)
+                cards.Add(cells[card.Id - 1].Unit);
+        }
 
         return cards;
     }

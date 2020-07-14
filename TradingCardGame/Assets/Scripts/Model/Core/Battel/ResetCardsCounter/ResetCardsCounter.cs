@@ -26,24 +26,35 @@ public class ResetCardsCounter : ICardResetCounter, ICardResetCounterUI
 
     public void OnClear()
     {
-        Clear.Invoke();
+        Clear.Invoke(); 
         carrentCount = 0;
     }
 
     private void DiscardAll(IBattelBase battel, Action finish)
     {
-        battel.Player.AttackCards.ForEach(x => x.BattelCard.Moving.SetPosition(resetDirection));
-        battel.Enemy.AttackCards.ForEach(x => x.BattelCard.Moving.SetPosition(resetDirection));
+        battel.Player.AttackCards.ForEach(x => x.Moving.SetPosition(resetDirection));
+        battel.Enemy.AttackCards.ForEach(x => x.Moving.SetPosition(resetDirection));
 
-        new CardsRelocation(GeneralFunctionsRound.CreatQueue(battel), () => ReturnCardsToDecks(battel, finish), 0.5f, 0.5f, 0.5f);
+        battel.GetAllAttackCards().Relocation(() => ReturnCardsToDecks(battel, finish), 0.5f, 0.5f, 0.5f);
     }
 
-    public void ReturnCardsToDecks(IBattelBase battel, Action finish)
+    private void ReturnCardsToDecks(IBattelBase battel, Action finish)
     {
-        battel.Player.ReturnCardsToDeck();
-        battel.Enemy.ReturnCardsToDeck();
+        ReturnCardsToDeck(battel.Player);
+        ReturnCardsToDeck(battel.Enemy);
 
         OnClear();
         finish.Invoke();
+    }
+
+    private void ReturnCardsToDeck(IBattelPerson person)
+    {
+        foreach (var attackCard in person.AttackCards)
+        {
+            attackCard.Destroy();
+            person.DeckCards.Add(attackCard.Combat.CardData);
+        }
+        person.AttackCards.Clear();
+        person.ShuffleCards(person.DeckCards); //Перетасовать
     }
 }

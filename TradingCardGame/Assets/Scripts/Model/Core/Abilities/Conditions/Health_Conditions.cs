@@ -8,7 +8,7 @@ public class Health_Conditions : StandartBaseConditions, IPostConditions, IStart
         int i = 0;
         while (i < cardsTarget.Count)
         {
-            if (SetResult(cardsTarget[i].BattelCard.Combat.Health) == false) cardsTarget.RemoveAt(i);
+            if (SetResult(cardsTarget[i].Combat.Health) == false) cardsTarget.RemoveAt(i);
             else i++;
         }
 

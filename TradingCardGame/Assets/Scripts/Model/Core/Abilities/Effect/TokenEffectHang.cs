@@ -12,10 +12,10 @@ public class TokenEffectHang : MonoBehaviour, IEffect
         bool result = false;
         foreach (var item in cardsTarget)
         {
-            if (item.BattelCard.Tokens.AddToken(token, count))
+            if (item.Tokens.AddToken(token, count))
             {
                 result = true;
-                item.BattelCard.StartSpecificity(specificityTarget);
+                item.StartSpecificity(specificityTarget);
             }
         }
 

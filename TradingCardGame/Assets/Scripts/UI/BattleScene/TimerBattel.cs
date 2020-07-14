@@ -20,6 +20,8 @@ public class TimerBattel : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+
+
     public void SetActive(bool active)
     {
         if (active) StartTimer();

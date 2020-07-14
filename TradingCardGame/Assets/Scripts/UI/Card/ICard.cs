@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public interface ICardBaseUI
@@ -39,4 +40,34 @@ public interface IBattelCard : ICardBaseUI
 
     void SetClickListener(Action<IBattelCard> click);
     void SetClickListener(Action<IAttackCard> clickAttackCard);
+
+    ICellBattel Cell { get; set; }
+}
+
+
+public interface IAttackCard : IBattelCard
+{
+    List<IAttackCard> Enemies { get; set; }
+    int AttackTarget { get; set; }
+
+    IBattelPerson FriendPerson { get; }
+    IBattelPerson EnemyPerson { get; }
+    TypePersonEnum TypePerson { get; }
+
+    void ImplementAbility(TypeSpecificityEnum specificity, Action finish);
+
+    bool Fortune { get; }
+    void AddAttacker(IAttackCard attacker);
+    void RemoveAttacker(IAttackCard attacker);
+    void ReturnCardToPlace(Action execute = null, float time = 0.3f);
+    void Build(IBattelPerson enemy, IBattelPerson player, TypePersonEnum typePerson);
+    void Death(Action finish);
+    Vector3 DefaultPosition { get; }
+
+    int Id { get; }
+
+    void PlaceAttackCell(ICellBattel cell, TypePersonEnum typePerson, Action finish = null);
+
+
+    void ExecuteAbility(EventTriggerEnum trigger, IBattelBase battel, Action finish);
 }

@@ -17,7 +17,7 @@ public class StartingHandPanel : MonoBehaviour, IStartingHandPanel
         transform.SetParent(parent, false);
 
         //Это необходимо, чтобы в случае истечения таймера в пвп битве интерфейс был уничтожен
-        if (timerNextTurn != null)
+        if (this.timerNextTurn != null)
             this.timerNextTurn.Execute += DestroyUI;
 
         buttonNewStartingHand.onClick.AddListener(OnNewStartingHand);
@@ -47,7 +47,7 @@ public class StartingHandPanel : MonoBehaviour, IStartingHandPanel
 
     private void DestroyUI()
     {
-        if (timerNextTurn != null)
+        if (this.timerNextTurn != null)
             timerNextTurn.Execute -= DestroyUI;
         Destroy(gameObject);
     }

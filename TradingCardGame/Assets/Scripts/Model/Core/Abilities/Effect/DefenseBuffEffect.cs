@@ -8,5 +8,5 @@ public class DefenseBuffEffect : StandartBuffEffect, IEffect
     public bool Execute(IAttackCard card, List<IAttackCard> cardsTarget, IBattelBase battel, ISpecificityFactory specificityFactory) =>
         Execute(cardsTarget);
     protected override bool Buff(IAttackCard card) =>
-        card.BattelCard.Combat.BuffDefense(defense);
+        card.Combat.BuffDefense(defense);
 }

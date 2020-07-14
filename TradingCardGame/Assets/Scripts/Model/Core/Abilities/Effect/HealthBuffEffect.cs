@@ -8,5 +8,5 @@ public class HealthBuffEffect : StandartBuffEffect, IEffect
     public bool Execute(IAttackCard card, List<IAttackCard> cardsTarget, IBattelBase battel, ISpecificityFactory specificityFactory) =>
         Execute(cardsTarget);
     protected override bool Buff(IAttackCard card) =>
-        card.BattelCard.Combat.BuffHealth(health);
+        card.Combat.BuffHealth(health);
 }

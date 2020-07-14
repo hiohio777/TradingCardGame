@@ -114,4 +114,6 @@ public class CardUI : MonoBehaviour, ICard, IBattelCard, IPointerClickHandler
 
     private void DestroySpecificity() => specificity = null;
 
+    public Vector3 DefaultPosition { get; set; }
+    public ICellBattel Cell { get; set; }
 }

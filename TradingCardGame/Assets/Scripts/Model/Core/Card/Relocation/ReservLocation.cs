@@ -6,20 +6,20 @@ public class ReservLocation : ActionModule
 {
     private readonly int y = 15, z = 4;
 
-    public ReservLocation(List<IBattelCard> cards, Action actEndRelocation = null, float yPosition = -450, int offset = 140)
+    public ReservLocation(List<IAttackCard> cards, Action actEndRelocation = null, float yPosition = -450, int offset = 140)
         : base(() => { SetSortingOrder(cards); actEndRelocation?.Invoke(); }, cards.Count) =>
         Implement(cards, yPosition, offset);
 
-    public ReservLocation(List<IBattelCard> cards) : base(() => SetSortingOrder(cards), cards.Count) =>
+    public ReservLocation(List<IAttackCard> cards) : base(() => SetSortingOrder(cards), cards.Count) =>
         Implement(cards);
 
-    private void Implement(List<IBattelCard> cards, float yPosition = -450, int offset = 140)
+    private void Implement(List<IAttackCard> cards, float yPosition = -450, int offset = 140)
     {
         if (cards.Count % 2 > 0) ImplementOdd(cards, (cards.Count - 1) * offset / 2, yPosition, offset);
         else ImplementEven(cards, (cards.Count - 1) * offset / 2, yPosition, offset);
     }
 
-    private void ImplementOdd(List<IBattelCard> cards, int offsetTemp, float yPosition, int offset)
+    private void ImplementOdd(List<IAttackCard> cards, int offsetTemp, float yPosition, int offset)
     {
         int yTemp = 0;
         int temp = cards.Count / 2;
@@ -41,7 +41,7 @@ public class ReservLocation : ActionModule
         }
     }
 
-    private void ImplementEven(List<IBattelCard> cards, int offsetTemp, float yPosition, int offset)
+    private void ImplementEven(List<IAttackCard> cards, int offsetTemp, float yPosition, int offset)
     {
         int yTemp = 0;
         int temp = cards.Count / 2;
@@ -60,7 +60,7 @@ public class ReservLocation : ActionModule
         }
     }
 
-    private static void SetSortingOrder(List<IBattelCard> cards)
+    private static void SetSortingOrder(List<IAttackCard> cards)
     {
         for (int i = 0; i < cards.Count; i++)
             cards[i].SetSortingOrder(i + 1);

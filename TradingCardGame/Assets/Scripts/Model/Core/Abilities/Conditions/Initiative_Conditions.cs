@@ -7,7 +7,7 @@ public class Initiative_Conditions : StandartBaseConditions, IPostConditions, IS
         int i = 0;
         while (i < cardsTarget.Count)
         {
-            if (SetResult(cardsTarget[i].BattelCard.Combat.Initiative) == false) cardsTarget.RemoveAt(i);
+            if (SetResult(cardsTarget[i].Combat.Initiative) == false) cardsTarget.RemoveAt(i);
             else i++;
         }
 

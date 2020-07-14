@@ -19,6 +19,10 @@ public class RatingBattelScene : BaseBattelScene
     private RatingBattelScene Build(IDeckBattleSelector deckBattleSelector)
     {
         deckBattleSelector.Build(transform, Connect);
+
+        timerNextTurn = Instantiate<TimerBattel>(Resources.Load<TimerBattel>("BattleScene/TimerBattelPvP"));
+        timerNextTurn.transform.SetParent(transform, false);
+        Battel.ActiveTimerBattel += timerNextTurn.SetActive;
         timerNextTurn.ExecuteBlockButton += SetInteractableButtonNextTurn;
         timerNextTurn.Execute += NextTurn;
 
@@ -86,6 +90,7 @@ public class RatingBattelScene : BaseBattelScene
     {
         timerNextTurn.ExecuteBlockButton -= SetInteractableButtonNextTurn;
         timerNextTurn.Execute -= NextTurn;
+        Battel.ActiveTimerBattel -= timerNextTurn.SetActive;
     }
 
     private IEnumerator Wait()

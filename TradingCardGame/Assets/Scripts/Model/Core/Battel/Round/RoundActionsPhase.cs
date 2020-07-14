@@ -8,7 +8,7 @@ public abstract class RoundActionsPhase
     private readonly IBattelBase battel;
     private readonly Action<IAttackCard> actionFinish;
     private IAttackCard current;
-    private IAttackCard CardTarget => current.AttackCardTarget;
+    private IAttackCard CardTarget => current.EnemyPerson.Cell[current.AttackTarget].Unit;
     private readonly float timeMoveCard = 0.5f, timeHit = 0.2f, waitTime = 0.4f;
 
     protected RoundActionsPhase(IBattelBase battel, Action<IAttackCard> actionFinish, List<IAttackCard> cards)
@@ -19,7 +19,7 @@ public abstract class RoundActionsPhase
     public void Run(IAttackCard current)
     {
         this.current = current;
-        current.BattelCard.Frame(true);
+        current.Frame(true);
         ApplyAbility(EventTriggerEnum.LeadUp, current, MoveToAttack);
     }
 
@@ -29,7 +29,7 @@ public abstract class RoundActionsPhase
         {
             int offset = current.TypePerson == TypePersonEnum.player ? -160 : 160;
             var targetPosition = new Vector3(CardTarget.DefaultPosition.x + 10, CardTarget.DefaultPosition.y + offset);
-            current.BattelCard.MoveTo(timeMoveCard, targetPosition, ProceedAccordingCardClass, waitTime);
+            current.MoveTo(timeMoveCard, targetPosition, ProceedAccordingCardClass, waitTime);
         }
         else ApplyFinalAbility();
     }
@@ -38,29 +38,29 @@ public abstract class RoundActionsPhase
 
     protected void CheckBeforeAttack()
     {
-        if (CardTarget.BattelCard == null) CompletionMove();
+        if (CardTarget == null) CompletionMove();
         else ApplyAbility(EventTriggerEnum.BeforeAttack, current, AttackDamage);
     }
 
     private void AttackDamage()
     {
         int offset = current.TypePerson == TypePersonEnum.player ? 20 : -20;
-        var targetPosition = new Vector3(current.CurrentPosotion.x, current.CurrentPosotion.y + offset);
-        current.BattelCard.MoveTo(timeHit, targetPosition, () => EndHitAttackDamage(offset), waitTime: waitTime);
+        var targetPosition = new Vector3(current.Posotion.x, current.Posotion.y + offset);
+        current.MoveTo(timeHit, targetPosition, () => EndHitAttackDamage(offset), waitTime: waitTime);
     }
 
     private void EndHitAttackDamage(int offset)
     {
         Action act = () => CheckForDeath(AfterAttackAbility);
 
-        var targetPosition = new Vector3(current.CurrentPosotion.x, current.CurrentPosotion.y - offset);
+        var targetPosition = new Vector3(current.Posotion.x, current.Posotion.y - offset);
 
-        if (CardTarget.BattelCard.Combat.StandardDamage(current.BattelCard))
+        if (CardTarget.Combat.StandardDamage(current))
         {
-            current.BattelCard.MoveTo(timeHit, targetPosition);
-            CardTarget.BattelCard.StartSpecificity(TypeSpecificityEnum.StandardDamage, act);
+            current.MoveTo(timeHit, targetPosition);
+            CardTarget.StartSpecificity(TypeSpecificityEnum.StandardDamage, act);
         }
-        else current.BattelCard.MoveTo(timeHit, targetPosition, act);
+        else current.MoveTo(timeHit, targetPosition, act);
     }
 
     private void AfterAttackAbility()
@@ -72,34 +72,34 @@ public abstract class RoundActionsPhase
 
     protected void DefenseDamage()
     {
-        if (CardTarget.BattelCard == null || CardTarget.BattelCard.Combat.Defense == 0
-            || current.BattelCard.Combat.Class.Type == ClassCardEnum.dawn)
+        if (CardTarget == null || CardTarget.Combat.Defense == 0
+            || current.Combat.Class.Type == ClassCardEnum.dawn)
         {
             LaunchAttack();
             return;
         }
 
         int offset = current.TypePerson == TypePersonEnum.player ? -20 : 20;
-        var targetPosition = new Vector3(CardTarget.CurrentPosotion.x, CardTarget.CurrentPosotion.y + offset);
-        CardTarget.BattelCard.SetSortingOrder(250);
-        CardTarget.BattelCard.MoveTo(timeHit, targetPosition, () => EndHitDefenseDamage(offset), waitTime: waitTime);
+        var targetPosition = new Vector3(CardTarget.Posotion.x, CardTarget.Posotion.y + offset);
+        CardTarget.SetSortingOrder(250);
+        CardTarget.MoveTo(timeHit, targetPosition, () => EndHitDefenseDamage(offset), waitTime: waitTime);
     }
 
     private void EndHitDefenseDamage(int offset)
     {
         Action act = () =>
         {
-            CardTarget.BattelCard.SetSortingOrder(0);
+            CardTarget.SetSortingOrder(0);
             CheckForDeath(LaunchAttack);
         };
 
-        var targetPosition = new Vector3(CardTarget.CurrentPosotion.x, CardTarget.CurrentPosotion.y - offset);
-        if (current.BattelCard.Combat.DefenseDamage(CardTarget.BattelCard))
+        var targetPosition = new Vector3(CardTarget.Posotion.x, CardTarget.Posotion.y - offset);
+        if (current.Combat.DefenseDamage(CardTarget))
         {
-            CardTarget.BattelCard.MoveTo(timeHit, targetPosition);
-            current.BattelCard.StartSpecificity(TypeSpecificityEnum.DefenseDamage, act);
+            CardTarget.MoveTo(timeHit, targetPosition);
+            current.StartSpecificity(TypeSpecificityEnum.DefenseDamage, act);
         }
-        else CardTarget.BattelCard.MoveTo(timeHit, targetPosition, act);
+        else CardTarget.MoveTo(timeHit, targetPosition, act);
 
     }
 
@@ -107,14 +107,14 @@ public abstract class RoundActionsPhase
 
     protected void CompletionMove()
     {
-        current.BattelCard.MoveTo(timeHit, current.DefaultPosition, ApplyFinalAbility, waitTime: waitTime);
+        current.MoveTo(timeHit, current.DefaultPosition, ApplyFinalAbility, waitTime: waitTime);
     }
 
     private void ApplyFinalAbility()
     {
         Action act = () =>
         {
-            current.BattelCard.Frame(false);
+            current.Frame(false);
             actionFinish.Invoke(current);
         };
 
@@ -128,7 +128,7 @@ public abstract class RoundActionsPhase
     {
         Action act = () =>
         {
-            if (current.BattelCard != null) nextAct.Invoke();
+            if (current != null) nextAct.Invoke();
             else actionFinish.Invoke(current);
         };
 

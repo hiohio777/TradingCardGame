@@ -25,7 +25,7 @@ public class TokenEndRound : TokenModul
     private void ApplySpoilage(List<IAttackCard> cardsWithToken)
     {
         foreach (var item in cardsWithToken)
-            item.BattelCard.Combat.TokenDamege((sbyte)(2 * item.BattelCard.Tokens.GetCountToken("Spoilage")));
+            item.Combat.TokenDamege((sbyte)(2 * item.Tokens.GetCountToken("Spoilage")));
 
         Action act = () => new DeathCards(battel, () => NextToken("Spoilage"), cards).Execute();
         new ActionSpecificitiesModule(TypeSpecificityEnum.AttackUpAll, cardsWithToken, act);

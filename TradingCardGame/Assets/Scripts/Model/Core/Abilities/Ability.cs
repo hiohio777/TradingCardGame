@@ -36,17 +36,8 @@ public class Ability : MonoBehaviour, IAbility
         if (result)
         {
             if (oneOff) isReady = false;
-            card.BattelCard.StartSpecificity(specificity);
-
-            Action act = () => card.BattelCard.Moving.SetScale(1).SetWaitTime(timeBefore, timeAfte).Run(timespeed, finish);
-            card.BattelCard.Moving.SetScale(1.1f).Run(timespeed, act);
-
+            card.ImplementAbility(specificity, finish);
         }
         else finish?.Invoke();
-    }
-
-    private void Awake()
-    {
-        name = name.Replace("(Clone)","");
     }
 }

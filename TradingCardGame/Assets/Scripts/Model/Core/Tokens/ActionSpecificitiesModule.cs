@@ -6,6 +6,6 @@ public class ActionSpecificitiesModule : ActionModule
     public ActionSpecificitiesModule(TypeSpecificityEnum type, List<IAttackCard> cardsWithToken, Action actNext)
         : base(actNext, cardsWithToken.Count)
     {
-        cardsWithToken.ForEach(x => x.BattelCard.StartSpecificity(type, Final));
+        cardsWithToken.ForEach(x => x.StartSpecificity(type, Final));
     }
 }

@@ -9,8 +9,8 @@ public interface ICombatCard : ICardDataBase
     bool ClassAura { get; set; }
     TypeDamegeEnum TypeReceivedDamege { get; }
 
-    bool StandardDamage(IBattelCard enemy);
-    bool DefenseDamage(IBattelCard enemy);
+    bool StandardDamage(IAttackCard enemy);
+    bool DefenseDamage(IAttackCard enemy);
     bool TokenDamege(int damage);
 
     bool BuffInitiative(int initiative);

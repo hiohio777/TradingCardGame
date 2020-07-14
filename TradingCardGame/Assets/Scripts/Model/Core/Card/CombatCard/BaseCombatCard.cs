@@ -69,7 +69,7 @@ public abstract class BaseCombatCard : ICombatCard
         return true;
     }
 
-    public virtual bool StandardDamage(IBattelCard enemy)
+    public virtual bool StandardDamage(IAttackCard enemy)
     {
         Health -= enemy.Combat.Attack;
 
@@ -78,7 +78,7 @@ public abstract class BaseCombatCard : ICombatCard
         return true;
     }
 
-    public virtual bool DefenseDamage(IBattelCard enemy)
+    public virtual bool DefenseDamage(IAttackCard enemy)
     {
         Health -= enemy.Combat.Defense;
 

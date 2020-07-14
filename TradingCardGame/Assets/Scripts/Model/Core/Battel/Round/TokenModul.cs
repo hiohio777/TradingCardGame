@@ -14,8 +14,8 @@ public abstract class TokenModul
 
     public void Execute()
     {
-        cards = GeneralFunctionsRound.CreatQueue(battel);
-        if(startToken != string.Empty) Apply(startToken);
+        cards = battel.GetAllAttackCards();
+        if (startToken != string.Empty) Apply(startToken);
         else throw new Exception("Стартовый токен не указан!");
     }
 
@@ -24,7 +24,7 @@ public abstract class TokenModul
         var cardsWithToken = new List<IAttackCard>();
         foreach (var item in cards)
         {
-            if (item.BattelCard.Tokens.GetCountToken(nameToken) > 0)
+            if (item.Tokens.GetCountToken(nameToken) > 0)
                 cardsWithToken.Add(item);
         }
 

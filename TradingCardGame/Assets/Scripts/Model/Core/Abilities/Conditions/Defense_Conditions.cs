@@ -7,7 +7,7 @@ public class Defense_Conditions : StandartBaseConditions, IPostConditions, IStar
         int i = 0;
         while (i < cardsTarget.Count)
         {
-            if (SetResult(cardsTarget[i].BattelCard.Combat.Defense) == false) cardsTarget.RemoveAt(i);
+            if (SetResult(cardsTarget[i].Combat.Defense) == false) cardsTarget.RemoveAt(i);
             else i++;
         }
 

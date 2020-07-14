@@ -9,7 +9,7 @@ public class StartingHandLocation
           new Vector2(100, 100), new Vector2(300, 88), new Vector2(500, 60) };
     private readonly List<float> rotation = new List<float>() { 10, 6, 2, -2, -6, -10 };
 
-    public StartingHandLocation(List<IBattelCard> cards)
+    public StartingHandLocation(List<IAttackCard> cards)
     {
         for (int i = 0; i < cards.Count; i++)
             cards[i].SetSortingOrder(i + 1).Moving.SetPosition(pisition[i]).SetRotation(rotation[i]).Run(0.3f);

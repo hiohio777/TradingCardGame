@@ -7,13 +7,13 @@ public class CombatCardSun : BaseCombatCard, ICombatCard
         : base(parameters, cardData, startSpecificity)
     { }
 
-    public override bool StandardDamage(IBattelCard enemy)
+    public override bool StandardDamage(IAttackCard enemy)
     {
         if (IsDownAuraBroken() == false) return false;
         return base.StandardDamage(enemy);
     }
 
-    public override bool DefenseDamage(IBattelCard enemy)
+    public override bool DefenseDamage(IAttackCard enemy)
     {
         if (IsDownAuraBroken() == false) return false;
         return base.DefenseDamage(enemy);

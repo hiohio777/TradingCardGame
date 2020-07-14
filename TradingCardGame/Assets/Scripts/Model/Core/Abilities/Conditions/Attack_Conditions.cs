@@ -7,7 +7,7 @@ public class Attack_Conditions : StandartBaseConditions, IPostConditions, IStart
         int i = 0;
         while (i < cardsTarget.Count)
         {
-            if (SetResult(cardsTarget[i].BattelCard.Combat.Attack) == false) cardsTarget.RemoveAt(i);
+            if (SetResult(cardsTarget[i].Combat.Attack) == false) cardsTarget.RemoveAt(i);
             else i++;
         }
 

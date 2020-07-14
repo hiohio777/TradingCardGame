@@ -60,36 +60,20 @@ public class PunRPMenager : MonoBehaviourPunCallbacks
 
     private string GetDataSTARTING_HAND(IBattelPerson player)
     {
-        var cardReserv = new List<string>()
-        {
-            player.ReservCards[0].Combat.Name,
-            player.ReservCards[1].Combat.Name,
-            player.ReservCards[2].Combat.Name,
-            player.ReservCards[3].Combat.Name,
-            player.ReservCards[4].Combat.Name,
-            player.ReservCards[5].Combat.Name,
-        };
+        var cardReserv = new List<string>();
+        player.ReservCards.ForEach(x => cardReserv.Add(x.Combat.Name));
+
         return JsonConvert.SerializeObject(cardReserv);
     }
 
     private string GetDataRESERVE(IBattelPerson player)
     {
-        var cardsAttack = new List<string>()
-        {
-            player.AttackCards[0].BattelCard.Combat.Name,
-            player.AttackCards[1].BattelCard.Combat.Name,
-            player.AttackCards[2].BattelCard.Combat.Name,
-            player.AttackCards[3].BattelCard.Combat.Name,
-        };
-        var cardReserv = new List<string>()
-        {
-            player.ReservCards[0].Combat.Name,
-            player.ReservCards[1].Combat.Name,
-            player.ReservCards[2].Combat.Name,
-            player.ReservCards[3].Combat.Name,
-            player.ReservCards[4].Combat.Name,
-            player.ReservCards[5].Combat.Name,
-        };
+        var cardsAttack = new List<string>();
+        player.AttackCards.ForEach(x => cardsAttack.Add(x.Combat.Name));
+
+        var cardReserv = new List<string>();
+        player.ReservCards.ForEach(x => cardReserv.Add(x.Combat.Name));
+
         return new PersonDATAREPORT(cardsAttack, cardReserv).GetJsonString();
     }
 
@@ -98,8 +82,7 @@ public class PunRPMenager : MonoBehaviourPunCallbacks
         var cards = new List<int>();
         foreach (var item in player.AttackCards)
         {
-            if (item.AttackCardTarget != null) cards.Add(item.AttackCardTarget.Id);
-            else cards.Add(-1);
+            cards.Add(item.AttackTarget);
         }
         return JsonConvert.SerializeObject(cards);
     }

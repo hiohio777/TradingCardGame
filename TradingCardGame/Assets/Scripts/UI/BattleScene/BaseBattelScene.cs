@@ -30,7 +30,6 @@ public abstract class BaseBattelScene : BaseScene
         battel.InteractableButtonNextTurn += SetInteractableButtonNextTurn;
         battel.NextTurn += NextTurn;
         battel.FinishBattel += FinishBattel;
-        Battel.ActiveTimerBattel += timerNextTurn.SetActive;
 
         return this;
     }
@@ -54,8 +53,8 @@ public abstract class BaseBattelScene : BaseScene
         battelFieldFactory.GetStartingHandPanel(transform, timerNextTurn, Battel.Player, NextTurn);
 
         var battleFieldCards = battelFieldFactory.GetBattleFieldCards();
-        Battel.Enemy.SetAttackCardsPosition(battleFieldCards.GetAttackingCardsEnemy);
-        Battel.Player.SetAttackCardsPosition(battleFieldCards.GetAttackingCardsPlayer);
+        Battel.Enemy.AssingCells(battleFieldCards.CellEnemy);
+        Battel.Enemy.AssingCells(battleFieldCards.CellPlayer);
     }
 
     protected virtual void NextTurn()
@@ -77,6 +76,5 @@ public abstract class BaseBattelScene : BaseScene
         Battel.InteractableButtonNextTurn -= SetInteractableButtonNextTurn;
         Battel.NextTurn -= NextTurn;
         Battel.FinishBattel -= FinishBattel;
-        Battel.ActiveTimerBattel -= timerNextTurn.SetActive;
     }
 }

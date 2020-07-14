@@ -17,7 +17,7 @@ public class DeathCards : QueueHendler
 
     protected override void Next(IAttackCard current)
     {
-        var health = current.BattelCard.Combat.Health;
+        var health = current.Combat.Health;
         if (health > 0)
             current.ExecuteAbility(EventTriggerEnum.ResponsekDamage, battel, () => { RunQueue(current); });
         else if (health == 0) FinalDeathCard(current);
@@ -31,10 +31,12 @@ public class DeathCards : QueueHendler
 
     private void FinalDeathCard(IAttackCard current)
     {
-        if (current.BattelCard.Combat.Health <= 0)
+        if (current.Combat.Health <= 0)
         {
             // Карта умирает
             attackCards.Remove(current);
+            current.FriendPerson.AttackCards.Remove(current);
+
             current.Death(() => ContinueRound(current));
         }
         else RunQueue(current);
@@ -42,11 +44,14 @@ public class DeathCards : QueueHendler
 
     private void ContinueRound(IAttackCard current)
     {
-        if (current.FriendPerson.Live <= 0)
+        if (current.FriendPerson.Live > 0)
         {
-            battel.Winner = TypePersonEnum.enemy;
+            RunQueue(current);
+        }
+        else
+        {
+            battel.Winner = current.EnemyPerson.TypePerson;
             battel.OnFinishBattel();
         }
-        else RunQueue(current);
     }
 }

@@ -13,7 +13,7 @@ public abstract class QueueHendler
 
     public virtual void Execute()
     {
-        cards = GeneralFunctionsRound.CreatQueue(battel);
+        cards = battel.GetAllAttackCards();
         RunQueue();
     }
 
@@ -26,8 +26,8 @@ public abstract class QueueHendler
         {
             current = null;
             foreach (var card in cards)
-                if (current == null || current.BattelCard.Combat.Initiative > card.BattelCard.Combat.Initiative
-                || (current.BattelCard.Combat.Initiative == card.BattelCard.Combat.Initiative && current.Fortune == false))
+                if (current == null || current.Combat.Initiative > card.Combat.Initiative
+                || (current.Combat.Initiative == card.Combat.Initiative && current.Fortune == false))
                     current = card;
             Next(current);
         }

@@ -7,7 +7,7 @@ public class ReserveState : IBattelState
 {
     public BattelStateEnum TypeBattelState { get; } = BattelStateEnum.reserve;
     private IBattelStateData battel;
-    private IBattelCard current;
+    private IAttackCard current;
 
     public void Run(IBattelStateData battel)
     {
@@ -15,7 +15,7 @@ public class ReserveState : IBattelState
         battel.SetInteractableButtonNextTurn(true);
 
         battel.Player.ReservCards.ForEach(x => x.SetClickListener(SelectReserveCard));
-        battel.Player.AttackCards.ForEach(x => { if (x.BattelCard == null) x.SetClickListener(PutCardFromReserve); });
+        battel.Player.Cell.ForEach(x => x.SetClickListener(PutCardFromReserve));
     }
 
     public void Request(IBattelStateData battel)
@@ -35,7 +35,7 @@ public class ReserveState : IBattelState
         battel.Player.BringCardsToBattlefield(0.3f, report);
     }
 
-    private void SelectReserveCard(IBattelCard battelCard)
+    private void SelectReserveCard(IAttackCard battelCard)
     {
         current?.SetOldSortingOrder().Frame(false);
         if (battelCard != current)
@@ -45,17 +45,15 @@ public class ReserveState : IBattelState
         else current = null;
     }
 
-    private void PutCardFromReserve(IAttackCard cardAttack)
+    private void PutCardFromReserve(ICellBattel cell)
     {
         if (current == null) return;
 
         ClearClickListener();
-
-        cardAttack.PutCardFromReserve(current);
-        current.MoveTo(0.3f, cardAttack.DefaultPosition, FinishPutCardFromReserve);
-
-        battel.Player.ReservCards.Remove(current);
+        battel.Player.PlaceAttackCell(current, cell);
         battel.Player.MoveToReservLocation();
+
+        current.PlaceAttackCell(cell, TypePersonEnum.player, FinishPutCardFromReserve);
     }
 
     private void FinishPutCardFromReserve()
@@ -63,20 +61,18 @@ public class ReserveState : IBattelState
         current.SetSortingOrder(0).SetScale(new Vector3(1, 1, 1)).Frame(false);
         current = null;
 
-        byte count = 0;
-        battel.Player.AttackCards.ForEach(x => { if (x.BattelCard != null) count++; });
-        if (count == battel.Player.AttackCards.Count)
+        if (battel.Player.AttackCards.Count >= 4)
             battel.OnNextTurn();
         else
         {
             battel.Player.ReservCards.ForEach(x => x.SetClickListener(SelectReserveCard));
-            battel.Player.AttackCards.ForEach(x => x.SetClickListener(PutCardFromReserve));
+            battel.Player.Cell.ForEach(x => x.SetClickListener(PutCardFromReserve));
         }
     }
 
     private void ClearClickListener()
     {
         battel.Player.ReservCards.ForEach(x => x.ClearClickListener());
-        battel.Player.AttackCards.ForEach(x => x.ClearClickListener());
+        battel.Player.Cell.ForEach(x => x.ClearClickListener());
     }
 }

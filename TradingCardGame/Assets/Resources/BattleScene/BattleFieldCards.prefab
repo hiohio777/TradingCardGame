@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 267830117567955540}
   - component: {fileID: 267830117567955543}
   - component: {fileID: 8473376284588737076}
-  - component: {fileID: 249015198499923763}
+  - component: {fileID: 5174770034275736820}
   m_Layer: 0
   m_Name: CardPosition_1
   m_TagString: Untagged
@@ -109,7 +109,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 133.33333, y: 133.33333}
   m_EdgeRadius: 0
---- !u!114 &249015198499923763
+--- !u!114 &5174770034275736820
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 267830117567955541}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ed7b387ea7ed93478a41b39f27ae838, type: 3}
+  m_Script: {fileID: 11500000, guid: 6314f69d3c546b148b9baf3eb7830c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &267830117597652143
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 267830117597652142}
   - component: {fileID: 267830117597652137}
   - component: {fileID: 5457563937822881849}
-  - component: {fileID: 8094068825905879251}
+  - component: {fileID: 3864005637667295350}
   m_Layer: 0
   m_Name: CardPosition_0
   m_TagString: Untagged
@@ -230,7 +230,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 133.33333, y: 133.33333}
   m_EdgeRadius: 0
---- !u!114 &8094068825905879251
+--- !u!114 &3864005637667295350
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 267830117597652143}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ed7b387ea7ed93478a41b39f27ae838, type: 3}
+  m_Script: {fileID: 11500000, guid: 6314f69d3c546b148b9baf3eb7830c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &267830117751713805
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 267830117751713804}
   - component: {fileID: 267830117751713807}
   - component: {fileID: 5496156098862495173}
-  - component: {fileID: 6018818275054791023}
+  - component: {fileID: 7205988279798515552}
   m_Layer: 0
   m_Name: CardPosition_1
   m_TagString: Untagged
@@ -351,7 +351,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 133.33333, y: 133.33333}
   m_EdgeRadius: 0
---- !u!114 &6018818275054791023
+--- !u!114 &7205988279798515552
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 267830117751713805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ed7b387ea7ed93478a41b39f27ae838, type: 3}
+  m_Script: {fileID: 11500000, guid: 6314f69d3c546b148b9baf3eb7830c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &267830118070688416
@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 267830118070688419}
   - component: {fileID: 267830118070688418}
   - component: {fileID: 4368361524688406003}
-  - component: {fileID: 7763193146537759469}
+  - component: {fileID: 1294356542939860867}
   m_Layer: 0
   m_Name: CardPosition_2
   m_TagString: Untagged
@@ -472,7 +472,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 133.33333, y: 133.33333}
   m_EdgeRadius: 0
---- !u!114 &7763193146537759469
+--- !u!114 &1294356542939860867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -481,7 +481,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 267830118070688416}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ed7b387ea7ed93478a41b39f27ae838, type: 3}
+  m_Script: {fileID: 11500000, guid: 6314f69d3c546b148b9baf3eb7830c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &267830118109451027
@@ -529,7 +529,7 @@ GameObject:
   - component: {fileID: 267830118211744628}
   - component: {fileID: 267830118211744631}
   - component: {fileID: 9193994790133384742}
-  - component: {fileID: 8382966886227576387}
+  - component: {fileID: 6971878328164807385}
   m_Layer: 0
   m_Name: CardPosition_3
   m_TagString: Untagged
@@ -627,7 +627,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 133.33333, y: 133.33333}
   m_EdgeRadius: 0
---- !u!114 &8382966886227576387
+--- !u!114 &6971878328164807385
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -636,7 +636,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 267830118211744629}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ed7b387ea7ed93478a41b39f27ae838, type: 3}
+  m_Script: {fileID: 11500000, guid: 6314f69d3c546b148b9baf3eb7830c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &267830118304070447
@@ -684,7 +684,7 @@ GameObject:
   - component: {fileID: 267830118680201799}
   - component: {fileID: 267830118680201798}
   - component: {fileID: 2734315040747938416}
-  - component: {fileID: 7932348431301289863}
+  - component: {fileID: 6730653388421107305}
   m_Layer: 0
   m_Name: CardPosition_2
   m_TagString: Untagged
@@ -782,7 +782,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 133.33333, y: 133.33333}
   m_EdgeRadius: 0
---- !u!114 &7932348431301289863
+--- !u!114 &6730653388421107305
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -791,7 +791,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 267830118680201796}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ed7b387ea7ed93478a41b39f27ae838, type: 3}
+  m_Script: {fileID: 11500000, guid: 6314f69d3c546b148b9baf3eb7830c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &267830118778694602
@@ -805,7 +805,7 @@ GameObject:
   - component: {fileID: 267830118778694645}
   - component: {fileID: 267830118778694644}
   - component: {fileID: 8945066781296174706}
-  - component: {fileID: 5906952822823002275}
+  - component: {fileID: 4433484186124957764}
   m_Layer: 0
   m_Name: CardPosition_0
   m_TagString: Untagged
@@ -903,7 +903,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 133.33333, y: 133.33333}
   m_EdgeRadius: 0
---- !u!114 &5906952822823002275
+--- !u!114 &4433484186124957764
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -912,7 +912,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 267830118778694602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ed7b387ea7ed93478a41b39f27ae838, type: 3}
+  m_Script: {fileID: 11500000, guid: 6314f69d3c546b148b9baf3eb7830c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &267830118893980685
@@ -926,7 +926,7 @@ GameObject:
   - component: {fileID: 267830118893980684}
   - component: {fileID: 267830118893980687}
   - component: {fileID: 3262423714779194027}
-  - component: {fileID: 6085932525709659553}
+  - component: {fileID: 7477546540770841606}
   m_Layer: 0
   m_Name: CardPosition_3
   m_TagString: Untagged
@@ -1024,7 +1024,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 133.33333, y: 133.33333}
   m_EdgeRadius: 0
---- !u!114 &6085932525709659553
+--- !u!114 &7477546540770841606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1033,7 +1033,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 267830118893980685}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ed7b387ea7ed93478a41b39f27ae838, type: 3}
+  m_Script: {fileID: 11500000, guid: 6314f69d3c546b148b9baf3eb7830c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7941092709673611090
@@ -1082,16 +1082,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a4efefc2ce9ff41affd870666e67ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackingCardsEnemy:
-  - {fileID: 8094068825905879251}
-  - {fileID: 6018818275054791023}
-  - {fileID: 7763193146537759469}
-  - {fileID: 8382966886227576387}
-  AttackingCardsPlayer:
-  - {fileID: 5906952822823002275}
-  - {fileID: 249015198499923763}
-  - {fileID: 7932348431301289863}
-  - {fileID: 6085932525709659553}
+  battelCellEnemy:
+  - {fileID: 3864005637667295350}
+  - {fileID: 7205988279798515552}
+  - {fileID: 1294356542939860867}
+  - {fileID: 6971878328164807385}
+  battelCellPlayer:
+  - {fileID: 4433484186124957764}
+  - {fileID: 5174770034275736820}
+  - {fileID: 6730653388421107305}
+  - {fileID: 7477546540770841606}
 --- !u!210 &229072313
 SortingGroup:
   m_ObjectHideFlags: 0

@@ -14,8 +14,8 @@ public class BattelFieldFactory
         UnityEngine.Object.Instantiate(Resources.Load<PersonsPanel>($"BattleScene/PersonsPanel")).Initialize(parent, player, enemy);
     public IStartingHandPanel GetStartingHandPanel(Transform parent, TimerBattel timerNextTurn, IBattelPerson person, Action accept) =>
         UnityEngine.Object.Instantiate(Resources.Load<StartingHandPanel>($"BattleScene/StartingHandPanel")).Initialize(parent, timerNextTurn, person, accept);
-    public IBattleFieldCards GetBattleFieldCards() =>
-        UnityEngine.Object.Instantiate(Resources.Load<BattleFieldCards>($"BattleScene/BattleFieldCards")).Initialize();
+    public BattleFieldCards GetBattleFieldCards() =>
+        UnityEngine.Object.Instantiate(Resources.Load<BattleFieldCards>($"BattleScene/BattleFieldCards"));
     public IFinishBattel GetFinishTrainingBattel(IBattel battel, Action continueAct) =>
         UnityEngine.Object.Instantiate(Resources.Load<FinishBattel>($"BattleScene/FinishTrainingBattel"))
         .Initialize(battel, continueAct, statistics);
