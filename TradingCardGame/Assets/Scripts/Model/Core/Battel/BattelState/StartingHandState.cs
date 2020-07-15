@@ -6,6 +6,9 @@ public class StartingHandState : IBattelState
     public BattelStateEnum TypeBattelState { get; } = BattelStateEnum.starting_hand;
     private IBattelStateData battel;
 
+    public StartingHandState()
+    {}
+
     public void Request(IBattelStateData battel)
     {
         battel.Player.AttackCards.ForEach(x => x.Build(battel.Player, battel.Enemy, TypePersonEnum.player));

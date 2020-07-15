@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public abstract class BaseBattelScene : BaseScene
 {
     public IBattel Battel { get; private set; }
-    public IUser UserData { get; private set; }
+    public IUserData UserData { get; private set; }
 
     public TimerBattel timerNextTurn = null; // Нужен для режимов где на принятие решений даётся время
     protected BattelFieldFactory battelFieldFactory;
@@ -15,10 +15,10 @@ public abstract class BaseBattelScene : BaseScene
     [SerializeField] protected Button backButton = null, buttonFinishBattel = null, buttonNextTurn = null;
     private ScenesEnum carrentScene = ScenesEnum.MainScenes;
 
-    protected BaseBattelScene Initialize(Action<ScenesEnum> startNewScene, IBattel battel, IUser player,
+    protected BaseBattelScene Initialize(IBattel battel, IUserData player,
               BattelFieldFactory battelFieldFactory)
     {
-        (this.startNewScene, this.Battel, this.UserData, this.battelFieldFactory) = (startNewScene, battel, player, battelFieldFactory);
+        (this.Battel, this.UserData, this.battelFieldFactory) = (battel, player, battelFieldFactory);
 
         backButton.onClick.AddListener(OnLeaveBattle);
         buttonFinishBattel.onClick.AddListener(OnLeaveBattle);

@@ -21,7 +21,7 @@ public class BattelData : IBattel, IBattelStateData
     public IBattelCombatData CombatData { get; private set; }
     public TypePersonEnum Winner { get; set; }
 
-    public BattelData(IBattelPerson player, IBattelPerson enemy, IBattelState initialState, ICardResetCounter cardResetCounter)
+    public BattelData(IBattelPersonPlayer player, IBattelPersonEnemy enemy, IBattelState initialState, ICardResetCounter cardResetCounter)
     {
         (Player, Enemy, BattelSpecific, this.CardResetCounter, CombatData) =
         (player, enemy, new BattelSpecificData(), cardResetCounter, new BattelCombatData());
@@ -33,6 +33,7 @@ public class BattelData : IBattel, IBattelStateData
     public void AssingNewState(IBattelState battelState)
     {
         BattelState = battelState;
+        SettttBattelState(battelState);
         BattelState.Run(this);
     }
 
@@ -95,33 +96,34 @@ public class BattelData : IBattel, IBattelStateData
         OnSendReportRPC("Fortune");
     }
 
-    private void OnInteractableButtonNextTurn(bool isInteractable)
-    {
-        InteractableButtonNextTurn?.Invoke(isInteractable);
-    }
 
-    private void OnFinishBattel()
+    public void OnFinishBattel()
     {
         Debug.Log("Битва завершена!");
         FinishBattel.Invoke();
     }
 
-    private void OnNextTurn()
+    public void OnInteractableButtonNextTurn(bool isInteractable)
+    {
+        InteractableButtonNextTurn?.Invoke(isInteractable);
+    }
+
+    public void OnNextTurn()
     {
         NextTurn.Invoke();
     }
 
-    private void OnDisplayBattelState(BattelStateEnum typeState)
+    public void OnDisplayBattelState(BattelStateEnum typeState)
     {
         AssignBattelState.Invoke(typeState);
     }
 
-    private void OnSendReportRPC(string data)
+    public void OnSendReportRPC(string data)
     {
         SendReportRPC.Invoke(data);
     }
 
-    private void OnActiveTimerBattel(bool active)
+    public void OnActiveTimerBattel(bool active)
     {
         ActiveTimerBattel.Invoke(active);
     }

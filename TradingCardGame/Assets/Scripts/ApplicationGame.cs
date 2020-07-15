@@ -1,12 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Zenject;
 
 public class ApplicationGame : MonoBehaviour
 {
+    private ILoaderDataGame gameDataManager;
+
+    [Inject]
+    public void Inject(ILoaderDataGame gameDataManager)
+    {
+        this.gameDataManager = gameDataManager;
+    }
+
     private void Start()
     {
-        GameScenes.Init.StartNewScene();
-        Destroy(gameObject);
+        gameDataManager.Load();
+    }
+
+    private void OnApplicationQuit()
+    {
+        Debug.Log("Quitting application");
+        gameDataManager.Save();
     }
 }

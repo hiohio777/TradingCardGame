@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
-public class MainScene : BaseScene
+public class MainScene : BaseScene, IInitializable
 {
     private List<IPanelUI> panels;
     private IPanelUI current;
@@ -14,9 +15,14 @@ public class MainScene : BaseScene
     [SerializeField] private Button backMainMenuButton = null, quitGameButton = null, collectionSceneButton = null;
     [SerializeField] private List<MainMenuButton> menuButtons = null;
 
-    public MainScene Initialize(Action<ScenesEnum> startNewScen, Func<List<IPanelUI>> creatorPanels)
+    [Inject]
+    public void InjectMetod(List<IPanelUI> panels)
     {
-        (this.startNewScene, panels) = (startNewScen, creatorPanels.Invoke());
+        (this.panels) = (panels);
+    }
+
+    public void Initialize()
+    {
         panels.ForEach(x => x.SetParent(transform));
         menuButtons.ForEach(x => x.SetListener(OnSelectButton));
         quitGameButton.onClick.AddListener(QuitGame);
@@ -27,8 +33,6 @@ public class MainScene : BaseScene
 
         if (currentEnum != MainMenuPanelsEnum.def)
             OnSelectButton(currentEnum);
-
-        return this;
     }
 
     private void SetActiveMainMenu(bool active)

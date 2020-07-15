@@ -19,7 +19,6 @@ public class AttackCard : IAttackCard
     public void Build(IBattelPerson friend, IBattelPerson enemy, TypePersonEnum typePerson) =>
     (FriendPerson, EnemyPerson, TypePerson) = (friend, enemy, typePerson);
 
-    public void OnClick() => click?.Invoke(this);
     public void SetClickListener(Action<IAttackCard> click) => this.click = click;
     public void ClearClickListener() => click = null;
 

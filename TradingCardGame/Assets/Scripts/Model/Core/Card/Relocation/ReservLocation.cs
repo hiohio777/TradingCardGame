@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReservLocation : ActionModule
+public class ReservLocation : ActionModuleEvent
 {
     private readonly int y = 15, z = 4;
 

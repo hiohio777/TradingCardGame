@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-public class ArenaPanel : PanelUI, IPanelUI
+public class ArenaPanel : PanelUI, IPanelUI, IInitializable
 {
-    private Action<ScenesEnum> startNewScene;
-    private IUserDecks decksCollection;
+    private IUserData decksCollection;
 
     [SerializeField] private List<BattelMenuButton> menuButtons = null;
 
-    public IPanelUI Initialize(Action<ScenesEnum> startNewScene, IUserDecks decksCollection)
+    [Inject]
+    public void InjectMetod(IUserData decksCollection)
     {
-        (this.startNewScene, this.decksCollection) = (startNewScene, decksCollection);
-        menuButtons.ForEach(x => x.SetListener(OnSelectBattel));
+        this.decksCollection = decksCollection;
+    }
 
-        return this;
+    public void Initialize()
+    {
+        menuButtons.ForEach(x => x.SetListener(OnSelectBattel));
     }
 
     private void OnSelectBattel(TypeBattelEnum typeBattel)
@@ -25,11 +28,11 @@ public class ArenaPanel : PanelUI, IPanelUI
             return;
         }
 
-        switch (typeBattel)
-        {
-            case TypeBattelEnum.training: startNewScene.Invoke(ScenesEnum.TrainingBattelScenes); break;
-            case TypeBattelEnum.common: startNewScene.Invoke(ScenesEnum.CommonBattelScenes); break;
-            case TypeBattelEnum.rating: startNewScene.Invoke(ScenesEnum.RatingBattelScenes); break;
-        }
+        //switch (typeBattel)
+        //{
+        //    case TypeBattelEnum.training: startNewScene.Invoke(ScenesEnum.TrainingBattelScenes); break;
+        //    case TypeBattelEnum.common: startNewScene.Invoke(ScenesEnum.CommonBattelScenes); break;
+        //    case TypeBattelEnum.rating: startNewScene.Invoke(ScenesEnum.RatingBattelScenes); break;
+        //}
     }
 }

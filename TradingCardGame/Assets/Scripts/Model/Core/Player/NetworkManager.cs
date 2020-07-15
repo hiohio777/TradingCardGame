@@ -6,11 +6,24 @@ using UnityEngine;
 
 public class NetworkManager : INetworkManager
 {
-    private readonly string path = $"{Application.dataPath}/StreamingAssets/decks.json";
+    private readonly string path = $"{Application.dataPath}/StreamingAssets/userdata.json";
 
     public NetworkManager() { }
 
-    public UserDataForSerialization GetPlayerData()
+    public void SendToSaveDecks(string decksJsonString)
+    {
+        // Запись в текстовой файл
+        using (var sw = new StreamWriter(path, false, Encoding.Default))
+            sw.WriteLine(decksJsonString);
+    }
+
+    public void SendToSaveData(string decksJsonString)
+    {
+        using (var sw = new StreamWriter(path, false, Encoding.Default))
+            sw.WriteLine(decksJsonString);
+    }
+
+    public string GetUserData(string login, string password)
     {
         string jsonString = string.Empty;
         using (var sr = new StreamReader(path))
@@ -18,16 +31,9 @@ public class NetworkManager : INetworkManager
             jsonString = sr.ReadToEnd();
         }
 
-        return new UserDataForSerialization()
-        {
-            decksJsonString = jsonString,
-        };
-    }
+        if(jsonString == null || jsonString == string.Empty)
+            throw new System.Exception("Не удалось получить данные!");
 
-    public void SaveDecks(string decksJsonString)
-    {
-        // Запись в текстовой файл
-        using (var sw = new StreamWriter(path, false, Encoding.Default))
-            sw.WriteLine(decksJsonString);
+        return jsonString;
     }
 }

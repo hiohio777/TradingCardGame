@@ -4,9 +4,9 @@ using UnityEngine;
 public class CommonBattelScene : BaseBattelScene
 {
 
-    public static CommonBattelScene CreatPrefab(Action<ScenesEnum> startNewScene, IBattel battelData, IUser player,
+    public static CommonBattelScene CreatPrefab(IBattel battelData, IUserData player,
               BattelFieldFactory battelFieldFactory) =>
-     (Instantiate(Resources.Load<CommonBattelScene>($"BattleScene/CommonBattelScene")).Initialize(startNewScene, battelData, player,
+     (Instantiate(Resources.Load<CommonBattelScene>($"BattleScene/CommonBattelScene")).Initialize(battelData, player,
      battelFieldFactory) as CommonBattelScene)
      .Build();
 

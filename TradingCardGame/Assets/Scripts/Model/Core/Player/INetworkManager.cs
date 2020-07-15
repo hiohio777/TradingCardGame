@@ -2,6 +2,7 @@
 
 public interface INetworkManager
 {
-    UserDataForSerialization GetPlayerData();
-    void SaveDecks(string decksJsonString);
+    void SendToSaveDecks(string decksJsonString);
+    void SendToSaveData(string decksJsonString);
+    string GetUserData(string login, string password);
 }

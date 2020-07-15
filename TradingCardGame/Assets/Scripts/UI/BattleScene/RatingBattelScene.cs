@@ -10,9 +10,9 @@ public class RatingBattelScene : BaseBattelScene
 
     [HideInInspector] public bool isEnemyCameOut = false; // Враг вышел из боя(досрочно) Ему будет засчитано поражение(если isStartBattel = true)
 
-    public static RatingBattelScene CreatPrefab(Action<ScenesEnum> startNewScene, IBattel battelData, IUser player,
+    public static RatingBattelScene CreatPrefab(IBattel battelData, IUserData player,
              IDeckBattleSelector deckBattleSelector, BattelFieldFactory battelFieldFactory) =>
-     (Instantiate(Resources.Load<RatingBattelScene>($"BattleScene/RatingBattelScene")).Initialize(startNewScene, battelData, player,
+     (Instantiate(Resources.Load<RatingBattelScene>($"BattleScene/RatingBattelScene")).Initialize(battelData, player,
      battelFieldFactory) as RatingBattelScene)
      .Build(deckBattleSelector);
 

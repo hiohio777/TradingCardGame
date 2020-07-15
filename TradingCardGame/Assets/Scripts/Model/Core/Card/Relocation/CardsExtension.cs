@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
 
 public static class CardsExtension
 {
@@ -18,6 +19,16 @@ public static class CardsExtension
     {
         cards.ForEach(x => x.Moving.SetPosition(x.DefaultPosition));
         cards.Relocation(execute, 0.5f);
+    }
+    public static void StartingHandLocation(this List<IAttackCard> cards)
+    {
+        List<Vector2> pisition = new List<Vector2>()
+        { new Vector2(-500, 60), new Vector2(-300, 88), new Vector2(-100, 100),
+          new Vector2(100, 100), new Vector2(300, 88), new Vector2(500, 60) };
+        List<float> rotation = new List<float>() { 10, 6, 2, -2, -6, -10 };
+
+        for (int i = 0; i < cards.Count; i++)
+            cards[i].SetSortingOrder(i + 1).Moving.SetPosition(pisition[i]).SetRotation(rotation[i]).Run(0.3f);
     }
     public static void ReservLocation(this List<IAttackCard> cards, Action actEndRelocation = null, float yPosition = -450, int offset = 140) =>
         new ReservLocation(cards, actEndRelocation, yPosition, offset);

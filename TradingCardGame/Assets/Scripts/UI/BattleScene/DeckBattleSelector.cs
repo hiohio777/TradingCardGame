@@ -8,7 +8,7 @@ public class DeckBattleSelector : MonoBehaviour, IDeckBattleSelector
 {
     private IDeckFactory deckFactory;
     private IFractionsData fractions;
-    private IUserDecks userDecks;
+    private IUserData userDecks;
     private List<IDeck> decks = new List<IDeck>();
     private IDeck currentDeck;
 
@@ -20,7 +20,7 @@ public class DeckBattleSelector : MonoBehaviour, IDeckBattleSelector
     [SerializeField] private int maxDeck = 4;
     [SerializeField] private FractionsMenu fractionMenu = null;
 
-    public DeckBattleSelector Initialize(IDeckFactory deckFactory, IFractionsData fractions, IUserDecks userDecks)
+    public DeckBattleSelector Initialize(IDeckFactory deckFactory, IFractionsData fractions, IUserData userDecks)
     {
         (this.deckFactory, this.fractions, this.userDecks) = (deckFactory, fractions, userDecks);
 

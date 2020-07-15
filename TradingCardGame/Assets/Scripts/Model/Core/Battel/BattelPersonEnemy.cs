@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BattelPersonEnemy : BattelPersonBase, IBattelPerson
+
+public interface IBattelPersonEnemy : IBattelPerson { }
+public class BattelPersonEnemy : BattelPersonBase, IBattelPersonEnemy
 {
     private Vector3 startPositionReservCard = new Vector3(0, +1000, 0);
 

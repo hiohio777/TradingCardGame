@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BattelPersonPlayer : BattelPersonBase, IBattelPerson
+public interface IBattelPersonPlayer : IBattelPerson { }
+public class BattelPersonPlayer : BattelPersonBase, IBattelPersonPlayer
 {
     public Vector3 startPositionReservCard = new Vector3(0, -1000, 0);
 
@@ -20,7 +21,7 @@ public class BattelPersonPlayer : BattelPersonBase, IBattelPerson
         ShuffleCards(DeckCards); //Перетасовать
         AddCardsReserve(startPositionReservCard);
 
-        new StartingHandLocation(ReservCards);
+        ReservCards.StartingHandLocation();
     }
 
     public void BringCardsToBattlefield(float animationTime, Action actEndRelocation)

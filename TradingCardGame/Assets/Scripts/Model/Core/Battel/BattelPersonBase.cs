@@ -72,3 +72,48 @@ public abstract class BattelPersonBase
         card.PlaceAttackCell(cell, TypePerson, finish);
     }
 }
+
+
+
+public interface ICommand
+{
+
+}
+public interface IBattelCommand : ICommand
+{
+    void Execute(IBattelStateData battel);
+}
+
+public interface ICommandsExecutor<T>
+    where T : ICommand
+{
+    void Execute(T command);
+}
+
+public class BattelCommandsExecutor : ICommandsExecutor<IBattelCommand>
+{
+    private readonly IBattelStateData battel;
+
+    public BattelCommandsExecutor(IBattelStateData battel)
+    {
+        this.battel = battel;
+    }
+
+    public void Execute(IBattelCommand command)
+    {
+        command.Execute(battel);
+    }
+}
+
+public class AddCoinsCommand : IBattelCommand
+{
+    public AddCoinsCommand()
+    {
+        
+    }
+
+    public void Execute(IBattelStateData battel)
+    {
+        
+    }
+}

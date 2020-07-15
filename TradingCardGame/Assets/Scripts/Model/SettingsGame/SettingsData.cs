@@ -6,6 +6,11 @@ using UnityEngine;
 /// </summary>
 public class SettingsData : ISettingsData
 {
+    public SettingsData()
+    {
+        Load();
+    }
+
     public string CurrentLanguage => LocalisationGame.Instance.CurrentLanguage;
     public List<string> Localisations => LocalisationGame.Instance.Localisations;
 

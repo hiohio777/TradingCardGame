@@ -2,6 +2,7 @@
 
 public class ImplementationState : IBattelState
 {
+    public BattelStateEnum TypeBattelState { get; } = BattelStateEnum.implementation;
     public void Run(IBattelStateData battel)
     {
         battel.OnInteractableButtonNextTurn(false);

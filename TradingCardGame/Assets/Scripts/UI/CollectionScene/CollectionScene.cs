@@ -15,9 +15,9 @@ public class CollectionScene : BaseScene
     [SerializeField] private List<CollectionButton> menuButtons = null;
     private CollectionButton currentButton;
 
-    public CollectionScene Initialize(Action<ScenesEnum> startNewScene, IFractionsData fractions, Func<List<ICollectionPanelUI>> creatorPanels)
+    public CollectionScene Initialize(IFractionsData fractions, Func<List<ICollectionPanelUI>> creatorPanels)
     {
-        (this.startNewScene, panels) = (startNewScene, creatorPanels.Invoke());
+        panels = creatorPanels.Invoke();
         panels.ForEach(x => x.Build(transform));
 
         menuButtons.ForEach(x => x.AddListener(OnSelectPanel));

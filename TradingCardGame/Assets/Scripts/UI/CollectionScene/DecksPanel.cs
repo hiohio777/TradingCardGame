@@ -8,7 +8,7 @@ public class DecksPanel : BaseCollectionPanelUI, ICollectionPanelUI
 {
     private IDeckFactory deckFactory;
     private IFractionsData fractions;
-    private IUserDecks userDecks;
+    private IUserData userDecks;
     private IEditorDeckPanel editorDeck;
     private List<IDeck> decks = new List<IDeck>();
 
@@ -18,7 +18,7 @@ public class DecksPanel : BaseCollectionPanelUI, ICollectionPanelUI
     private Transform parent;
 
     public ICollectionPanelUI Initialize(IDeckFactory deckFactory, IFractionsData fractions,
-        IUserDecks userDecks, IEditorDeckPanel editorDeck)
+        IUserData userDecks, IEditorDeckPanel editorDeck)
     {
         (this.deckFactory, this.fractions, this.userDecks, this.editorDeck) = (deckFactory, fractions, userDecks, editorDeck);
         return this;

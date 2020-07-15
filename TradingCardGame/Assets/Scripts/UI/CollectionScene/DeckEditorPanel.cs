@@ -9,7 +9,7 @@ public class DeckEditorPanel : MonoBehaviour, IEditorDeckPanel
     private Action back;
 
     private IFractionsData fractions;
-    private IUserDecks userDecks;
+    private IUserData userDecks;
     private IDeckData editableDeck, deck;
     private bool isNewDeck = false; // true - Создание новой колоды, false - Редактирование существующей колоды
 
@@ -20,7 +20,7 @@ public class DeckEditorPanel : MonoBehaviour, IEditorDeckPanel
     private CardsDeckPanelUI currentCardsDeckPanels;
 
     public IEditorDeckPanel Initialize(ICardFactory<ICard> cardFactory, ICollectionCardsData collection,
-        IFractionsData fractions, IUserDecks userDecks)
+        IFractionsData fractions, IUserData userDecks)
     {
         (this.fractions, this.userDecks) = (fractions, userDecks);
 

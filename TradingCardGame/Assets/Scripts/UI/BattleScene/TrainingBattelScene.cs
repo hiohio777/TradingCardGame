@@ -5,9 +5,9 @@ public class TrainingBattelScene : BaseBattelScene
 {
     private IAlTrainingBattel alTraining;
 
-    public static TrainingBattelScene CreatPrefab(Action<ScenesEnum> startNewScene, IBattel battelData, IUser player,
+    public static TrainingBattelScene CreatPrefab(IBattel battelData, IUserData player,
              IDeckBattleSelector deckBattleSelector, BattelFieldFactory battelFieldFactory, IAlTrainingBattel alTraining) =>
-    (Instantiate(Resources.Load<TrainingBattelScene>($"BattleScene/TrainingBattelScene")).Initialize(startNewScene, battelData, player,
+    (Instantiate(Resources.Load<TrainingBattelScene>($"BattleScene/TrainingBattelScene")).Initialize(battelData, player,
      battelFieldFactory) as TrainingBattelScene)
     .Build(deckBattleSelector, alTraining);
 
