@@ -30,7 +30,7 @@ public class BattelCardFactory : FactoryBase<CardUI>, ICardFactory<IAttackCard>
         else
         {
             battelCardUI = UnityEngine.Object.Instantiate(Resources.Load<CardUI>($"Card/CardUI")).Initialize(Buffered, specificityFactory);
-            battelCardUI.combatUI.buffUIParametersFactory = buffUIFactory;
+            battelCardUI.combatUI.buffUIFactory = buffUIFactory;
         }
 
         ICombatCard combat;

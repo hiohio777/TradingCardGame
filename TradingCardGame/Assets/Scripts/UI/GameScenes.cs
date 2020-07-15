@@ -60,23 +60,21 @@ public interface ILoaderDataGame
 
 public class LoaderDataGame : ILoaderDataGame
 {
-    private ISettingsData settings;
     private IUserData userData;
     private INetworkManager networkManager;
     private ICollectionCardsData collection;
 
-    public LoaderDataGame(ISettingsData settings, IUserData userData,
-        INetworkManager networkManager, ICollectionCardsData collection)
+    public LoaderDataGame(IUserData userData, INetworkManager networkManager,
+        ICollectionCardsData collection)
     {
-        (this.settings, this.userData, this.networkManager, this.collection)
-        = (settings, userData, networkManager, collection);
+        (this.userData, this.networkManager, this.collection)
+        = (userData, networkManager, collection);
         userData.SetActionSaveDecks(SaveDecks);
         Debug.Log("Game Starter!");
     }
 
     public void Load()
     {
-        settings.Load();
         InitiateUserData(networkManager.GetUserData("login", "password"));
         Debug.Log("Data uploaded!");
     }

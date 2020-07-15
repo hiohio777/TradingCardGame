@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AttackCard : IAttackCard
 {
-    public Vector3 DefaultPosition => Cell != null ? Cell.Position : new Vector3(0, 0, 0);
+    public Vector3 DefaultPosition => Cell != null ? Cell.Position : Posotion;
+    public Vector3 Posotion { get; }
 
     public ICellBattel Cell { get; set; }
     public int Id => Cell.Id;
@@ -131,14 +132,6 @@ public class AttackCard : IAttackCard
         AttackTarget = -1;
     }
     #endregion
-
-
-    public void SetClickListener(Action<IBattelCard> click)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Vector3 Posotion { get; }
 
     public ICard SetSortingOrder(int sortingOrder)
     {

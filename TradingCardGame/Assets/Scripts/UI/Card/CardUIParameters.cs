@@ -5,16 +5,12 @@ using UnityEngine.UI;
 [Serializable]
 public class CardUIParameters : ICardUIParameters
 {
-    [SerializeField] private Color @default = new Color(), buffUp = new Color(), debuff = new Color();
-    [SerializeField] private LocalisationText name = null, description = null, fraction = null;
-    [SerializeField] private Text initiative = null, attack = null, defense = null, health = null;
+    [SerializeField] private Color @default, buffUp, debuff;
+    [SerializeField] private LocalisationText name, description, fraction;
+    [SerializeField] private Text initiative, attack, defense, health;
 
-    public IBuffUIParametersFactory buffUIParametersFactory;
+    public IBuffUIParametersFactory buffUIFactory;
     private ICardData cardData;
-
-    private void SetName(string text) => name.SetKey(text);
-    private void SetDescription(string text) => description.SetKey(text);
-    private void SetFraction(string text) => fraction.SetKey(text);
 
     public void ShowInitiative(int count, int change = 0) 
     {
@@ -42,18 +38,18 @@ public class CardUIParameters : ICardUIParameters
     }
 
     private void DisplayChange(Text textParam, int change, bool isBuffUp) =>
-        buffUIParametersFactory.GetBuffUI().SetBuff(textParam.transform, change.ToString(), isBuffUp);
+        buffUIFactory.GetBuffUI().SetBuff(textParam.transform, change.ToString(), isBuffUp);
 
     public void SetInitialValues(ICardData cardData)
     {
         this.cardData = cardData;
+        name.SetKey(cardData.Name);
+        description.SetKey(cardData.Description);
+        fraction.SetKey(cardData.Fraction.Name);
 
-        SetName(cardData.Name);
-        SetDescription(cardData.Description);
-        SetFraction(cardData.Fraction.Name);
-        ShowInitiative(cardData.Initiative);
-        ShowAttack(cardData.Attack);
-        ShowDefense(cardData.Defense);
-        ShowHealth(cardData.Health);
+        initiative.text = cardData.Initiative.ToString();
+        attack.text = cardData.Attack.ToString();
+        defense.text = cardData.Defense.ToString();
+        health.text = cardData.Health.ToString();
     }
 }

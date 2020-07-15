@@ -1,92 +1,123 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [Serializable]
-public class CardUIBase : MonoBehaviour
+public class CardUIBase : MonoBehaviour, ICardUIBase, IPointerClickHandler
 {
-    public Transform TransformCard { get; private set; }
-    public RectTransform CanvasRectTransform { get; private set; }
-    public Canvas CanvasCard { get; private set; }
-    public int OldSortingOrder { get; set; }
-    public IMovingCard Moving { get; private set; }
-    public ICardUIStatus StatusUI { get; set; }
-    public bool IsBlocked { get => Moving.IsMoving; }
+    [Space(10)] public CardUIParameters combatUI;
+    [Space(10)] public TokensPanel tokensPanel;
+    [Space(10)] public Image frame;
+    public SpecificityFactory specificityFactory;
 
-    [Space(10)] public Image frame = null;
-    private ICard card;
+    private Transform _transform;
+    private Canvas canvasCard;
+    private int oldSortingOrder;
+    private Action<CardUIBase> buffered;
+    private ISpecificity specificity;
 
-    public ICard SetPosition(Vector2 position)
+    public ICardData CardData { get; private set; }
+    public Vector3 Position => _transform.position;
+    public Transform CardTransform => _transform;
+
+    public ICardUIBase View { get; }
+    public ICardUIBase SetPosition(Vector2 position)
     {
-        TransformCard.position = position;
-        return card;
+        _transform.position = position;
+        return this;
     }
 
-    public ICard SetSortingOrder(int sortingOrder)
+    public ICardUIBase SetSortingOrder(int sortingOrder)
     {
-        OldSortingOrder = CanvasCard.sortingOrder;
-        CanvasCard.sortingOrder = sortingOrder;
-        return card;
+        oldSortingOrder = canvasCard.sortingOrder;
+        canvasCard.sortingOrder = sortingOrder;
+        return this;
     }
 
-    public ICard SetOldSortingOrder()
+    public ICardUIBase SetOldSortingOrder()
     {
-        CanvasCard.sortingOrder = OldSortingOrder;
-        return card;
+        canvasCard.sortingOrder = oldSortingOrder;
+        return this;
     }
 
-    public ICard SetParent(Transform parent)
+    public ICardUIBase SetParent(Transform parent, bool isLast = true)
     {
-        TransformCard.SetParent(parent, false);
-        TransformCard.SetAsLastSibling();
-        return card;
+        _transform.SetParent(parent, false);
+        if (isLast) _transform.SetAsLastSibling();
+        return this;
     }
 
-    public ICard SetScale(Vector3 scale)
+    public ICardUIBase SetScale(Vector3 scale)
     {
         transform.localScale = scale;
-        return card;
+        return this;
     }
 
-    public ICard SetRotation(float rotation)
-    {
-        transform.rotation = Quaternion.Euler(0, 0, rotation);
-        Moving.SetRotations(rotation);
-        return card;
-    }
-
-    public void Frame(bool isSelected, Color color)
+    public ICardUIBase Frame(bool isSelected) => Frame(isSelected, Color.green);
+    public ICardUIBase Frame(bool isSelected, Color color)
     {
         frame.color = color;
         frame.gameObject.SetActive(isSelected);
+        return this;
     }
 
-    public void Build(string name, Vector3 scale)
+    public void StartSpecificity(TypeSpecificityEnum type, Action actFinish)
     {
-        CanvasCard.gameObject.SetActive(true);
-        frame.gameObject.SetActive(false);
+        if (type == TypeSpecificityEnum.Default) return;
+        specificity?.Stop();
+        specificity = specificityFactory.GetSpecificity(type, transform, actFinish, () => specificity = null);
+    }
 
-        TransformCard.localScale = scale;
+    public void Assign(string name, Vector3 scale)
+    {
+        canvasCard.gameObject.SetActive(true);
+        _transform.localScale = scale;
         this.name = name;
     }
 
     public void Destroy()
     {
-        SetSortingOrder(0).SetScale(new Vector3(1, 1, 1)).SetParent(null).SetRotation(0);
-        Moving.ResetData();
-        CanvasCard.gameObject.SetActive(false);
-        frame.gameObject.SetActive(false);
+        SetSortingOrder(0);
+        SetParent(null);
+        gameObject.SetActive(false);
         name = "BufferedCard";
+
+        // Поместить\вернуть в буфер для переиспользования
+        buffered?.Invoke(this);
     }
 
     private void Awake()
     {
-        CanvasCard = GetComponent<Canvas>();
-        CanvasCard.worldCamera = Camera.main;
-        CanvasRectTransform = GetComponent<RectTransform>();
-        TransformCard = GetComponent<Transform>();
-        Moving = GetComponent<IMovingCard>();
-        card = GetComponent<ICard>();
+        canvasCard = GetComponent<Canvas>();
+        canvasCard.worldCamera = Camera.main;
+        _transform = GetComponent<Transform>();
+        frame.gameObject.SetActive(false);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (Moving.IsMoving == false)
+        {
+            clickCard?.Invoke(this);
+        }
     }
 }
 
+public interface ICardUIBase
+{
+    Vector3 Position { get; }
+    Transform CardTransform { get; }
+
+    ICardUIBase View { get; }
+    ICardUIBase SetScale(Vector3 scale);
+    ICardUIBase SetParent(Transform parent, bool isLast = true);
+    ICardUIBase SetOldSortingOrder();
+    ICardUIBase SetSortingOrder(int sortingOrder);
+    ICardUIBase SetPosition(Vector2 position);
+    ICardUIBase Frame(bool isSelected);
+    ICardUIBase Frame(bool isSelected, Color color);
+
+    void StartSpecificity(TypeSpecificityEnum type, Action actFinish);
+    void Destroy();
+}

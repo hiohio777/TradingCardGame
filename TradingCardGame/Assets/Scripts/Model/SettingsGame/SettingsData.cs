@@ -8,17 +8,11 @@ public class SettingsData : ISettingsData
 {
     public SettingsData()
     {
-        Load();
+        LocalisationGame.Instance.ChangeLanguage(PlayerPrefs.GetString("Language", "english"));
     }
 
     public string CurrentLanguage => LocalisationGame.Instance.CurrentLanguage;
-    public List<string> Localisations => LocalisationGame.Instance.Localisations;
-
-    public ISettingsData Load()
-    {
-        LocalisationGame.Instance.ChangeLanguage(PlayerPrefs.GetString("Language", "english"));
-        return this;
-    }
+    public IEnumerable<string> Localisations => LocalisationGame.Instance.Localisations;
 
     public void LanguageChanged(string CurrentLanguage)
     {

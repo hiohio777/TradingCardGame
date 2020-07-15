@@ -31,10 +31,10 @@ public class TestInstaller : MonoInstaller
         // UI
         Container.Bind<IEditorDeckPanel>().FromComponentInNewPrefabResource($"CollectionScene/DeckEditorPanel").AsTransient();
 
-        Container.Bind<IPanelUI>().FromComponentInNewPrefabResource($"MainScene/ArenaPanel").AsTransient();
-        Container.Bind<IPanelUI>().FromComponentInNewPrefabResource($"MainScene/CompanyPanel").AsTransient();
-        Container.Bind<IPanelUI>().FromComponentInNewPrefabResource($"MainScene/ShopPanel").AsTransient();
-        Container.Bind<IPanelUI>().FromComponentInNewPrefabResource($"MainScene/SettingsPanel").AsTransient();
+        Container.BindInterfacesTo<ArenaPanel>().FromComponentInNewPrefabResource($"MainScene/ArenaPanel").AsSingle();
+        Container.BindInterfacesTo<CompanyPanel>().FromComponentInNewPrefabResource($"MainScene/CompanyPanel").AsSingle();
+        Container.BindInterfacesTo<ShopPanel>().FromComponentInNewPrefabResource($"MainScene/ShopPanel").AsSingle();
+        Container.BindInterfacesTo<SettingsPanel>().FromComponentInNewPrefabResource($"MainScene/SettingsPanel").AsSingle();
 
         // Игровые сцены
         Container.BindInterfacesAndSelfTo<MainScene>().FromComponentInNewPrefabResource($"MainScene/MainScene").AsSingle().NonLazy();

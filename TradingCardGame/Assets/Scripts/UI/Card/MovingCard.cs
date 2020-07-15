@@ -14,28 +14,13 @@ public class MovingCard : MonoBehaviour, IMovingCard
     private float rotationTarget, scaleTarget;
     private float time = 0.3f, waitTime = 0, waitAfterTime = 0;
 
-    public void ResetData()
-    {
-        currentRotation = 0;
-        StopAllCoroutines();
-    }
     public void SetRotations(float rotation) => currentRotation = rotation;
-
-    public void Stop()
-    {
-        IsMoving = false;
-        time = 0.3f; waitTime = 0;
-        execute?.Invoke();
-    }
 
     public IMovingCard SetWaitTime(float waitTime = 0, float waitAfterTime = 0)
     {
         (this.waitTime, this.waitAfterTime) = (waitTime, waitAfterTime);
         return this;
     }
-
-    public IMovingCard SetTarget(Vector3 target, float targetRotation, float scaleTarget) =>
-        SetPosition(target).SetRotation(targetRotation);
 
     public IMovingCard SetPosition(Vector3 positionTarget)
     {
@@ -83,6 +68,32 @@ public class MovingCard : MonoBehaviour, IMovingCard
         IsMoving = true;
     }
 
+    private void EndAnimation()
+    {
+        if (StartAnimation == null)
+            if (waitAfterTime > 0) StartCoroutine(WaitAfter());
+            else Stop();
+    }
+
+    private void OnDisable()
+    {
+        Stop();
+        currentRotation = 0;
+        StopAllCoroutines();
+    }
+
+    private void Stop()
+    {
+        IsMoving = false;
+        time = 0.3f; waitTime = 0;
+        execute?.Invoke();
+    }
+
+    private void Awake()
+    {
+        _transform = GetComponent<Transform>();
+    }
+
     private IEnumerator MoveTo()
     {
         yield return new WaitForSeconds(waitTime);
@@ -124,7 +135,7 @@ public class MovingCard : MonoBehaviour, IMovingCard
     private IEnumerator Resize()
     {
         yield return new WaitForSeconds(waitTime);
-        var target = new Vector3(scaleTarget, scaleTarget, scaleTarget);  
+        var target = new Vector3(scaleTarget, scaleTarget, scaleTarget);
         float speedMove = Vector2.Distance(_transform.localScale, target) / time;
 
         while (_transform.localScale != target)
@@ -139,20 +150,10 @@ public class MovingCard : MonoBehaviour, IMovingCard
         EndAnimation();
     }
 
-    private void EndAnimation()
-    {
-        if (StartAnimation == null)
-            if (waitAfterTime > 0) StartCoroutine(WaitAfter());
-            else Stop();
-    }
-
     private IEnumerator WaitAfter()
     {
         yield return new WaitForSeconds(waitAfterTime);
         waitAfterTime = 0;
-
         Stop();
     }
-
-    private void Awake() => _transform = GetComponent<Transform>();
 }
