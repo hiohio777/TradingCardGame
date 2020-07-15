@@ -12,7 +12,7 @@ public class StartingHandState : IBattelState
         battel.Enemy.AttackCards.ForEach(x => x.Build(battel.Enemy, battel.Player, TypePersonEnum.enemy));
 
         battel.InitialDefinitionFortune();
-        battel.SetBattelState(new ReserveState());
+        battel.AssingNewState(new ReserveState());
     }
 
     public void Run(IBattelStateData battel) =>

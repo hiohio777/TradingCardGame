@@ -21,32 +21,25 @@ public class BattelData : IBattel, IBattelStateData
     public IBattelCombatData CombatData { get; private set; }
     public TypePersonEnum Winner { get; set; }
 
-    public BattelData(IBattelPerson player, IBattelPerson enemy, IBattelState battelState, ICardResetCounter cardResetCounter)
+    public BattelData(IBattelPerson player, IBattelPerson enemy, IBattelState initialState, ICardResetCounter cardResetCounter)
     {
-        (Player, Enemy, BattelSpecific, BattelState, this.CardResetCounter, CombatData) =
-        (player, enemy, new BattelSpecificData(), battelState, cardResetCounter, new BattelCombatData());
+        (Player, Enemy, BattelSpecific, this.CardResetCounter, CombatData) =
+        (player, enemy, new BattelSpecificData(), cardResetCounter, new BattelCombatData());
 
-        BattelState.Run(this);
+        AssingNewState(initialState);
     }
 
-    public void SetBattelState(IBattelState battelState)
+    // Assign a new state to a state machine
+    public void AssingNewState(IBattelState battelState)
     {
         BattelState = battelState;
-        Player.Report = Enemy.Report = "Done";
-        AssignBattelState?.Invoke(BattelState.TypeBattelState);
         BattelState.Run(this);
     }
 
-    public void InitialDefinitionFortune()
+    public void SettttBattelState(IBattelState battelState)
     {
-        if (!IsMasterClient)
-            return;
-
-        var random = new System.Random();
-        if (random.Next(0, 2) == 0) Enemy.Fortune = !(Player.Fortune = true);
-        else Enemy.Fortune = !(Player.Fortune = false);
-
-        SendReportRPC?.Invoke("Fortune");
+        Player.Report = Enemy.Report = "Done";
+        OnDisplayBattelState(BattelState.TypeBattelState);
     }
 
     public void ReportReadinessPlayer()
@@ -71,16 +64,11 @@ public class BattelData : IBattel, IBattelStateData
         ReportReadiness(Enemy, Player);
     }
 
-    public void OnNextTurn() => NextTurn.Invoke();
-    public void SetInteractableButtonNextTurn(bool isInteractable) =>
-        InteractableButtonNextTurn?.Invoke(isInteractable);
-    public void OnFinishBattel() => FinishBattel.Invoke();
-
     private void ReportReadiness(IBattelPerson person1, IBattelPerson person2)
     {
         if (person2.IsReadyContinue)
         {
-            ActiveTimerBattel?.Invoke(false);
+            OnActiveTimerBattel(false);
             person1.IsReadyContinue = person2.IsReadyContinue = false;
             BattelState.Request(this);
         }
@@ -91,7 +79,50 @@ public class BattelData : IBattel, IBattelStateData
             || CurrentBattelState == BattelStateEnum.round)
                 return;
 
-            ActiveTimerBattel?.Invoke(true);
+            OnActiveTimerBattel(true);
         }
+    }
+
+    public void InitialDefinitionFortune()
+    {
+        if (!IsMasterClient)
+            return;
+
+        var random = new System.Random();
+        if (random.Next(0, 2) == 0) Enemy.Fortune = !(Player.Fortune = true);
+        else Enemy.Fortune = !(Player.Fortune = false);
+
+        OnSendReportRPC("Fortune");
+    }
+
+    private void OnInteractableButtonNextTurn(bool isInteractable)
+    {
+        InteractableButtonNextTurn?.Invoke(isInteractable);
+    }
+
+    private void OnFinishBattel()
+    {
+        Debug.Log("Битва завершена!");
+        FinishBattel.Invoke();
+    }
+
+    private void OnNextTurn()
+    {
+        NextTurn.Invoke();
+    }
+
+    private void OnDisplayBattelState(BattelStateEnum typeState)
+    {
+        AssignBattelState.Invoke(typeState);
+    }
+
+    private void OnSendReportRPC(string data)
+    {
+        SendReportRPC.Invoke(data);
+    }
+
+    private void OnActiveTimerBattel(bool active)
+    {
+        ActiveTimerBattel.Invoke(active);
     }
 }

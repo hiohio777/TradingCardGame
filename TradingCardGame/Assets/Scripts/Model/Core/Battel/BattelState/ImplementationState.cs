@@ -2,26 +2,35 @@
 
 public class ImplementationState : IBattelState
 {
-    public BattelStateEnum TypeBattelState { get; } = BattelStateEnum.implementation;
-    private IBattelStateData battel;
-
     public void Run(IBattelStateData battel)
     {
-        this.battel = battel;
-        battel.SetInteractableButtonNextTurn(false);
+        battel.OnInteractableButtonNextTurn(false);
 
-        new ImplementationAbility(battel, EndImplementation).Execute();
+        new ImplementationAbility(battel, () => battel.OnNextTurn() ).Execute();
     }
 
     public void Request(IBattelStateData battel)
     {
-        battel.SetBattelState(new TacticsState());
-    }
-
-    public void EndImplementation()
-    {
-        battel.OnNextTurn();
+        battel.AssingNewState(new TacticsState());
     }
 
     public void ReportReadinessPlayer(Action report) => report.Invoke();
+}
+
+public abstract class BattelStateMachine
+{
+    public void ReportReadiness()
+    {
+
+    }
+
+    public void Request(IBattelStateData battel)
+    {
+       
+    }
+
+    public void ReportReadinessPlayer(Action report)
+    {
+
+    }
 }

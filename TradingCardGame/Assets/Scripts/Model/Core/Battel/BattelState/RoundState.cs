@@ -10,7 +10,7 @@ public class RoundState : IBattelState
     public void Run(IBattelStateData battel)
     {
         (this.Battel, finishRound) = (battel, battel.OnNextTurn);
-        battel.SetInteractableButtonNextTurn(false);
+        battel.OnInteractableButtonNextTurn(false);
 
         Battel.GetAllAttackCards().ForEach(x => x.Combat.RoundData = Battel.CombatData);
 
@@ -25,8 +25,8 @@ public class RoundState : IBattelState
 
         // Пропустить резерв, если все карты на поле боя живы
         if (battel.GetAllAttackCards().Count == 8)
-            battel.SetBattelState(new ImplementationState());
-        else battel.SetBattelState(new ReserveState());
+            battel.AssingNewState(new ImplementationState());
+        else battel.AssingNewState(new ReserveState());
     }
 
     public void ReportReadinessPlayer(Action report) => report.Invoke();

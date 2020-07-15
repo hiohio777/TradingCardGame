@@ -3,7 +3,9 @@
 public interface IBattelState
 {
     BattelStateEnum TypeBattelState { get; }
-    void Request(IBattelStateData battel);
+
+    // Request a new state machine state
     void ReportReadinessPlayer(Action report);
+    void Request(IBattelStateData battel);
     void Run(IBattelStateData battel);
 }

@@ -12,7 +12,7 @@ public class ReserveState : IBattelState
     public void Run(IBattelStateData battel)
     {
         this.battel = battel;
-        battel.SetInteractableButtonNextTurn(true);
+        battel.OnInteractableButtonNextTurn(true);
 
         battel.Player.ReservCards.ForEach(x => x.SetClickListener(SelectReserveCard));
         battel.Player.Cell.ForEach(x => x.SetClickListener(PutCardFromReserve));
@@ -20,7 +20,7 @@ public class ReserveState : IBattelState
 
     public void Request(IBattelStateData battel)
     {
-        Action act = () => battel.SetBattelState(new ImplementationState());
+        Action act = () => battel.AssingNewState(new ImplementationState());
         // Реализовать действия врага
         battel.Enemy.BringCardsToBattlefield(0.8f, act);
     }
@@ -28,7 +28,7 @@ public class ReserveState : IBattelState
     public void ReportReadinessPlayer(Action report)
     {
         current?.Frame(false);
-        battel.SetInteractableButtonNextTurn(false);
+        battel.OnInteractableButtonNextTurn(false);
 
         ClearClickListener();
 

@@ -17,7 +17,7 @@ public class TacticsState : IBattelState
         battel.Player.AttackCards.ForEach(x => { x.AttackTarget = -1; x.Enemies.Clear(); });
         battel.Enemy.AttackCards.ForEach(x => { x.AttackTarget = -1; x.Enemies.Clear(); });
 
-        battel.SetInteractableButtonNextTurn(true);
+        battel.OnInteractableButtonNextTurn(true);
         battel.Player.AttackCards.ForEach(x => x.SetClickListener(SelectReserveCard));
         battel.Enemy.AttackCards.ForEach(x => x.SetClickListener(AssignAttack));
     }
@@ -34,7 +34,7 @@ public class TacticsState : IBattelState
         Action act = () =>
         {
             battel.BattelSpecific.Rounds++;
-            battel.SetBattelState(new RoundState());
+            battel.AssingNewState(new RoundState());
         };
 
         battel.Player.AttackCards.ReturnCardToPlace(act);
@@ -43,7 +43,7 @@ public class TacticsState : IBattelState
     public void ReportReadinessPlayer(Action report)
     {
         current?.Frame(false);
-        battel.SetInteractableButtonNextTurn(false);
+        battel.OnInteractableButtonNextTurn(false);
         battel.Player.AttackCards.ForEach(x => x.ClearClickListener());
         battel.Enemy.AttackCards.ForEach(x => x.ClearClickListener());
 

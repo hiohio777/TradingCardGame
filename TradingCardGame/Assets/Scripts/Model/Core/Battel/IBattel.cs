@@ -30,8 +30,8 @@ public interface IBattel : IBattelBase
 public interface IBattelStateData : IBattelBase
 {
     IBattelState BattelState { get; }
-    void SetBattelState(IBattelState battelState);
-    void SetInteractableButtonNextTurn(bool isInteractable);
+    void AssingNewState(IBattelState battelState);
+    void OnInteractableButtonNextTurn(bool isInteractable);
     void InitialDefinitionFortune();
     void OnNextTurn();
 }
