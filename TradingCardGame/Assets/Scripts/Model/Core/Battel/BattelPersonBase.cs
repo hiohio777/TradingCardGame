@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class BattelPersonBase
+public abstract class BattelPersonBase : IBattelPerson
 {
     public event Action<byte> SetLive;
     public event Action<bool> SetFortune;
@@ -15,6 +15,7 @@ public abstract class BattelPersonBase
     public List<IAttackCard> ReservCards { get; private set; } = new List<IAttackCard>();
     public List<IAttackCard> AttackCards { get; private set; } = new List<IAttackCard>();
     public List<ICellBattel> Cell { get; set; }
+    public IBattelPerson EnemyPerson { get; set; }
     public bool Fortune { get => fortune; set { fortune = value; SetFortune?.Invoke(fortune); } }
     public byte Live { get => live; set { live = value; SetLive?.Invoke(live); } }
     public string Report { get; set; }
@@ -47,8 +48,7 @@ public abstract class BattelPersonBase
         int count = сountCardsHand - ReservCards.Count;
         for (int i = 0; i < count; i++)
         {
-            ReservCards.Add(cardFactory.GetCard(DeckCards[0], new Vector3(1.3f, 1.3f, 1.3f)).SetPosition(startPosition) as IAttackCard);
-            DeckCards.RemoveAt(0);
+            CreatCard(DeckCards[0], startPosition);
         }
     }
 
@@ -69,51 +69,20 @@ public abstract class BattelPersonBase
     {
         AttackCards.Add(card);
         ReservCards.Remove(card);
-        card.PlaceAttackCell(cell, TypePerson, finish);
+        card.PlaceAttackCell(cell, finish);
     }
-}
 
-
-
-public interface ICommand
-{
-
-}
-public interface IBattelCommand : ICommand
-{
-    void Execute(IBattelStateData battel);
-}
-
-public interface ICommandsExecutor<T>
-    where T : ICommand
-{
-    void Execute(T command);
-}
-
-public class BattelCommandsExecutor : ICommandsExecutor<IBattelCommand>
-{
-    private readonly IBattelStateData battel;
-
-    public BattelCommandsExecutor(IBattelStateData battel)
+    protected void CreatCard(ICardData cardData, Vector3 position)
     {
-        this.battel = battel;
+        var card = cardFactory.GetCard(cardData, new Vector3(1.3f, 1.3f, 1.3f));
+        card.View.SetPosition(position);
+
+        card.Warrior.FriendPerson = this;
+        card.Warrior.EnemyPerson = EnemyPerson;
+
+        ReservCards.Add(card);
+        DeckCards.RemoveAt(0);
     }
 
-    public void Execute(IBattelCommand command)
-    {
-        command.Execute(battel);
-    }
-}
-
-public class AddCoinsCommand : IBattelCommand
-{
-    public AddCoinsCommand()
-    {
-        
-    }
-
-    public void Execute(IBattelStateData battel)
-    {
-        
-    }
+    public abstract void BringCardsToBattlefield(float animationTime, Action actEndRelocation);
 }

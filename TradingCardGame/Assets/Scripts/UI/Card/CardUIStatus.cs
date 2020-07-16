@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class CardUIStatus : MonoBehaviour, ICardUIStatus
+public class CardUIStatus : MonoBehaviour
 {
     public StatusCardEnum StatusCard { get => statusCard; set { SetStatus(value); } }
     public StatusCardEnum statusCard = StatusCardEnum.normal;
@@ -10,7 +10,7 @@ public class CardUIStatus : MonoBehaviour, ICardUIStatus
     private Image image;
 
     public static CardUIStatus CreatPrefab(Transform parent) =>
-       Instantiate(Resources.Load<CardUIStatus>($"Card/{nameof(CardUIStatus)}")).Build(parent);
+       Instantiate(Resources.Load<CardUIStatus>($"Card/CardUIStatus")).Build(parent);
 
     public void DestroyUI() => Destroy(gameObject);
 

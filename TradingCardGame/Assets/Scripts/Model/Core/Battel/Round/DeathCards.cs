@@ -35,7 +35,7 @@ public class DeathCards : QueueHendler
         {
             // Карта умирает
             attackCards.Remove(current);
-            current.FriendPerson.AttackCards.Remove(current);
+            current.Warrior.FriendPerson.AttackCards.Remove(current);
 
             current.Death(() => ContinueRound(current));
         }
@@ -44,13 +44,13 @@ public class DeathCards : QueueHendler
 
     private void ContinueRound(IAttackCard current)
     {
-        if (current.FriendPerson.Live > 0)
+        if (current.Warrior.FriendPerson.Live > 0)
         {
             RunQueue(current);
         }
         else
         {
-            battel.Winner = current.EnemyPerson.TypePerson;
+            battel.Winner = current.Warrior.EnemyPerson.TypePerson;
             battel.OnFinishBattel();
         }
     }

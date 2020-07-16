@@ -17,7 +17,7 @@ public static class CardsExtension
     }
     public static void ReturnCardToPlace(this List<IAttackCard> cards, Action execute)
     {
-        cards.ForEach(x => x.Moving.SetPosition(x.DefaultPosition));
+        cards.ForEach(x => x.Moving.SetPosition(x.Warrior.Cell.Position));
         cards.Relocation(execute, 0.5f);
     }
     public static void StartingHandLocation(this List<IAttackCard> cards)
@@ -28,7 +28,10 @@ public static class CardsExtension
         List<float> rotation = new List<float>() { 10, 6, 2, -2, -6, -10 };
 
         for (int i = 0; i < cards.Count; i++)
-            cards[i].SetSortingOrder(i + 1).Moving.SetPosition(pisition[i]).SetRotation(rotation[i]).Run(0.3f);
+        {
+            cards[i].View.SetSortingOrder(i + 1);
+            cards[i].Moving.SetPosition(pisition[i]).SetRotation(rotation[i]).Run(0.3f);
+        }
     }
     public static void ReservLocation(this List<IAttackCard> cards, Action actEndRelocation = null, float yPosition = -450, int offset = 140) =>
         new ReservLocation(cards, actEndRelocation, yPosition, offset);

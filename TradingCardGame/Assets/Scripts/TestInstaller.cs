@@ -13,8 +13,10 @@ public class TestInstaller : MonoInstaller
         Container.Bind(typeof(IStatistics), typeof(IStatisticsBattele)).To<Statistics>().AsSingle();
         Container.Bind<ILoaderDataGame>().To<LoaderDataGame>().AsSingle();
         Container.Bind<ICollectionCardsData>().To<CollectionCardsData>().AsSingle();
-        Container.Bind<ISpecificityFactory>().To<SpecificityFactory>().AsSingle();
+        Container.Bind<ISFXFactory>().To<SpecificityFactory>().AsSingle();
         Container.Bind<IBuffUIParametersFactory>().To<BuffUIParametersFactory>().AsSingle();
+        Container.Bind<IGameLogget>().To<CommandLogger>().AsSingle();
+        
 
         Container.Bind<IAbilityFactory>().To<AbilityFactory>().AsSingle();
         Container.Bind<ICardFactory<ICard>>().To<CardFactory>().AsSingle();
@@ -26,7 +28,6 @@ public class TestInstaller : MonoInstaller
         Container.Bind(typeof(ICardResetCounter), typeof(ICardResetCounterUI)).To<ResetCardsCounter>().AsTransient();
         Container.Bind<IBattelPersonPlayer>().To<BattelPersonPlayer>().AsTransient();
         Container.Bind<IBattelPersonEnemy>().To<BattelPersonEnemy>().AsTransient();
-        Container.Bind<ICommandsExecutor<IBattelCommand>>().To<BattelCommandsExecutor>().AsTransient();
 
         // UI
         Container.Bind<IEditorDeckPanel>().FromComponentInNewPrefabResource($"CollectionScene/DeckEditorPanel").AsTransient();

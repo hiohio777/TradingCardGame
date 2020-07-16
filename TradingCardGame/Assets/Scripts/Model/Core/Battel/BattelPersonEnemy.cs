@@ -8,13 +8,13 @@ using UnityEngine;
 public interface IBattelPersonEnemy : IBattelPerson { }
 public class BattelPersonEnemy : BattelPersonBase, IBattelPersonEnemy
 {
-    private Vector3 startPositionReservCard = new Vector3(0, +1000, 0);
+    private Vector3 startPositionReserv = new Vector3(0, +1000, 0);
 
     public BattelPersonEnemy(IFractionsData fractions, ICollectionCardsData collection, ICardFactory<IAttackCard> cardFactory)
     : base(fractions, collection, cardFactory)
     { TypePerson = TypePersonEnum.enemy; }
 
-    public void BringCardsToBattlefield(float animationTime, Action actEndRelocation)
+    public override void BringCardsToBattlefield(float animationTime, Action actEndRelocation)
     {
         var data = JsonConvert.DeserializeObject<PersonDATAREPORT>(Report);
 
@@ -31,14 +31,12 @@ public class BattelPersonEnemy : BattelPersonBase, IBattelPersonEnemy
         {
             Action actFinish = () =>
             {
-                cardAttackList.ForEach(x => { x.SetScale(new Vector3(1, 1, 1)); x.SetSortingOrder(0); });
+                cardAttackList.ForEach(x => { x.View.SetScale(new Vector3(1, 1, 1)).SetSortingOrder(0); });
 
                 for (int i = 0; i < data.cardReserv.Count; i++)
                     if (i >= ReservCards.Count)
                     {
-                        var dataCard = collection.GetCard(data.cardReserv[i]);
-                        ReservCards.Add(cardFactory.GetCard(dataCard, new Vector3(1.3f, 1.3f, 1.3f)).SetPosition(startPositionReservCard) as IAttackCard);
-                        DeckCards.RemoveAt(0);
+                        CreatCard(collection.GetCard(data.cardReserv[i]), startPositionReserv);
                     }
 
                 actEndRelocation?.Invoke();
@@ -56,11 +54,7 @@ public class BattelPersonEnemy : BattelPersonBase, IBattelPersonEnemy
         var dataTemp = JsonConvert.DeserializeObject<List<string>>(Report);
         foreach (var item in dataTemp)
         {
-            var dataCard = collection.GetCard(item);
-            ReservCards.Add(cardFactory.GetCard(dataCard, new Vector3(1.3f, 1.3f, 1.3f)).SetPosition(startPositionReservCard) as IAttackCard);
-            DeckCards.Remove(dataCard);
+            CreatCard(collection.GetCard(item), startPositionReserv);
         }
     }
-
-    public List<ICellBattel> Cell { get; set; }
 }

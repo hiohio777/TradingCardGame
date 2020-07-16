@@ -18,6 +18,8 @@ public interface IBattelPerson
     string Report { get; set; }
     bool IsReadyContinue { get; set; }
     byte Live { get; set; }
+    IBattelPerson EnemyPerson { get; set; }
+
     void Creat(string name, string fraction, List<string> cards, byte live = 10);
     void NewStartingHand();
     void BringCardsToBattlefield(float animationTime, Action actEndRelocation);

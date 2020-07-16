@@ -27,7 +27,7 @@ public abstract class QueueHendler
             current = null;
             foreach (var card in cards)
                 if (current == null || current.Combat.Initiative > card.Combat.Initiative
-                || (current.Combat.Initiative == card.Combat.Initiative && current.Fortune == false))
+                || (current.Combat.Initiative == card.Combat.Initiative && current.Warrior.FriendPerson.Fortune == false))
                     current = card;
             Next(current);
         }

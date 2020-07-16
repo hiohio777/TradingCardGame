@@ -14,8 +14,8 @@ public class TacticsState : IBattelState
         this.battel = battel;
 
         //Очистить данные
-        battel.Player.AttackCards.ForEach(x => { x.AttackTarget = -1; x.Enemies.Clear(); });
-        battel.Enemy.AttackCards.ForEach(x => { x.AttackTarget = -1; x.Enemies.Clear(); });
+        battel.Player.AttackCards.ForEach(x => x.Warrior.Clear());
+        battel.Enemy.AttackCards.ForEach(x => x.Warrior.Clear());
 
         battel.OnInteractableButtonNextTurn(true);
         battel.Player.AttackCards.ForEach(x => x.SetClickListener(SelectReserveCard));
@@ -28,7 +28,7 @@ public class TacticsState : IBattelState
         var data = JsonConvert.DeserializeObject<List<int>>(battel.Enemy.Report);
         for (int i = 0; i < data.Count; i++)
         {
-            battel.Enemy.AttackCards[i].AttackTarget = data[i];
+            battel.Enemy.AttackCards[i].Warrior.AttackTargetID = data[i];
         }
 
         Action act = () =>
@@ -42,7 +42,7 @@ public class TacticsState : IBattelState
 
     public void ReportReadinessPlayer(Action report)
     {
-        current?.Frame(false);
+        current?.View.Frame(false);
         battel.OnInteractableButtonNextTurn(false);
         battel.Player.AttackCards.ForEach(x => x.ClearClickListener());
         battel.Enemy.AttackCards.ForEach(x => x.ClearClickListener());
@@ -50,7 +50,7 @@ public class TacticsState : IBattelState
         var cards = new List<int>();
         foreach (var item in battel.Player.AttackCards)
         {
-            cards.Add(item.AttackTarget);
+            cards.Add(item.Warrior.AttackTargetID);
         }
         battel.Player.Report = JsonConvert.SerializeObject(cards);
 
@@ -59,14 +59,14 @@ public class TacticsState : IBattelState
 
     private void SelectReserveCard(IAttackCard attackCard)
     {
-        current?.Frame(false);
-        if (attackCard != current) (current = attackCard)?.Frame(true);
+        current?.View.Frame(false);
+        if (attackCard != current) (current = attackCard)?.View.Frame(true);
         else current = null;
     }
 
     private void AssignAttack(IAttackCard attackCard)
     {
-        if (current == null || attackCard.Enemies.Count >= attackCard.Combat.MaxCountAttackers)
+        if (current == null || attackCard.Warrior.Enemies.Count >= attackCard.Combat.MaxCountAttackers)
             return;
 
         attackCard.AddAttacker(current);
@@ -76,7 +76,7 @@ public class TacticsState : IBattelState
 
     private void CancelAttacker(IAttackCard attackCard)
     {
-        attackCard.EnemyPerson.Cell[attackCard.AttackTarget].Unit.RemoveAttacker(attackCard);
+        attackCard.RemoveAttacker();
         attackCard.SetClickListener(SelectReserveCard);
     }
 }

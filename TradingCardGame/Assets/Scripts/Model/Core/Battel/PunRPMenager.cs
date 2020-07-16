@@ -82,7 +82,7 @@ public class PunRPMenager : MonoBehaviourPunCallbacks
         var cards = new List<int>();
         foreach (var item in player.AttackCards)
         {
-            cards.Add(item.AttackTarget);
+            cards.Add(item.Warrior.AttackTargetID);
         }
         return JsonConvert.SerializeObject(cards);
     }

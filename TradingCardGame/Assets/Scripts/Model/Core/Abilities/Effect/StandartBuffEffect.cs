@@ -13,7 +13,7 @@ public abstract class StandartBuffEffect : MonoBehaviour
             if (Buff(item))
             {
                 result = true;
-                item.StartSpecificity(specificityTarget);
+                item.StartSFX(specificityTarget);
             }
 
         return result;

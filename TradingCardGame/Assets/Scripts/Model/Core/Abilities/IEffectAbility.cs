@@ -2,5 +2,5 @@
 
 public interface IEffect
 {
-    bool Execute(IAttackCard card, List<IAttackCard> cards, IBattelBase battel, ISpecificityFactory specificityFactory);
+    bool Execute(IAttackCard card, List<IAttackCard> cards, IBattelBase battel, ISFXFactory specificityFactory);
 }

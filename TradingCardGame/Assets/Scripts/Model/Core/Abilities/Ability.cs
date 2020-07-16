@@ -13,7 +13,7 @@ public class Ability : MonoBehaviour, IAbility
     [SerializeField] private EffectAbility effectAbility = null;
     [SerializeField] private float timeBefore = 0.5f, timeAfte = 0.5f, timespeed = 0.1f;
 
-    public ISpecificityFactory specificityFactory;
+    public ISFXFactory specificityFactory;
 
     private Action finish;
     private bool isReady = true;

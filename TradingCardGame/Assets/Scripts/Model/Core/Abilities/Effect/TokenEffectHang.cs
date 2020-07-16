@@ -7,7 +7,7 @@ public class TokenEffectHang : MonoBehaviour, IEffect
     [SerializeField] private byte count = 1;
     [SerializeField, Space(10)] private TypeSpecificityEnum specificityTarget = TypeSpecificityEnum.Default;
 
-    public bool Execute(IAttackCard card, List<IAttackCard> cardsTarget, IBattelBase battel, ISpecificityFactory specificityFactory)
+    public bool Execute(IAttackCard card, List<IAttackCard> cardsTarget, IBattelBase battel, ISFXFactory specificityFactory)
     {
         bool result = false;
         foreach (var item in cardsTarget)
@@ -15,7 +15,7 @@ public class TokenEffectHang : MonoBehaviour, IEffect
             if (item.Tokens.AddToken(token, count))
             {
                 result = true;
-                item.StartSpecificity(specificityTarget);
+                item.StartSFX(specificityTarget);
             }
         }
 

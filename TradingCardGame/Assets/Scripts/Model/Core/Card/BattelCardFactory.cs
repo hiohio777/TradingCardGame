@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattelCardFactory : FactoryBase<CardUI>, ICardFactory<IAttackCard>
+public class BattelCardFactory : FactoryBase<Card>, ICardFactory<IAttackCard>
 {
     private readonly IAbilityFactory abilityFactory;
-    private readonly ISpecificityFactory specificityFactory;
+    private readonly ISFXFactory specificityFactory;
     private readonly IBuffUIParametersFactory buffUIFactory;
 
-    public BattelCardFactory(ISpecificityFactory specificityFactory, IAbilityFactory abilityFactory, IBuffUIParametersFactory buffUIFactory) =>
+    public BattelCardFactory(ISFXFactory specificityFactory, IAbilityFactory abilityFactory, IBuffUIParametersFactory buffUIFactory) =>
         (this.abilityFactory, this.specificityFactory, this.buffUIFactory) = (abilityFactory, specificityFactory, buffUIFactory);
 
-    public List<IAttackCard> GetCards(List<ICardData> cardsData) => GetCards(cardsData, new Vector3(1, 1, 1));
-    public IAttackCard GetCard(ICardData cardData) => GetCard(cardData, new Vector3(1, 1, 1));
+    public List<IAttackCard> GetCards(List<ICardData> cardsData)
+        => GetCards(cardsData, new Vector3(1, 1, 1));
+    public IAttackCard GetCard(ICardData cardData)
+        => GetCard(cardData, new Vector3(1, 1, 1));
     public List<IAttackCard> GetCards(List<ICardData> cardsData, Vector3 scale)
     {
         var cards = new List<IAttackCard>();
@@ -24,28 +26,29 @@ public class BattelCardFactory : FactoryBase<CardUI>, ICardFactory<IAttackCard>
 
     public IAttackCard GetCard(ICardData cardData, Vector3 scale)
     {
-        CardUI battelCardUI;
+        AttackCard card;
 
-        if (buffer.Count > 0) battelCardUI = buffer.Pop();
+        if (buffer.Count > 0) card = buffer.Pop() as AttackCard;
         else
         {
-            battelCardUI = UnityEngine.Object.Instantiate(Resources.Load<CardUI>($"Card/CardUI")).Initialize(Buffered, specificityFactory);
-            battelCardUI.combatUI.buffUIFactory = buffUIFactory;
+            card = UnityEngine.Object.Instantiate(Resources.Load<AttackCard>($"Card/AttackCard"));
+            card.Initial(Buffered, specificityFactory);
+            card.combatUI.buffUIFactory = buffUIFactory;
         }
 
         ICombatCard combat;
-        battelCardUI.ability = abilityFactory.GetAbility(cardData.LinkAbility, battelCardUI.TransformCard);
+        var ability = abilityFactory.GetAbility(cardData.LinkAbility, card.View.CardTransform);
         switch (cardData.Class.Type)
         {
             case ClassCardEnum.moon:
-                combat = new CombatCardMoon(battelCardUI.combatUI, cardData, battelCardUI.StartSpecificity); break;
+                combat = new CombatCardMoon(card.combatUI, cardData, card.StartSFX); break;
             case ClassCardEnum.sun:
-                combat = new CombatCardSun(battelCardUI.combatUI, cardData, battelCardUI.StartSpecificity); break;
+                combat = new CombatCardSun(card.combatUI, cardData, card.StartSFX); break;
             default:
-                combat = new CombatCardСommon(battelCardUI.combatUI, cardData, battelCardUI.StartSpecificity); break;
+                combat = new CombatCardСommon(card.combatUI, cardData, card.StartSFX); break;
         }
 
-        battelCardUI.BuildBattelCard(cardData, scale, combat);
-        return battelCardUI as IAttackCard;
+        card.Build(cardData, scale, combat, ability);
+        return card;
     }
 }

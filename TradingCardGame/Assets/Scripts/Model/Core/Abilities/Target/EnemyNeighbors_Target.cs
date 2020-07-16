@@ -7,7 +7,7 @@ public class EnemyNeighbors_Target : MonoBehaviour, ITargetCards
     {
         var cards = new List<IAttackCard>();
 
-        var cells = card.EnemyPerson.Cell;
+        var cells = card.Warrior.EnemyPerson.Cell;
 
         if (card.Id + 1 < cells.Count)
         {

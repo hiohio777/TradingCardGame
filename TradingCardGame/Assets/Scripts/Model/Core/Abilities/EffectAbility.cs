@@ -5,7 +5,7 @@ public class EffectAbility : BaseAbility
     protected List<IPostConditions> postConditions = new List<IPostConditions>();
     protected List<IEffect> effectAbility = new List<IEffect>();
 
-    public bool IsResult(IAttackCard card, IBattelBase battel, ISpecificityFactory specificityFactory)
+    public bool IsResult(IAttackCard card, IBattelBase battel, ISFXFactory specificityFactory)
     {
         var cards = GetTargetCards(card, battel);
         foreach (var item in postConditions)

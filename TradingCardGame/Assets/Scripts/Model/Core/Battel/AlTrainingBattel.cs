@@ -76,7 +76,7 @@ public class AlTrainingBattel : IAlTrainingBattel
         {
             foreach (var playerCard in battel.Player.AttackCards)
             {
-                if (playerCard.Enemies.Count >= playerCard.Combat.MaxCountAttackers)
+                if (playerCard.Warrior.Enemies.Count >= playerCard.Combat.MaxCountAttackers)
                 {
                     priceHazard[playerCard.Id] = -1;
                     continue;
@@ -96,7 +96,7 @@ public class AlTrainingBattel : IAlTrainingBattel
             }
 
             if (currentIndex >= 0)
-                battel.Player.AttackCards[currentIndex].Enemies.Add(item);
+                battel.Player.AttackCards[currentIndex].Warrior.Enemies.Add(item.Warrior);
             cards.Add(currentIndex);
 
             priceHazard.ForEach(x => x = -1);

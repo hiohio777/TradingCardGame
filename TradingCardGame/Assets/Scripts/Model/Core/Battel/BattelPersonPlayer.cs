@@ -24,7 +24,7 @@ public class BattelPersonPlayer : BattelPersonBase, IBattelPersonPlayer
         ReservCards.StartingHandLocation();
     }
 
-    public void BringCardsToBattlefield(float animationTime, Action actEndRelocation)
+    public override void BringCardsToBattlefield(float animationTime, Action actEndRelocation)
     {
         var cardAttackList = new List<IAttackCard>();
         for (int i = 0; i < Cell.Count; i++)
@@ -39,7 +39,7 @@ public class BattelPersonPlayer : BattelPersonBase, IBattelPersonPlayer
 
         Action actFinish = () =>
         {
-            cardAttackList.ForEach(x => { x.SetScale(new Vector3(1, 1, 1)); x.SetSortingOrder(0); });
+            cardAttackList.ForEach(x => { x.View.SetScale(new Vector3(1, 1, 1)).SetSortingOrder(0); });
             AddCardsReserve(startPositionReservCard);
             ReservCards.ReservLocation(actEndRelocation);
         };

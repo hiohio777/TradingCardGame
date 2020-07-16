@@ -27,7 +27,7 @@ public class ReserveState : IBattelState
 
     public void ReportReadinessPlayer(Action report)
     {
-        current?.Frame(false);
+        current?.View.Frame(false);
         battel.OnInteractableButtonNextTurn(false);
 
         ClearClickListener();
@@ -37,10 +37,10 @@ public class ReserveState : IBattelState
 
     private void SelectReserveCard(IAttackCard battelCard)
     {
-        current?.SetOldSortingOrder().Frame(false);
+        current?.View.SetOldSortingOrder().Frame(false);
         if (battelCard != current)
         {
-            (current = battelCard)?.SetSortingOrder(200).Frame(true);
+            (current = battelCard)?.View.SetSortingOrder(200).Frame(true);
         }
         else current = null;
     }
@@ -53,12 +53,11 @@ public class ReserveState : IBattelState
         battel.Player.PlaceAttackCell(current, cell);
         battel.Player.ReservCards.ReservLocation();
 
-        current.PlaceAttackCell(cell, TypePersonEnum.player, FinishPutCardFromReserve);
+        current.PlaceAttackCell(cell, FinishPutCardFromReserve);
     }
 
     private void FinishPutCardFromReserve()
     {
-        current.SetSortingOrder(0).SetScale(new Vector3(1, 1, 1)).Frame(false);
         current = null;
 
         if (battel.Player.AttackCards.Count >= 4)

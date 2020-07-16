@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class AbilityFactory : IAbilityFactory
 {
-    private readonly ISpecificityFactory specificityFactory;
+    private readonly ISFXFactory specificityFactory;
 
-    public AbilityFactory(ISpecificityFactory specificityFactory) =>
+    public AbilityFactory(ISFXFactory specificityFactory) =>
         this.specificityFactory = specificityFactory ?? throw new ArgumentNullException(nameof(specificityFactory));
 
     public IAbility GetAbility(GameObject abilityPrefab, Transform parent)

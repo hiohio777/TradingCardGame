@@ -11,9 +11,6 @@ public class StartingHandState : IBattelState
 
     public void Request(IBattelStateData battel)
     {
-        battel.Player.AttackCards.ForEach(x => x.Build(battel.Player, battel.Enemy, TypePersonEnum.player));
-        battel.Enemy.AttackCards.ForEach(x => x.Build(battel.Enemy, battel.Player, TypePersonEnum.enemy));
-
         battel.InitialDefinitionFortune();
         battel.AssingNewState(new ReserveState());
     }

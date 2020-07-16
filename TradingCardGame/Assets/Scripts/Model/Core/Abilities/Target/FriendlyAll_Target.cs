@@ -5,7 +5,7 @@ public class FriendlyAll_Target : MonoBehaviour, ITargetCards
 {
     public List<IAttackCard> GetTargetCards(IAttackCard card, IBattelBase battel)
     {
-        var cards = new List<IAttackCard>(card.FriendPerson.AttackCards);
+        var cards = new List<IAttackCard>(card.Warrior.FriendPerson.AttackCards);
         cards.Remove(card);
         return cards;
     }

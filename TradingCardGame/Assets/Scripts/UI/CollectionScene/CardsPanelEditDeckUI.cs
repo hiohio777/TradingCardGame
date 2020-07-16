@@ -29,7 +29,8 @@ public class CardsPanelEditDeckUI : BaseCardsPanal
 
     protected override void CreatCardUI(int i)
     {
-        var card = cardFactory.GetCard(cards[i]).SetParent(transform).SetSortingOrder(i);
+        var card = cardFactory.GetCard(cards[i]);
+        card.View.SetParent(transform).SetSortingOrder(i);
         card.SetClickListener(OnClickCard);
         cardsUI.Add(card);
 

@@ -8,7 +8,7 @@ public abstract class RoundActionsPhase
     private readonly IBattelBase battel;
     private readonly Action<IAttackCard> actionFinish;
     private IAttackCard current;
-    private IAttackCard CardTarget => current.EnemyPerson.Cell[current.AttackTarget].Unit;
+    private IAttackCard CardTarget => current.Warrior.AttackTargetUnit;
     private readonly float timeMoveCard = 0.5f, timeHit = 0.2f, waitTime = 0.4f;
 
     protected RoundActionsPhase(IBattelBase battel, Action<IAttackCard> actionFinish, List<IAttackCard> cards)
@@ -19,7 +19,7 @@ public abstract class RoundActionsPhase
     public void Run(IAttackCard current)
     {
         this.current = current;
-        current.Frame(true);
+        current.View.Frame(true);
         ApplyAbility(EventTriggerEnum.LeadUp, current, MoveToAttack);
     }
 
@@ -27,9 +27,9 @@ public abstract class RoundActionsPhase
     {
         if (CardTarget != null)
         {
-            int offset = current.TypePerson == TypePersonEnum.player ? -160 : 160;
-            var targetPosition = new Vector3(CardTarget.DefaultPosition.x + 10, CardTarget.DefaultPosition.y + offset);
-            current.MoveTo(timeMoveCard, targetPosition, ProceedAccordingCardClass, waitTime);
+            int offset = current.Warrior.TypePerson == TypePersonEnum.player ? -160 : 160;
+            var targetPosition = new Vector3(CardTarget.Warrior.Cell.Position.x + 10, CardTarget.Warrior.Cell.Position.y + offset);
+            current.Moving.SetPosition(targetPosition).SetWaitTime(waitTime).Run(timeMoveCard, ProceedAccordingCardClass);
         }
         else ApplyFinalAbility();
     }
@@ -44,23 +44,23 @@ public abstract class RoundActionsPhase
 
     private void AttackDamage()
     {
-        int offset = current.TypePerson == TypePersonEnum.player ? 20 : -20;
-        var targetPosition = new Vector3(current.Posotion.x, current.Posotion.y + offset);
-        current.MoveTo(timeHit, targetPosition, () => EndHitAttackDamage(offset), waitTime: waitTime);
+        int offset = current.Warrior.TypePerson == TypePersonEnum.player ? 20 : -20;
+        var targetPosition = new Vector3(current.View.Position.x, current.View.Position.y + offset);
+        current.Moving.SetPosition(targetPosition).SetWaitTime(waitTime).Run(timeHit, () => EndHitAttackDamage(offset));
     }
 
     private void EndHitAttackDamage(int offset)
     {
         Action act = () => CheckForDeath(AfterAttackAbility);
 
-        var targetPosition = new Vector3(current.Posotion.x, current.Posotion.y - offset);
+        var targetPosition = new Vector3(current.View.Position.x, current.View.Position.y - offset);
 
         if (CardTarget.Combat.StandardDamage(current))
         {
-            current.MoveTo(timeHit, targetPosition);
-            CardTarget.StartSpecificity(TypeSpecificityEnum.StandardDamage, act);
+            current.Moving.SetPosition(targetPosition).Run(timeHit);
+            CardTarget.StartSFX(TypeSpecificityEnum.StandardDamage, act);
         }
-        else current.MoveTo(timeHit, targetPosition, act);
+        else current.Moving.SetPosition(targetPosition).Run(timeHit, act);
     }
 
     private void AfterAttackAbility()
@@ -79,27 +79,27 @@ public abstract class RoundActionsPhase
             return;
         }
 
-        int offset = current.TypePerson == TypePersonEnum.player ? -20 : 20;
-        var targetPosition = new Vector3(CardTarget.Posotion.x, CardTarget.Posotion.y + offset);
-        CardTarget.SetSortingOrder(250);
-        CardTarget.MoveTo(timeHit, targetPosition, () => EndHitDefenseDamage(offset), waitTime: waitTime);
+        int offset = current.Warrior.TypePerson == TypePersonEnum.player ? -20 : 20;
+        var targetPosition = new Vector3(CardTarget.View.Position.x, CardTarget.View.Position.y + offset);
+        CardTarget.View.SetSortingOrder(250);
+        CardTarget.Moving.SetPosition(targetPosition).SetWaitTime(waitTime).Run(timeHit, () => EndHitDefenseDamage(offset));
     }
 
     private void EndHitDefenseDamage(int offset)
     {
         Action act = () =>
         {
-            CardTarget.SetSortingOrder(0);
+            CardTarget.View.SetSortingOrder(0);
             CheckForDeath(LaunchAttack);
         };
 
-        var targetPosition = new Vector3(CardTarget.Posotion.x, CardTarget.Posotion.y - offset);
+        var targetPosition = new Vector3(CardTarget.View.Position.x, CardTarget.View.Position.y - offset);
         if (current.Combat.DefenseDamage(CardTarget))
         {
-            CardTarget.MoveTo(timeHit, targetPosition);
-            current.StartSpecificity(TypeSpecificityEnum.DefenseDamage, act);
+            CardTarget.Moving.SetPosition(targetPosition).Run(timeHit);
+            current.StartSFX(TypeSpecificityEnum.DefenseDamage, act);
         }
-        else CardTarget.MoveTo(timeHit, targetPosition, act);
+        else CardTarget.Moving.SetPosition(targetPosition).Run(timeHit, act);
 
     }
 
@@ -107,14 +107,14 @@ public abstract class RoundActionsPhase
 
     protected void CompletionMove()
     {
-        current.MoveTo(timeHit, current.DefaultPosition, ApplyFinalAbility, waitTime: waitTime);
+        current.Moving.SetPosition(current.Warrior.Cell.Position).SetWaitTime(waitTime).Run(timeHit, ApplyFinalAbility);
     }
 
     private void ApplyFinalAbility()
     {
         Action act = () =>
         {
-            current.Frame(false);
+            current.View.Frame(false);
             actionFinish.Invoke(current);
         };
 

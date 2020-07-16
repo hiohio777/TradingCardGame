@@ -77,7 +77,8 @@ public class CardsDeckPanelUI : MonoBehaviour
 
     private void CreatCard(ICardData newCards)
     {
-        var card = cardFactory.GetCard(newCards).SetParent(transform).SetSortingOrder(10);
+        var card = cardFactory.GetCard(newCards);
+        card.View.SetParent(transform).SetSortingOrder(10);
         card.SetClickListener(RemoveCard);
         cards.Add(card);
     }

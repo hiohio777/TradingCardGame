@@ -21,10 +21,15 @@ public class BattelData : IBattel, IBattelStateData
     public IBattelCombatData CombatData { get; private set; }
     public TypePersonEnum Winner { get; set; }
 
-    public BattelData(IBattelPersonPlayer player, IBattelPersonEnemy enemy, IBattelState initialState, ICardResetCounter cardResetCounter)
+    public BattelData(IBattelPersonPlayer player, IBattelPersonEnemy enemy, IBattelState initialState,
+        ICardResetCounter cardResetCounter)
     {
         (Player, Enemy, BattelSpecific, this.CardResetCounter, CombatData) =
         (player, enemy, new BattelSpecificData(), cardResetCounter, new BattelCombatData());
+
+        // Противники должны знать друг о друге
+        Player.EnemyPerson = Enemy;
+        Enemy.EnemyPerson = Player;
 
         AssingNewState(initialState);
     }

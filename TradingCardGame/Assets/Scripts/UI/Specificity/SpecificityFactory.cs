@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class SpecificityFactory : ISpecificityFactory
+public class SpecificityFactory : ISFXFactory
 {
     public ISpecificity GetSpecificity(TypeSpecificityEnum type, Transform parent, 
         Action actFinish = null, Action destroySpecificity = null)

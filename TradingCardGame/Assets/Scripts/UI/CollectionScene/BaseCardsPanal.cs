@@ -59,7 +59,8 @@ public class BaseCardsPanal : MonoBehaviour
 
     protected virtual void CreatCardUI(int i)
     {
-        var card = cardFactory.GetCard(cards[i]).SetParent(transform).SetSortingOrder(i);
+        var card = cardFactory.GetCard(cards[i]);
+        card.View.SetParent(transform).SetSortingOrder(i);
         cardsUI.Add(card);
     }
 

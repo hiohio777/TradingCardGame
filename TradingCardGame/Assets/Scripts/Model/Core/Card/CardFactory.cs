@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardFactory : FactoryBase<CardUI>, ICardFactory<ICard>
+public class CardFactory : FactoryBase<Card>, ICardFactory<ICard>
 {
-    private readonly ISpecificityFactory specificityFactory;
+    private readonly ISFXFactory specificityFactory;
 
-    public CardFactory(ISpecificityFactory specificityFactory) => 
+    public CardFactory(ISFXFactory specificityFactory) => 
         this.specificityFactory = specificityFactory;
 
     public List<ICard> GetCards(List<ICardData> cardsData) => GetCards(cardsData, new Vector3(1, 1, 1));
@@ -23,17 +23,15 @@ public class CardFactory : FactoryBase<CardUI>, ICardFactory<ICard>
 
     public ICard GetCard(ICardData cardData, Vector3 scale)
     {
-        CardUI cardUI;
+        Card card;
 
-        if (buffer.Count > 0) cardUI = buffer.Pop();
+        if (buffer.Count > 0) card = buffer.Pop();
         else
         {
-            cardUI = UnityEngine.Object.Instantiate(Resources.Load<CardUI>($"Card/CardUI")).Initialize(Buffered, specificityFactory);
-            cardUI.SetCardUIStatus(CardUIStatus.CreatPrefab(cardUI.transform));
+            card = UnityEngine.Object.Instantiate(Resources.Load<Card>($"Card/CardUI")).Initial(Buffered, specificityFactory);
         }
 
-        cardUI.Build(cardData, scale);
-
-        return cardUI;
+        card.Build(cardData, scale);
+        return card;
     }
 }
