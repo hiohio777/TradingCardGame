@@ -12,13 +12,11 @@ namespace Zenject
         [Inject]
         DiContainer _container = null;
 
-        protected DiContainer Container
-        {
+        protected DiContainer Container {
             get { return _container; }
         }
 
-        bool IInstaller.IsEnabled
-        {
+        bool IInstaller.IsEnabled {
             get { return true; }
         }
 

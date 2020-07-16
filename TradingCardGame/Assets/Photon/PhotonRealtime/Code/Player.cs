@@ -17,18 +17,13 @@
 
 namespace Photon.Realtime
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using ExitGames.Client.Photon;
 
-    #if SUPPORTED_UNITY
-    using UnityEngine;
-    #endif
-    #if SUPPORTED_UNITY || NETFX_CORE
+#if SUPPORTED_UNITY
+#endif
+#if SUPPORTED_UNITY || NETFX_CORE
     using Hashtable = ExitGames.Client.Photon.Hashtable;
-    using SupportClass = ExitGames.Client.Photon.SupportClass;
-    #endif
+#endif
 
 
     /// <summary>
@@ -50,8 +45,7 @@ namespace Photon.Realtime
 
         /// <summary>Identifier of this player in current room. Also known as: actorNumber or actorNumber. It's -1 outside of rooms.</summary>
         /// <remarks>The ID is assigned per room and only valid in that context. It will change even on leave and re-join. IDs are never re-used per room.</remarks>
-        public int ActorNumber
-        {
+        public int ActorNumber {
             get { return this.actorNumber; }
         }
 
@@ -60,8 +54,7 @@ namespace Photon.Realtime
         public readonly bool IsLocal;
 
 
-        public bool HasRejoined
-        {
+        public bool HasRejoined {
             get; internal set;
         }
 
@@ -74,14 +67,11 @@ namespace Photon.Realtime
         /// A player might change his own playername in a room (it's only a property).
         /// Setting this value updates the server and other players (using an operation).
         /// </remarks>
-        public string NickName
-        {
-            get
-            {
+        public string NickName {
+            get {
                 return this.nickName;
             }
-            set
-            {
+            set {
                 if (!string.IsNullOrEmpty(this.nickName) && this.nickName.Equals(value))
                 {
                     return;
@@ -104,10 +94,8 @@ namespace Photon.Realtime
         /// <summary>
         /// True if this player is the Master Client of the current room.
         /// </summary>
-        public bool IsMasterClient
-        {
-            get
-            {
+        public bool IsMasterClient {
+            get {
                 if (this.RoomReference == null)
                 {
                     return false;
@@ -291,7 +279,7 @@ namespace Photon.Realtime
         /// </summary>
         public override string ToString()
         {
-            return string.Format("#{0:00} '{1}'",this.ActorNumber, this.NickName);
+            return string.Format("#{0:00} '{1}'", this.ActorNumber, this.NickName);
         }
 
         /// <summary>

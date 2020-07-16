@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SpecificityFactory : ISFXFactory
 {
-    public ISpecificity GetSpecificity(TypeSpecificityEnum type, Transform parent, 
+    public ISpecificity GetSpecificity(TypeSpecificityEnum type, Transform parent,
         Action actFinish = null, Action destroySpecificity = null)
     {
         if (type != TypeSpecificityEnum.Default)

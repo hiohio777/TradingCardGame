@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-public interface IBattelDataPanel
+﻿public interface IBattelDataPanel
 {
     void AssignBattelState(BattelStateEnum battelState);
 }

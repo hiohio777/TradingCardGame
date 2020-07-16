@@ -9,12 +9,10 @@
 // ----------------------------------------------------------------------------
 
 using System;
+using ExitGames.Client.Photon;
+using Photon.Pun;
 using UnityEditor;
 using UnityEngine;
-
-using Photon.Pun;
-
-using ExitGames.Client.Photon;
 
 [CustomEditor(typeof(ServerSettings))]
 public class ServerSettingsInspector : Editor

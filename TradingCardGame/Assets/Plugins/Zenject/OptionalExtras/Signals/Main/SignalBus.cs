@@ -39,13 +39,11 @@ namespace Zenject
             _parentBus = parentBus;
         }
 
-        public SignalBus ParentBus
-        {
+        public SignalBus ParentBus {
             get { return _parentBus; }
         }
 
-        public int NumSubscribers
-        {
+        public int NumSubscribers {
             get { return _subscriptionMap.Count; }
         }
 

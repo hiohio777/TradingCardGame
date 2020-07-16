@@ -15,7 +15,7 @@ public class StatisticsPanel : BaseCollectionPanelUI, ICollectionPanelUI, IIniti
 
     public void Initialize()
     {
-        
+
     }
 
     sealed public override void Enable(FractionsMenu fractionMenu)

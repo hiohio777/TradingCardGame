@@ -9,10 +9,8 @@ namespace ModestTree.Util
 {
     public static class UnityUtil
     {
-        public static IEnumerable<Scene> AllScenes
-        {
-            get
-            {
+        public static IEnumerable<Scene> AllScenes {
+            get {
                 for (int i = 0; i < SceneManager.sceneCount; i++)
                 {
                     yield return SceneManager.GetSceneAt(i);
@@ -20,33 +18,27 @@ namespace ModestTree.Util
             }
         }
 
-        public static IEnumerable<Scene> AllLoadedScenes
-        {
+        public static IEnumerable<Scene> AllLoadedScenes {
             get { return AllScenes.Where(scene => scene.isLoaded); }
         }
 
-        public static bool IsAltKeyDown
-        {
+        public static bool IsAltKeyDown {
             get { return Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt); }
         }
 
-        public static bool IsControlKeyDown
-        {
+        public static bool IsControlKeyDown {
             get { return Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl); }
         }
 
-        public static bool IsShiftKeyDown
-        {
+        public static bool IsShiftKeyDown {
             get { return Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift); }
         }
 
-        public static bool WasShiftKeyJustPressed
-        {
+        public static bool WasShiftKeyJustPressed {
             get { return Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift); }
         }
 
-        public static bool WasAltKeyJustPressed
-        {
+        public static bool WasAltKeyJustPressed {
             get { return Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt); }
         }
 

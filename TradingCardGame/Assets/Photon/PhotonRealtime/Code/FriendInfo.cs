@@ -15,12 +15,8 @@
 
 namespace Photon.Realtime
 {
-    using ExitGames.Client.Photon;
-
-    #if SUPPORTED_UNITY || NETFX_CORE
-    using Hashtable = ExitGames.Client.Photon.Hashtable;
-    using SupportClass = ExitGames.Client.Photon.SupportClass;
-    #endif
+#if SUPPORTED_UNITY || NETFX_CORE
+#endif
 
 
     /// <summary>
@@ -35,14 +31,13 @@ namespace Photon.Realtime
         public bool IsOnline { get; internal protected set; }
         public string Room { get; internal protected set; }
 
-        public bool IsInRoom
-        {
+        public bool IsInRoom {
             get { return this.IsOnline && !string.IsNullOrEmpty(this.Room); }
         }
 
         public override string ToString()
         {
-        return string.Format("{0}\t is: {1}", this.UserId, (!this.IsOnline) ? "offline" : this.IsInRoom ? "playing" : "on master");
+            return string.Format("{0}\t is: {1}", this.UserId, (!this.IsOnline) ? "offline" : this.IsInRoom ? "playing" : "on master");
         }
     }
 }

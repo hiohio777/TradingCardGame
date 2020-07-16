@@ -22,24 +22,19 @@ namespace Zenject
             _creator = creator;
         }
 
-        public bool IsCached
-        {
+        public bool IsCached {
             get { return true; }
         }
 
-        public bool TypeVariesBasedOnMemberType
-        {
-            get
-            {
+        public bool TypeVariesBasedOnMemberType {
+            get {
                 // Should not call this
                 throw Assert.CreateException();
             }
         }
 
-        public int NumInstances
-        {
-            get
-            {
+        public int NumInstances {
+            get {
 #if ZEN_MULTITHREADING
                 lock (_locker)
 #endif

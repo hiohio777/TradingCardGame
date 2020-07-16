@@ -11,8 +11,7 @@ namespace Zenject
             OnDespawnedMethod = OnDespawned;
         }
 
-        public static ListPool<T> Instance
-        {
+        public static ListPool<T> Instance {
             get { return _instance; }
         }
 

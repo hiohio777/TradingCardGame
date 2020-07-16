@@ -1,6 +1,4 @@
-﻿using System;
-
-public interface ICombatCard : ICardDataBase
+﻿public interface ICombatCard : ICardDataBase
 {
     ICardData CardData { get; }
     IAttackCard AttackCard { get; set; }

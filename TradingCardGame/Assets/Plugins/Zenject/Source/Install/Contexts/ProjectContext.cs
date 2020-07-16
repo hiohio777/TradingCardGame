@@ -40,20 +40,16 @@ namespace Zenject
 
         DiContainer _container;
 
-        public override DiContainer Container
-        {
+        public override DiContainer Container {
             get { return _container; }
         }
 
-        public static bool HasInstance
-        {
+        public static bool HasInstance {
             get { return _instance != null; }
         }
 
-        public static ProjectContext Instance
-        {
-            get
-            {
+        public static ProjectContext Instance {
+            get {
                 if (_instance == null)
                 {
                     InstantiateAndInitialize();
@@ -64,8 +60,7 @@ namespace Zenject
             }
         }
 
-        public static bool ValidateOnNextRun
-        {
+        public static bool ValidateOnNextRun {
             get;
             set;
         }
@@ -126,7 +121,7 @@ namespace Zenject
 
                     GameObject gameObjectInstance;
 #if UNITY_EDITOR
-                    if(prefabWasActive)
+                    if (prefabWasActive)
                     {
                         // This ensures the prefab's Awake() methods don't fire (and, if in the editor, that the prefab file doesn't get modified)
                         gameObjectInstance = GameObject.Instantiate(prefab, ZenUtilInternal.GetOrCreateInactivePrefabParent());
@@ -173,8 +168,7 @@ namespace Zenject
             }
         }
 
-        public bool ParentNewObjectsUnderContext
-        {
+        public bool ParentNewObjectsUnderContext {
             get { return _parentNewObjectsUnderContext; }
             set { _parentNewObjectsUnderContext = value; }
         }
@@ -187,10 +181,10 @@ namespace Zenject
         public void Awake()
         {
             if (Application.isPlaying)
-                // DontDestroyOnLoad can only be called when in play mode and otherwise produces errors
-                // ProjectContext is created during design time (in an empty scene) when running validation
-                // and also when running unit tests
-                // In these cases we don't need DontDestroyOnLoad so just skip it
+            // DontDestroyOnLoad can only be called when in play mode and otherwise produces errors
+            // ProjectContext is created during design time (in an empty scene) when running validation
+            // and also when running unit tests
+            // In these cases we don't need DontDestroyOnLoad so just skip it
             {
                 DontDestroyOnLoad(gameObject);
             }

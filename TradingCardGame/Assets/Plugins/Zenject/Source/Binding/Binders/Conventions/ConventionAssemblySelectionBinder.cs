@@ -15,8 +15,7 @@ namespace Zenject
             BindInfo = bindInfo;
         }
 
-        protected ConventionBindInfo BindInfo
-        {
+        protected ConventionBindInfo BindInfo {
             get;
             private set;
         }

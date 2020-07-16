@@ -63,13 +63,11 @@ namespace Zenject
         }
 #endif
 
-        public IEnumerable<ITickable> Tickables
-        {
+        public IEnumerable<ITickable> Tickables {
             get { return _tickables; }
         }
 
-        public bool IsPaused
-        {
+        public bool IsPaused {
             get { return _isPaused; }
             set { _isPaused = value; }
         }
@@ -186,7 +184,7 @@ namespace Zenject
 
         public void Update()
         {
-            if(IsPaused)
+            if (IsPaused)
             {
                 return;
             }
@@ -201,7 +199,7 @@ namespace Zenject
 
         public void FixedUpdate()
         {
-            if(IsPaused)
+            if (IsPaused)
             {
                 return;
             }
@@ -216,7 +214,7 @@ namespace Zenject
 
         public void LateUpdate()
         {
-            if(IsPaused)
+            if (IsPaused)
             {
                 return;
             }

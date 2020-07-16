@@ -20,13 +20,11 @@ namespace Zenject
         bool _hasLoadedScene;
         DiContainer _sceneContainer;
 
-        protected DiContainer SceneContainer
-        {
+        protected DiContainer SceneContainer {
             get { return _sceneContainer; }
         }
 
-        protected IEnumerable<DiContainer> SceneContainers
-        {
+        protected IEnumerable<DiContainer> SceneContainers {
             get { return _sceneContainers; }
         }
 

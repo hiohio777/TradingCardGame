@@ -19,8 +19,7 @@ namespace Zenject
             return CreateInternal(new List<TypeValuePair>());
         }
 
-        protected sealed override IEnumerable<Type> ParamTypes
-        {
+        protected sealed override IEnumerable<Type> ParamTypes {
             get { yield break; }
         }
     }
@@ -48,8 +47,7 @@ namespace Zenject
                 });
         }
 
-        protected sealed override IEnumerable<Type> ParamTypes
-        {
+        protected sealed override IEnumerable<Type> ParamTypes {
             get { yield return typeof(TParam1); }
         }
     }
@@ -78,10 +76,8 @@ namespace Zenject
                 });
         }
 
-        protected sealed override IEnumerable<Type> ParamTypes
-        {
-            get
-            {
+        protected sealed override IEnumerable<Type> ParamTypes {
+            get {
                 yield return typeof(TParam1);
                 yield return typeof(TParam2);
             }
@@ -113,10 +109,8 @@ namespace Zenject
                 });
         }
 
-        protected sealed override IEnumerable<Type> ParamTypes
-        {
-            get
-            {
+        protected sealed override IEnumerable<Type> ParamTypes {
+            get {
                 yield return typeof(TParam1);
                 yield return typeof(TParam2);
                 yield return typeof(TParam3);
@@ -150,10 +144,8 @@ namespace Zenject
                 });
         }
 
-        protected sealed override IEnumerable<Type> ParamTypes
-        {
-            get
-            {
+        protected sealed override IEnumerable<Type> ParamTypes {
+            get {
                 yield return typeof(TParam1);
                 yield return typeof(TParam2);
                 yield return typeof(TParam3);
@@ -190,10 +182,8 @@ namespace Zenject
                 });
         }
 
-        protected sealed override IEnumerable<Type> ParamTypes
-        {
-            get
-            {
+        protected sealed override IEnumerable<Type> ParamTypes {
+            get {
                 yield return typeof(TParam1);
                 yield return typeof(TParam2);
                 yield return typeof(TParam3);
@@ -232,10 +222,8 @@ namespace Zenject
                 });
         }
 
-        protected sealed override IEnumerable<Type> ParamTypes
-        {
-            get
-            {
+        protected sealed override IEnumerable<Type> ParamTypes {
+            get {
                 yield return typeof(TParam1);
                 yield return typeof(TParam2);
                 yield return typeof(TParam3);
@@ -275,10 +263,8 @@ namespace Zenject
                 });
         }
 
-        protected sealed override IEnumerable<Type> ParamTypes
-        {
-            get
-            {
+        protected sealed override IEnumerable<Type> ParamTypes {
+            get {
                 yield return typeof(TParam1);
                 yield return typeof(TParam2);
                 yield return typeof(TParam3);

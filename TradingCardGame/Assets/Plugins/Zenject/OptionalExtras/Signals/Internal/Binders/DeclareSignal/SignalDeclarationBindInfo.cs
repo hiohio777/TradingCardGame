@@ -10,28 +10,23 @@ namespace Zenject
             SignalType = signalType;
         }
 
-        public object Identifier
-        {
+        public object Identifier {
             get; set;
         }
 
-        public Type SignalType
-        {
+        public Type SignalType {
             get; private set;
         }
 
-        public bool RunAsync
-        {
+        public bool RunAsync {
             get; set;
         }
 
-        public int TickPriority
-        {
+        public int TickPriority {
             get; set;
         }
 
-        public SignalMissingHandlerResponses MissingHandlerResponse
-        {
+        public SignalMissingHandlerResponses MissingHandlerResponse {
             get; set;
         }
     }

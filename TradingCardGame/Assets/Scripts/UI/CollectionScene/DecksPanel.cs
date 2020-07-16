@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +10,7 @@ public class DecksPanel : BaseCollectionPanelUI, ICollectionPanelUI, IInitializa
     private IFractionsData fractions;
     private IUserData userDecks;
     private IEditorDeckPanel editorDeck;
-    private List<IDeck> decks = new List<IDeck>(); 
+    private List<IDeck> decks = new List<IDeck>();
 
     [SerializeField] private Transform panel = null;
     [SerializeField] private Button newDeckButton = null;
@@ -39,7 +38,7 @@ public class DecksPanel : BaseCollectionPanelUI, ICollectionPanelUI, IInitializa
 
     public override void Enable(FractionsMenu fractionMenu)
     {
-        if(parent != null) parent.gameObject.SetActive(true);
+        if (parent != null) parent.gameObject.SetActive(true);
 
         if (fractions.CurrentFraction.Name == "neutral")
             fractions.CurrentFraction = fractions.Fractions[0];

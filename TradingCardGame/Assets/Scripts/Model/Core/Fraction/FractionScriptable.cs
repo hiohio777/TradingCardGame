@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "FractionScriptable", menuName = "Data/Fraction", order = 52)]
 public class FractionScriptable : ScriptableObject, IFraction

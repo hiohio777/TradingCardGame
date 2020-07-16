@@ -12,13 +12,11 @@ namespace Zenject
         readonly LinkedList<TaskInfo> _tasks = new LinkedList<TaskInfo>();
         readonly List<TaskInfo> _queuedTasks = new List<TaskInfo>();
 
-        IEnumerable<TaskInfo> AllTasks
-        {
+        IEnumerable<TaskInfo> AllTasks {
             get { return ActiveTasks.Concat(_queuedTasks); }
         }
 
-        IEnumerable<TaskInfo> ActiveTasks
-        {
+        IEnumerable<TaskInfo> ActiveTasks {
             get { return _tasks; }
         }
 

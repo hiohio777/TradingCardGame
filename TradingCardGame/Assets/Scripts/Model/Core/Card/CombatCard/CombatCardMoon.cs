@@ -1,11 +1,10 @@
 ﻿using System;
-using UnityEngine;
 
 public class CombatCardMoon : BaseCombatCard, ICombatCard
 {
     public CombatCardMoon(ICardUIParameters parameters, ICardData cardData, Action<TypeSpecificityEnum> startSpecificity)
         : base(parameters, cardData, startSpecificity)
-        { }
+    { }
 
     public override bool StandardDamage(IAttackCard enemy)
     {

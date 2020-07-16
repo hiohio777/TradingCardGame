@@ -11,9 +11,9 @@
 
 namespace Photon.Pun
 {
-    using UnityEngine;
-    using Photon.Realtime;
     using ExitGames.Client.Photon;
+    using Photon.Realtime;
+    using UnityEngine;
 
 
     /// <summary>
@@ -25,10 +25,10 @@ namespace Photon.Pun
         /// <summary>Register</summary>
         internal static void Register()
         {
-            PhotonPeer.RegisterType(typeof(Vector2), (byte) 'W', SerializeVector2, DeserializeVector2);
-            PhotonPeer.RegisterType(typeof(Vector3), (byte) 'V', SerializeVector3, DeserializeVector3);
-            PhotonPeer.RegisterType(typeof(Quaternion), (byte) 'Q', SerializeQuaternion, DeserializeQuaternion);
-            PhotonPeer.RegisterType(typeof(Player), (byte) 'P', SerializePhotonPlayer, DeserializePhotonPlayer);
+            PhotonPeer.RegisterType(typeof(Vector2), (byte)'W', SerializeVector2, DeserializeVector2);
+            PhotonPeer.RegisterType(typeof(Vector3), (byte)'V', SerializeVector3, DeserializeVector3);
+            PhotonPeer.RegisterType(typeof(Quaternion), (byte)'Q', SerializeQuaternion, DeserializeQuaternion);
+            PhotonPeer.RegisterType(typeof(Player), (byte)'P', SerializePhotonPlayer, DeserializePhotonPlayer);
         }
 
 
@@ -38,7 +38,7 @@ namespace Photon.Pun
 
         private static short SerializeVector3(StreamBuffer outStream, object customobject)
         {
-            Vector3 vo = (Vector3) customobject;
+            Vector3 vo = (Vector3)customobject;
 
             int index = 0;
             lock (memVector3)
@@ -73,7 +73,7 @@ namespace Photon.Pun
 
         private static short SerializeVector2(StreamBuffer outStream, object customobject)
         {
-            Vector2 vo = (Vector2) customobject;
+            Vector2 vo = (Vector2)customobject;
             lock (memVector2)
             {
                 byte[] bytes = memVector2;
@@ -105,7 +105,7 @@ namespace Photon.Pun
 
         private static short SerializeQuaternion(StreamBuffer outStream, object customobject)
         {
-            Quaternion o = (Quaternion) customobject;
+            Quaternion o = (Quaternion)customobject;
 
             lock (memQuarternion)
             {
@@ -142,7 +142,7 @@ namespace Photon.Pun
 
         private static short SerializePhotonPlayer(StreamBuffer outStream, object customobject)
         {
-            int ID = ((Player) customobject).ActorNumber;
+            int ID = ((Player)customobject).ActorNumber;
 
             lock (memPlayer)
             {

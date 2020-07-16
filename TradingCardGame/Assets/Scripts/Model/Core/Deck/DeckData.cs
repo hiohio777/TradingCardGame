@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public class DeckData : IDeckData
 {
@@ -14,7 +11,7 @@ public class DeckData : IDeckData
     private const byte max = 6, maxCountAllCards = 24; //Максимальное количество карт, по инициативе и вцелом
     private byte[] initiativeCards = new byte[4];
 
-    private DeckData() {  }
+    private DeckData() { }
     public DeckData(string name, string fraction, StatusDeckEnum status) =>
         (Name, Fraction, Status) = (name, fraction, status);
     public DeckData(string name, string fraction, List<string> stringCards, List<ICardData> cards)

@@ -13,8 +13,7 @@ namespace Zenject
             OnDespawnedMethod = OnDespawned;
         }
 
-        public static DictionaryPool<TKey, TValue> Instance
-        {
+        public static DictionaryPool<TKey, TValue> Instance {
             get { return _instance; }
         }
 

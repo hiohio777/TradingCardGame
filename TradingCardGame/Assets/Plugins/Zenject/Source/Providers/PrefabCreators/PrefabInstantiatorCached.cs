@@ -19,18 +19,15 @@ namespace Zenject
             _subInstantiator = subInstantiator;
         }
 
-        public List<TypeValuePair> ExtraArguments
-        {
+        public List<TypeValuePair> ExtraArguments {
             get { return _subInstantiator.ExtraArguments; }
         }
 
-        public Type ArgumentTarget
-        {
+        public Type ArgumentTarget {
             get { return _subInstantiator.ArgumentTarget; }
         }
 
-        public GameObjectCreationParameters GameObjectCreationParameters
-        {
+        public GameObjectCreationParameters GameObjectCreationParameters {
             get { return _subInstantiator.GameObjectCreationParameters; }
         }
 

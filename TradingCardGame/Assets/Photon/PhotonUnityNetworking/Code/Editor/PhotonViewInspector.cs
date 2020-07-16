@@ -9,10 +9,9 @@
 // ----------------------------------------------------------------------------
 
 using System;
+using Photon.Realtime;
 using UnityEditor;
 using UnityEngine;
-
-using Photon.Realtime;
 
 namespace Photon.Pun
 {
@@ -24,7 +23,7 @@ namespace Photon.Pun
         public override void OnInspectorGUI()
         {
             this.m_Target = (PhotonView)this.target;
-			bool isProjectPrefab = PhotonEditorUtils.IsPrefab(this.m_Target.gameObject);
+            bool isProjectPrefab = PhotonEditorUtils.IsPrefab(this.m_Target.gameObject);
 
             if (this.m_Target.ObservedComponents == null)
             {
@@ -41,7 +40,7 @@ namespace Photon.Pun
             // Owner
             if (isProjectPrefab)
             {
-				EditorGUILayout.LabelField("Owner", "<i>Set at runtime</i>", new GUIStyle("Label") { richText = true }, GUILayout.MinWidth(120));
+                EditorGUILayout.LabelField("Owner", "<i>Set at runtime</i>", new GUIStyle("Label") { richText = true }, GUILayout.MinWidth(120));
             }
             else if (!this.m_Target.IsOwnerActive)
             {
@@ -62,7 +61,7 @@ namespace Photon.Pun
 
             // ownership requests
             EditorGUI.BeginDisabledGroup(Application.isPlaying);
-            OwnershipOption own = (OwnershipOption) EditorGUILayout.EnumPopup(this.m_Target.OwnershipTransfer, GUILayout.MaxWidth(68), GUILayout.MinWidth(68));
+            OwnershipOption own = (OwnershipOption)EditorGUILayout.EnumPopup(this.m_Target.OwnershipTransfer, GUILayout.MaxWidth(68), GUILayout.MinWidth(68));
             if (own != this.m_Target.OwnershipTransfer)
             {
                 // jf: fixed 5 and up prefab not accepting changes if you quit Unity straight after change.
@@ -113,7 +112,7 @@ namespace Photon.Pun
 
             if (this.m_Target.Synchronization != ViewSynchronization.Off && this.m_Target.ObservedComponents.FindAll(item => item != null).Count == 0)
             {
-                EditorGUILayout.HelpBox("Syncronization is enabled, but no " +typeof(IPunObservable).Name + " Components have been added to Observables List.", MessageType.Warning);
+                EditorGUILayout.HelpBox("Syncronization is enabled, but no " + typeof(IPunObservable).Name + " Components have been added to Observables List.", MessageType.Warning);
             }
 
             GUI.color = Color.white;
@@ -257,9 +256,9 @@ namespace Photon.Pun
                             else if (!typeof(IPunObservable).IsAssignableFrom(_newType))
                             {
                                 bool _ignore = false;
-                                #if PLAYMAKER
+#if PLAYMAKER
                                 _ignore = _newType == typeof(PlayMakerFSM);// Photon Integration for PlayMaker will swap at runtime to a proxy using iPunObservable.
-                                #endif
+#endif
 
                                 if (_newType == null || _newType == typeof(Rigidbody) || _newType == typeof(Rigidbody2D))
                                 {

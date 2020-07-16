@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Общие настройки игры
-/// </summary>
 public class SettingsData : ISettingsData
 {
     public SettingsData()
     {
-        LocalisationGame.Instance.ChangeLanguage(PlayerPrefs.GetString("Language", "english"));
     }
 
     public string CurrentLanguage => LocalisationGame.Instance.CurrentLanguage;

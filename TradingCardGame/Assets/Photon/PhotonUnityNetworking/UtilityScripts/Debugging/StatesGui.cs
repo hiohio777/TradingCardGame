@@ -7,8 +7,8 @@
 // <author>developer@exitgames.com</author>
 // --------------------------------------------------------------------------------------------------------------------
 
-using UnityEngine;
 using Photon.Realtime;
+using UnityEngine;
 
 namespace Photon.Pun.UtilityScripts
 {
@@ -48,7 +48,7 @@ namespace Photon.Pun.UtilityScripts
                 Instance = this;
                 DontDestroyOnLoad(this.gameObject);
             }
-            
+
             if (EventsIn)
             {
                 PhotonNetwork.NetworkingClient.LoadBalancingPeer.TrafficStatsEnabled = true;
@@ -71,7 +71,7 @@ namespace Photon.Pun.UtilityScripts
             //set up scaling
             float rx = Screen.width / native_width;
             float ry = Screen.height / native_height;
-            GUI.matrix = Matrix4x4.TRS (new Vector3(0, 0, 0), Quaternion.identity, new Vector3 (rx, ry, 1)); 
+            GUI.matrix = Matrix4x4.TRS(new Vector3(0, 0, 0), Quaternion.identity, new Vector3(rx, ry, 1));
 
             Rect GuiOffsetRuntime = new Rect(this.GuiOffset);
 
@@ -128,7 +128,7 @@ namespace Photon.Pun.UtilityScripts
             if (EventsIn)
             {
                 int fragments = PhotonNetwork.NetworkingClient.LoadBalancingPeer.TrafficStatsIncoming.FragmentCommandCount;
-                GUILayout.Label("Events Received: "+PhotonNetwork.NetworkingClient.LoadBalancingPeer.TrafficStatsGameLevel.EventCount + " Fragments: "+fragments);
+                GUILayout.Label("Events Received: " + PhotonNetwork.NetworkingClient.LoadBalancingPeer.TrafficStatsGameLevel.EventCount + " Fragments: " + fragments);
             }
 
 

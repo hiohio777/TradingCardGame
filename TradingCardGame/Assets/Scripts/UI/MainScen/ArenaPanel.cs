@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-public class ArenaPanel : PanelUI, IPanelUI, IInitializable
+public class ArenaPanel : PanelUI, IPanelUI
 {
+    public PanelNameEnum Name { get; } = PanelNameEnum.Arena;
     private IUserData decksCollection;
-
     [SerializeField] private List<BattelMenuButton> menuButtons = null;
 
     [Inject]
     public void InjectMetod(IUserData decksCollection)
     {
         this.decksCollection = decksCollection;
-    }
-
-    public void Initialize()
-    {
         menuButtons.ForEach(x => x.SetListener(OnSelectBattel));
     }
 

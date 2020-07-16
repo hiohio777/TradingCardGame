@@ -54,7 +54,7 @@ public class ReservLocation : ActionModuleEvent
             if (i > temp) yTemp -= y;
 
             var pos = new Vector3(offset * i - offsetTemp, yPosition + yTemp, 0);
-            cards[i].View.SetSortingOrder(i + 1); 
+            cards[i].View.SetSortingOrder(i + 1);
             cards[i].Moving.SetPosition(pos).SetRotation(zTemp).Run(0.3f, Final);
 
             if (i != temp - 1) zTemp -= z;

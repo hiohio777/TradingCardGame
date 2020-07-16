@@ -109,7 +109,7 @@ public class MovingCard : MonoBehaviour, IMovingCard
     private IEnumerator Resize()
     {
         yield return new WaitForSeconds(waitTime);
-        var target = new Vector3(scaleTarget, scaleTarget, scaleTarget);  
+        var target = new Vector3(scaleTarget, scaleTarget, scaleTarget);
         float speedMove = Vector2.Distance(_transform.localScale, target) / time;
 
         while (_transform.localScale != target)

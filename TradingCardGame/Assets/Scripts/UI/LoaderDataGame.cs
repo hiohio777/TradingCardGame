@@ -7,7 +7,7 @@ public class LoaderDataGame : ILoaderDataGame
     private IUserData userData;
     private INetworkManager networkManager;
     private ICollectionCardsData collection;
-    private bool isLosd = false;
+    private static bool isLosd = false;
 
     public LoaderDataGame(IUserData userData, INetworkManager networkManager,
         ICollectionCardsData collection)
@@ -24,7 +24,7 @@ public class LoaderDataGame : ILoaderDataGame
         InitiateUserData(networkManager.GetUserData("login", "password"));
         Debug.Log("Data uploaded!");
         isLosd = true;
-        application.StartMainScen();
+        application.StartGame();
     }
 
     public void Save()
@@ -45,7 +45,7 @@ public class LoaderDataGame : ILoaderDataGame
 
         userData.Initialize(data.user.login, data.user.gold, data.user.ram);
         foreach (var item in data)
-            userData.AddNewDeck(item.name, item.fraction, item.stringCards, collection.GetCards(item.stringCards) );
+            userData.AddNewDeck(item.name, item.fraction, item.stringCards, collection.GetCards(item.stringCards));
     }
 
     private string GetUserJ()

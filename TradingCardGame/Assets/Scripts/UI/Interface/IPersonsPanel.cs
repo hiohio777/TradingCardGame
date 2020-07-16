@@ -1,5 +1,3 @@
-﻿using UnityEngine;
-
-public interface IPersonsPanel
+﻿public interface IPersonsPanel
 {
 }

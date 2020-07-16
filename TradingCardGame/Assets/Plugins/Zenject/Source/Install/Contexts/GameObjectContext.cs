@@ -25,8 +25,7 @@ namespace Zenject
 
         DiContainer _container;
 
-        public override DiContainer Container
-        {
+        public override DiContainer Container {
             get { return _container; }
         }
 

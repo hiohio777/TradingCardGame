@@ -24,10 +24,8 @@ namespace Zenject
         [NonSerialized]
         GUIStyle _errorTextStyle;
 
-        GUIStyle ErrorTextStyle
-        {
-            get
-            {
+        GUIStyle ErrorTextStyle {
+            get {
                 if (_errorTextStyle == null)
                 {
                     _errorTextStyle = new GUIStyle(GUI.skin.label);
@@ -41,8 +39,7 @@ namespace Zenject
             }
         }
 
-        protected DiContainer Container
-        {
+        protected DiContainer Container {
             get { return _container; }
         }
 

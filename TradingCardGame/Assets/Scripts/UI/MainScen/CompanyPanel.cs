@@ -1,16 +1,11 @@
-﻿using UnityEngine;
-using Zenject;
+﻿using Zenject;
 
-public class CompanyPanel : PanelUI, IPanelUI, IInitializable
+public class CompanyPanel : PanelUI, IPanelUI
 {
+    public PanelNameEnum Name { get; } = PanelNameEnum.Company;
+
     [Inject]
     public void InjectMetod()
     {
-        
-    }
-
-    public void Initialize()
-    {
-       
     }
 }

@@ -9,10 +9,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Collections;
-
-using UnityEngine;
-
 using Photon.Pun.UtilityScripts;
+using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace Photon.Pun.Demo.Asteroids
@@ -143,9 +141,9 @@ namespace Photon.Pun.Demo.Asteroids
                 object lives;
                 if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(AsteroidsGame.PLAYER_LIVES, out lives))
                 {
-                    PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable {{AsteroidsGame.PLAYER_LIVES, ((int) lives <= 1) ? 0 : ((int) lives - 1)}});
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable { { AsteroidsGame.PLAYER_LIVES, ((int)lives <= 1) ? 0 : ((int)lives - 1) } });
 
-                    if (((int) lives) > 1)
+                    if (((int)lives) > 1)
                     {
                         StartCoroutine("WaitForRespawn");
                     }
@@ -156,7 +154,7 @@ namespace Photon.Pun.Demo.Asteroids
         [PunRPC]
         public void Fire(Vector3 position, Quaternion rotation, PhotonMessageInfo info)
         {
-            float lag = (float) (PhotonNetwork.Time - info.SentServerTime);
+            float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
             GameObject bullet;
 
             /** Use this if you want to fire one bullet at a time **/
@@ -188,7 +186,7 @@ namespace Photon.Pun.Demo.Asteroids
             EngineTrail.SetActive(true);
             Destruction.Stop();
         }
-        
+
         #endregion
 
         private void CheckExitScreen()
@@ -197,7 +195,7 @@ namespace Photon.Pun.Demo.Asteroids
             {
                 return;
             }
-            
+
             if (Mathf.Abs(rigidbody.position.x) > (Camera.main.orthographicSize * Camera.main.aspect))
             {
                 rigidbody.position = new Vector3(-Mathf.Sign(rigidbody.position.x) * Camera.main.orthographicSize * Camera.main.aspect, 0, rigidbody.position.z);

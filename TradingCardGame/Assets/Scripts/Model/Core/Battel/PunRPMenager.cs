@@ -1,14 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using Photon.Pun;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PunRPMenager : MonoBehaviourPunCallbacks
 {
     private RatingBattelScene battelScene;
 
-    private void Awake() 
+    private void Awake()
     {
         battelScene = FindObjectOfType<RatingBattelScene>();
         battelScene.Battel.SendReportRPC += ToCallRPC;

@@ -96,7 +96,7 @@ public class CardsDeckPanelUI : MonoBehaviour
 
         textInfo.text = $"{typePanel}: {cards.Count} / {maxCountCards}";
 
-        if(cards.Count == 0) textNoCards.gameObject.SetActive(true);
+        if (cards.Count == 0) textNoCards.gameObject.SetActive(true);
         else textNoCards.gameObject.SetActive(false);
     }
 

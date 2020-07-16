@@ -12,15 +12,13 @@
 namespace Photon.Pun
 {
     using System;
-    using System.Linq;
-    using UnityEngine;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
-
     using ExitGames.Client.Photon;
     using Photon.Realtime;
-
+    using UnityEngine;
     using Hashtable = ExitGames.Client.Photon.Hashtable;
     using SupportClassPun = ExitGames.Client.Photon.SupportClass;
 
@@ -44,13 +42,11 @@ namespace Photon.Pun
         /// </remarks>
         /// <value>The photon views.</value>
         [System.Obsolete("Use PhotonViewCollection instead for an iterable collection of current photonViews.")]
-        public static PhotonView[] PhotonViews
-        {
-            get
-            {
+        public static PhotonView[] PhotonViews {
+            get {
                 var views = new PhotonView[photonViewList.Count];
                 int idx = 0;
-                foreach(var v in photonViewList.Values)
+                foreach (var v in photonViewList.Values)
                 {
                     views[idx] = v;
                     idx++;
@@ -62,13 +58,11 @@ namespace Photon.Pun
         /// <summary>
         /// Returns an iterable collection of current photon views.
         /// </summary>
-        public static NonAllocDictionary<int, PhotonView>.ValueIterator PhotonViewCollection
-        {
+        public static NonAllocDictionary<int, PhotonView>.ValueIterator PhotonViewCollection {
             get { return photonViewList.Values; }
         }
 
-        public static int ViewCount
-        {
+        public static int ViewCount {
             get { return photonViewList.Count; }
         }
 
@@ -156,14 +150,11 @@ namespace Photon.Pun
         /// To use a GameObject pool, implement IPunPrefabPool and assign it here.
         /// Prefabs are identified by name.
         /// </remarks>
-        public static IPunPrefabPool PrefabPool
-        {
-            get
-            {
+        public static IPunPrefabPool PrefabPool {
+            get {
                 return prefabPool;
             }
-            set
-            {
+            set {
                 if (value == null)
                 {
                     Debug.LogWarning("PhotonNetwork.PrefabPool cannot be set to null. It will default back to using the 'DefaultPool' Pool");
@@ -218,10 +209,8 @@ namespace Photon.Pun
         /// Once any scene completed loading, it stays at 1 (signaling "done").</br>
         /// </remarks>
         /// <value>The level loading progress. Ranges from 0 to 1.</value>
-        public static float LevelLoadingProgress
-        {
-            get
-            {
+        public static float LevelLoadingProgress {
+            get {
                 if (_AsyncLevelLoadingOperation != null)
                 {
                     _levelLoadingProgress = _AsyncLevelLoadingOperation.progress;
@@ -653,7 +642,7 @@ namespace Photon.Pun
 
             for (int index = 0; index < callParameterTypes.Length; index++)
             {
-                #if NETFX_CORE
+#if NETFX_CORE
                 TypeInfo methodParamTI = methodParameters[index].ParameterType.GetTypeInfo();
                 TypeInfo callParamTI = callParameterTypes[index].GetTypeInfo();
 
@@ -661,13 +650,13 @@ namespace Photon.Pun
                 {
                     return false;
                 }
-                #else
+#else
                 Type type = methodParameters[index].ParameterType;
                 if (callParameterTypes[index] != null && !type.IsAssignableFrom(callParameterTypes[index]) && !(type.IsEnum && System.Enum.GetUnderlyingType(type).IsAssignableFrom(callParameterTypes[index])))
                 {
                     return false;
                 }
-                #endif
+#endif
             }
 
             return true;
@@ -697,7 +686,7 @@ namespace Photon.Pun
 
             // locally cleaning up that player's objects
             HashSet<GameObject> playersGameObjects = new HashSet<GameObject>();
-            
+
             // with ownership transfer, some objects might lose their owner.
             // in that case, the creator becomes the owner again. every client can apply  done below.
             foreach (PhotonView view in photonViewList.Values)
@@ -886,8 +875,8 @@ namespace Photon.Pun
             ExitGames.Client.Photon.Hashtable evData = new ExitGames.Client.Photon.Hashtable();
             evData[(byte)0] = actorNr;
 
-            PhotonNetwork.RaiseEventInternal(PunEvent.DestroyPlayer, evData,null, SendOptions.SendReliable);
-          	//NetworkingClient.OpRaiseEvent(PunEvent.DestroyPlayer, evData, null, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEventInternal(PunEvent.DestroyPlayer, evData, null, SendOptions.SendReliable);
+            //NetworkingClient.OpRaiseEvent(PunEvent.DestroyPlayer, evData, null, SendOptions.SendReliable);
             //NetworkingClient.OpRaiseEvent(PunEvent.DestroyPlayer, evData, true, 0, EventCaching.DoNotCache, ReceiverGroup.Others);
         }
 
@@ -896,7 +885,7 @@ namespace Photon.Pun
             ExitGames.Client.Photon.Hashtable evData = new ExitGames.Client.Photon.Hashtable();
             evData[(byte)0] = -1;
 
-            PhotonNetwork.RaiseEventInternal(PunEvent.DestroyPlayer, evData,null, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEventInternal(PunEvent.DestroyPlayer, evData, null, SendOptions.SendReliable);
             //NetworkingClient.OpRaiseEvent(PunEvent.DestroyPlayer, evData, null , SendOptions.SendReliable);
             //NetworkingClient.OpRaiseEvent(PunEvent.DestroyPlayer, evData, true, 0, EventCaching.DoNotCache, ReceiverGroup.Others);
         }
@@ -2092,7 +2081,7 @@ namespace Photon.Pun
             if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey(CurrentSceneProperty))
             {
                 object levelIdInProps = PhotonNetwork.CurrentRoom.CustomProperties[CurrentSceneProperty];
-               //Debug.Log("levelId (to set): "+ levelId + " levelIdInProps: " + levelIdInProps + " SceneManagerHelper.ActiveSceneName: "+ SceneManagerHelper.ActiveSceneName);
+                //Debug.Log("levelId (to set): "+ levelId + " levelIdInProps: " + levelIdInProps + " SceneManagerHelper.ActiveSceneName: "+ SceneManagerHelper.ActiveSceneName);
 
                 if (levelId.Equals(levelIdInProps))
                 {
@@ -2192,7 +2181,7 @@ namespace Photon.Pun
                     break;
 
                 case PunEvent.Instantiation:
-                    NetworkInstantiate((Hashtable) photonEvent.CustomData, originatingPlayer);
+                    NetworkInstantiate((Hashtable)photonEvent.CustomData, originatingPlayer);
                     break;
 
                 case PunEvent.CloseConnection:
@@ -2210,8 +2199,8 @@ namespace Photon.Pun
                     break;
 
                 case PunEvent.DestroyPlayer:
-                    Hashtable evData = (Hashtable) photonEvent.CustomData;
-                    int targetPlayerId = (int) evData[(byte) 0];
+                    Hashtable evData = (Hashtable)photonEvent.CustomData;
+                    int targetPlayerId = (int)evData[(byte)0];
                     if (targetPlayerId >= 0)
                     {
                         DestroyPlayerObjects(targetPlayerId, true);
@@ -2329,7 +2318,7 @@ namespace Photon.Pun
                         PhotonView requestedView = GetPhotonView(requestedViewId);
 
                         // Only apply this if pv allows Takeover, or allows Request and this message originates from the controller or owner.
-                        if (requestedView.OwnershipTransfer == OwnershipOption.Takeover || 
+                        if (requestedView.OwnershipTransfer == OwnershipOption.Takeover ||
                            (requestedView.OwnershipTransfer == OwnershipOption.Request && (originatingPlayer == requestedView.Controller || originatingPlayer == requestedView.Owner)))
                         {
                             if (requestedView != null)
@@ -2349,7 +2338,7 @@ namespace Photon.Pun
                         else if (PhotonNetwork.LogLevel >= PunLogLevel.Informational)
                         {
                             if (requestedView.OwnershipTransfer == OwnershipOption.Request)
-                                Debug.Log("Failed incoming OwnershipTransfer attempt for '" + requestedView.name + "; " + requestedViewId + 
+                                Debug.Log("Failed incoming OwnershipTransfer attempt for '" + requestedView.name + "; " + requestedViewId +
                                     " - photonView has OwnershipTransfer set to OwnershipOption.Request, but Player attempting to change owner is not the current owner/controller.");
                             else
                                 Debug.Log("Failed incoming OwnershipTransfer attempt for '" + requestedView.name + "; " + requestedViewId +
@@ -2383,7 +2372,7 @@ namespace Photon.Pun
                         }
                         break;
                     }
-                   
+
 
             }
         }

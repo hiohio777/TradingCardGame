@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -31,7 +30,7 @@ public class CollectionScene : BaseScene, IInitializable
         menuButtons.ForEach(x => x.AddListener(OnSelectPanel));
         mainMenu.SetAsLastSibling();
 
-        backMainMenuButton.onClick.AddListener(() => SceneManager.LoadScene(ScenesEnum.MainScene.ToString()));
+        backMainMenuButton.onClick.AddListener(() => SceneManager.LoadScene(PanelNameEnum.MainScene.ToString()));
         backMainMenuButton.transform.SetAsLastSibling();
 
         fractionMenu.Initialize(fractions.Fractions);

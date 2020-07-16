@@ -12,7 +12,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 using UnityEditor;
 using UnityEditor.Callbacks;
@@ -92,7 +91,7 @@ namespace Photon.Pun
         /// third parties custom token
         /// </summary>
         public static string CustomToken = null;
-        
+
         protected static string DocumentationLocation = "Assets/Photon/PhotonNetworking-Documentation.pdf";
 
         protected static string UrlFreeLicense = "https://dashboard.photonengine.com/en-US/SelfHosted";
@@ -142,19 +141,19 @@ namespace Photon.Pun
         // setup once on load
         static PhotonEditor()
         {
-            #if UNITY_2017_2_OR_NEWER
+#if UNITY_2017_2_OR_NEWER
             EditorApplication.playModeStateChanged += PlaymodeStateChanged;
-            #else
+#else
             EditorApplication.playmodeStateChanged += PlaymodeStateChanged;
-            #endif
+#endif
 
-            #if (UNITY_2018 || UNITY_2018_1_OR_NEWER)
+#if (UNITY_2018 || UNITY_2018_1_OR_NEWER)
             EditorApplication.projectChanged += OnProjectChanged;
             EditorApplication.hierarchyChanged += OnInitialHierarchyChanged;
-            #else
+#else
             EditorApplication.projectWindowChanged += OnProjectChanged;
             EditorApplication.hierarchyWindowChanged += OnInitialHierarchyChanged;
-            #endif
+#endif
 
             CompilationPipeline.assemblyCompilationStarted += OnCompileStarted;
         }
@@ -193,11 +192,11 @@ namespace Photon.Pun
 
         private static void OnInitialHierarchyChanged()
         {
-            #if (UNITY_2018 || UNITY_2018_1_OR_NEWER)
+#if (UNITY_2018 || UNITY_2018_1_OR_NEWER)
             EditorApplication.hierarchyChanged -= OnInitialHierarchyChanged;
-            #else
+#else
             EditorApplication.hierarchyWindowChanged -= OnInitialHierarchyChanged;
-            #endif
+#endif
 
             UpdateRpcList();
         }
@@ -223,12 +222,12 @@ namespace Photon.Pun
         {
             // Prevent issues with Unity Cloud Builds where ServerSettings are not found.
             // Also, within the context of a Unity Cloud Build, ServerSettings is already present anyway.
-            #if UNITY_CLOUD_BUILD
+#if UNITY_CLOUD_BUILD
             return;   
-            #endif
-            
+#endif
+
             PunSceneSettings.SanitizeSettings();
-            
+
             if (PhotonNetwork.PhotonServerSettings == null)
             {
                 PhotonNetwork.CreateSettings();
@@ -251,11 +250,11 @@ namespace Photon.Pun
         }
 
         // called in editor on change of play-mode (used to show a message popup that connection settings are incomplete)
-        #if UNITY_2017_2_OR_NEWER
+#if UNITY_2017_2_OR_NEWER
         private static void PlaymodeStateChanged(PlayModeStateChange state)
-        #else
+#else
         private static void PlaymodeStateChanged()
-        #endif
+#endif
         {
             if (EditorApplication.isPlaying || !EditorApplication.isPlayingOrWillChangePlaymode)
             {
@@ -582,13 +581,13 @@ namespace Photon.Pun
             EditorUtility.ClearProgressBar();
             if (res.ReturnCode == AccountServiceReturnCodes.Success)
             {
-                string key = ((int) ServiceTypes.Pun).ToString();
+                string key = ((int)ServiceTypes.Pun).ToString();
                 string appId;
                 if (res.ApplicationIds.TryGetValue(key, out appId))
                 {
                     this.mailOrAppId = appId;
                     PhotonNetwork.PhotonServerSettings.UseCloud(this.mailOrAppId, null);
-                    key = ((int) ServiceTypes.Chat).ToString();
+                    key = ((int)ServiceTypes.Chat).ToString();
                     if (res.ApplicationIds.TryGetValue(key, out appId))
                     {
                         PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat = appId;
@@ -597,7 +596,7 @@ namespace Photon.Pun
                     {
                         Debug.LogWarning("Registration successful but no Chat AppId returned");
                     }
-                    key = ((int) ServiceTypes.Voice).ToString();
+                    key = ((int)ServiceTypes.Voice).ToString();
                     if (res.ApplicationIds.TryGetValue(key, out appId))
                     {
                         PhotonNetwork.PhotonServerSettings.AppSettings.AppIdVoice = appId;
@@ -677,7 +676,7 @@ namespace Photon.Pun
             List<string> allRpcs = new List<string>();
 
 
-            #if UNITY_2019_2_OR_NEWER
+#if UNITY_2019_2_OR_NEWER
 
             // we can make use of the new TypeCache to find methods with PunRPC attribute
             var extractedMethods = TypeCache.GetMethodsWithAttribute<PunRPC>();
@@ -690,7 +689,7 @@ namespace Photon.Pun
                 }
             }
 
-            #else
+#else
 
             System.Reflection.Assembly[] assemblies = System.AppDomain.CurrentDomain.GetAssemblies().Where(a => !(a.ManifestModule is System.Reflection.Emit.ModuleBuilder)).ToArray();
 
@@ -710,7 +709,7 @@ namespace Photon.Pun
                 additionalRpcs.AddRange(additional);
             }
 
-            #endif
+#endif
 
 
             if (additionalRpcs.Count <= 0)

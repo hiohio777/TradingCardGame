@@ -37,20 +37,18 @@ namespace Photon.Pun
         bool SceneSettingsListFoldoutOpen = true;
 #pragma warning restore 0414
 #endif
-        
+
         [SerializeField]
         public List<SceneSetting> MinViewIdPerScene = new List<SceneSetting>();
 
-      
+
         private const string SceneSettingsFileName = "PunSceneSettingsFile.asset";
 
         // we use the path to PunSceneSettings.cs as path to create a scene settings file
         private static string punSceneSettingsCsPath;
 
-        public static string PunSceneSettingsCsPath
-        {
-            get
-            {
+        public static string PunSceneSettingsCsPath {
+            get {
                 if (!string.IsNullOrEmpty(punSceneSettingsCsPath))
                 {
                     return punSceneSettingsCsPath;
@@ -75,16 +73,14 @@ namespace Photon.Pun
 
         private static PunSceneSettings instanceField;
 
-        public static PunSceneSettings Instance
-        {
-            get
-            {
+        public static PunSceneSettings Instance {
+            get {
                 if (instanceField != null)
                 {
                     return instanceField;
                 }
 
-                instanceField = (PunSceneSettings) AssetDatabase.LoadAssetAtPath(PunSceneSettingsCsPath, typeof(PunSceneSettings));
+                instanceField = (PunSceneSettings)AssetDatabase.LoadAssetAtPath(PunSceneSettingsCsPath, typeof(PunSceneSettings));
                 if (instanceField == null)
                 {
                     instanceField = ScriptableObject.CreateInstance<PunSceneSettings>();
@@ -96,7 +92,7 @@ namespace Photon.Pun
                     catch (Exception e)
                     {
 #if PHOTON_UNITY_NETWORKING
-                        Debug.LogError("-- WARNING: PROJECT CLEANUP NECESSARY -- If you delete pun from your project, make sure you also clean up the Scripting define symbols from any reference to PUN like 'PHOTON_UNITY_NETWORKING ");     
+                        Debug.LogError("-- WARNING: PROJECT CLEANUP NECESSARY -- If you delete pun from your project, make sure you also clean up the Scripting define symbols from any reference to PUN like 'PHOTON_UNITY_NETWORKING ");
 #endif
                     }
 #pragma warning restore 0168
@@ -137,13 +133,13 @@ namespace Photon.Pun
             {
                 return;
             }
-            
-            #if UNITY_EDITOR
+
+#if UNITY_EDITOR
             foreach (SceneSetting sceneSetting in Instance.MinViewIdPerScene)
             {
                 if (sceneSetting.sceneAsset == null && !string.IsNullOrEmpty(sceneSetting.sceneName))
                 {
-                    
+
                     string[] guids = AssetDatabase.FindAssets(sceneSetting.sceneName + " t:SceneAsset");
 
                     foreach (string guid in guids)
@@ -154,25 +150,25 @@ namespace Photon.Pun
                             sceneSetting.sceneAsset =
                                 AssetDatabase.LoadAssetAtPath<SceneAsset>(
                                     AssetDatabase.GUIDToAssetPath(guid));
-                            
-                        //    Debug.Log("SceneSettings : ''"+sceneSetting.sceneName+"'' scene is missing: Issue corrected",Instance);
+
+                            //    Debug.Log("SceneSettings : ''"+sceneSetting.sceneName+"'' scene is missing: Issue corrected",Instance);
                             break;
                         }
                     }
-                    
+
                     //Debug.Log("SceneSettings : ''"+sceneSetting.sceneName+"'' scene is missing",Instance);
-                    
+
                     continue;
                 }
-                
-                if (sceneSetting.sceneAsset != null && sceneSetting.sceneName!= sceneSetting.sceneAsset.name )
+
+                if (sceneSetting.sceneAsset != null && sceneSetting.sceneName != sceneSetting.sceneAsset.name)
                 {
-                 //   Debug.Log("SceneSettings : '"+sceneSetting.sceneName+"' mismatch with sceneAsset: '"+sceneSetting.sceneAsset.name+"' : Issue corrected",Instance);
+                    //   Debug.Log("SceneSettings : '"+sceneSetting.sceneName+"' mismatch with sceneAsset: '"+sceneSetting.sceneAsset.name+"' : Issue corrected",Instance);
                     sceneSetting.sceneName = sceneSetting.sceneAsset.name;
                     continue;
                 }
             }
-            #endif
+#endif
         }
     }
 }

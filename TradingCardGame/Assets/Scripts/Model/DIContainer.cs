@@ -28,7 +28,7 @@ public class DIContainer : ISinglton
 
         // Запросить обьект
         public T Request() => funcRequest.Invoke();
-        public Func<T> ResolveFunc() => isSinglton == false ? funcCreator 
+        public Func<T> ResolveFunc() => isSinglton == false ? funcCreator
             : throw new InvalidCastException($"DIContainer: Cannot return function! This property is Singleton {typeof(T)}");
 
         private T GetNewObject() => funcCreator.Invoke();

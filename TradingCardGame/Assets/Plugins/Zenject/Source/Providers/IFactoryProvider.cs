@@ -13,25 +13,21 @@ namespace Zenject
             FactoryId = factoryId;
         }
 
-        public bool IsCached
-        {
+        public bool IsCached {
             get { return false; }
         }
 
-        protected Guid FactoryId
-        {
+        protected Guid FactoryId {
             get;
             private set;
         }
 
-        protected DiContainer Container
-        {
+        protected DiContainer Container {
             get;
             private set;
         }
 
-        public bool TypeVariesBasedOnMemberType
-        {
+        public bool TypeVariesBasedOnMemberType {
             get { return false; }
         }
 

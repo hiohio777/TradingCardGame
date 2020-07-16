@@ -72,7 +72,7 @@ namespace Zenject
             _validationErrorResponse = validationErrorResponse;
             _validationRootResolveMethod = validationRootResolveMethod;
             _displayWarningWhenResolvingDuringInstall = displayWarningWhenResolvingDuringInstall;
-            _ensureDeterministicDestructionOrderOnApplicationQuit =ensureDeterministicDestructionOrderOnApplicationQuit;
+            _ensureDeterministicDestructionOrderOnApplicationQuit = ensureDeterministicDestructionOrderOnApplicationQuit;
             _signalSettings = signalSettings ?? SignalSettings.Default;
         }
 
@@ -83,29 +83,25 @@ namespace Zenject
         {
         }
 
-        public SignalSettings Signals
-        {
+        public SignalSettings Signals {
             get { return _signalSettings; }
         }
 
         // Setting this to Log can be more useful because it will print out
         // multiple validation errors at once so you can fix multiple problems before
         // attempting validation again
-        public ValidationErrorResponses ValidationErrorResponse
-        {
+        public ValidationErrorResponses ValidationErrorResponse {
             get { return _validationErrorResponse; }
         }
 
         // Settings this to true will ensure that every binding in the container can be
         // instantiated with all its dependencies, and not just those bindings that will be
         // constructed as part of the object graph generated from the nonlazy bindings
-        public RootResolveMethods ValidationRootResolveMethod
-        {
+        public RootResolveMethods ValidationRootResolveMethod {
             get { return _validationRootResolveMethod; }
         }
 
-        public bool DisplayWarningWhenResolvingDuringInstall
-        {
+        public bool DisplayWarningWhenResolvingDuringInstall {
             get { return _displayWarningWhenResolvingDuringInstall; }
         }
 
@@ -115,8 +111,7 @@ namespace Zenject
         // When this is set to false (the default) the order that this occurs in is not predictable
         // It is set to false by default because manually destroying objects during OnApplicationQuit
         // event can cause crashes on android (see github issue #468)
-        public bool EnsureDeterministicDestructionOrderOnApplicationQuit
-        {
+        public bool EnsureDeterministicDestructionOrderOnApplicationQuit {
             get { return _ensureDeterministicDestructionOrderOnApplicationQuit; }
         }
 
@@ -166,23 +161,19 @@ namespace Zenject
             {
             }
 
-            public int DefaultAsyncTickPriority
-            {
+            public int DefaultAsyncTickPriority {
                 get { return _defaultAsyncTickPriority; }
             }
 
-            public SignalDefaultSyncModes DefaultSyncMode
-            {
+            public SignalDefaultSyncModes DefaultSyncMode {
                 get { return _defaultSyncMode; }
             }
 
-            public SignalMissingHandlerResponses MissingHandlerDefaultResponse
-            {
+            public SignalMissingHandlerResponses MissingHandlerDefaultResponse {
                 get { return _missingHandlerDefaultResponse; }
             }
 
-            public bool RequireStrictUnsubscribe
-            {
+            public bool RequireStrictUnsubscribe {
                 get { return _requireStrictUnsubscribe; }
             }
         }

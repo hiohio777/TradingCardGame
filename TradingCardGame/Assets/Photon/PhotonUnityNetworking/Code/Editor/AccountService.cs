@@ -12,9 +12,9 @@
 
 #if UNITY_EDITOR
 using System;
-using UnityEngine;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using UnityEngine;
 
 namespace Photon.Pun
 {
@@ -39,13 +39,13 @@ namespace Photon.Pun
         /// third parties custom token, if null, defaults to DefaultContext property value
         /// </summary>
         public string CustomContext = null;
-        
+
         /// <summary>
         /// third parties custom token. If null, defaults to DefaultToken property value
         /// </summary>
         public string CustomToken = null;
-        
-        
+
+
         /// <summary>
         /// Attempts to create a Photon Cloud Account asynchronously.
         /// Once your callback is called, check ReturnCode, Message and AppId to get the result of this attempt.
@@ -92,7 +92,7 @@ namespace Photon.Pun
             string fullUrl = GetUrlWithQueryStringEscaped(request);
 
             RequestHeaders["x-functions-key"] = string.IsNullOrEmpty(CustomToken) ? DefaultToken : CustomToken;
-            
+
             //Debug.LogWarningFormat("Full URL {0}", fullUrl);
             PhotonEditorUtils.StartCoroutine(
                 PhotonEditorUtils.HttpPost(fullUrl,
@@ -139,7 +139,7 @@ namespace Photon.Pun
         {
             string email = UnityEngine.Networking.UnityWebRequest.EscapeURL(request.Email);
             string st = UnityEngine.Networking.UnityWebRequest.EscapeURL(request.ServiceTypes);
-            string serviceUrl = string.Format(ServiceUrl, string.IsNullOrEmpty(CustomContext) ? DefaultContext : CustomContext );
+            string serviceUrl = string.Format(ServiceUrl, string.IsNullOrEmpty(CustomContext) ? DefaultContext : CustomContext);
             return string.Format("{0}?email={1}&st={2}", serviceUrl, email, st);
         }
 
@@ -223,7 +223,7 @@ namespace Photon.Pun
         public string Message;
         public Dictionary<string, string> ApplicationIds; // Unity's JsonUtility does not support deserializing Dictionary
     }
-    
+
     [Serializable]
     public class AccountServiceRequest
     {

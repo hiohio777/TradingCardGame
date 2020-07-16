@@ -1,1 +1,1 @@
-﻿public class MainMenuButton : BaseGameButton<MainMenuPanelsEnum> { }
+﻿public class MainMenuButton : BaseGameButton<PanelNameEnum> { }

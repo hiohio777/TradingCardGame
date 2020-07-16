@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TrainingBattelScene : BaseBattelScene
 {
@@ -23,7 +22,7 @@ public class TrainingBattelScene : BaseBattelScene
         Battel.IsMasterClient = true;
         CreatPlayerPerson();
         alTraining.CreatEnemyPerson(Battel.Enemy);
-        SetBackScene(ScenesEnum.TrainingBattelScenes);
+        SetBackScene(PanelNameEnum.TrainingBattelScenes);
         CreatBattelField();
     }
 

@@ -16,15 +16,11 @@
 
 namespace Photon.Realtime
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using ExitGames.Client.Photon;
 
-    #if SUPPORTED_UNITY || NETFX_CORE
+#if SUPPORTED_UNITY || NETFX_CORE
     using Hashtable = ExitGames.Client.Photon.Hashtable;
-    using SupportClass = ExitGames.Client.Photon.SupportClass;
-    #endif
+#endif
 
 
     /// <summary>
@@ -46,30 +42,24 @@ namespace Photon.Realtime
 
         /// <summary>The name of a room. Unique identifier (per region and virtual appid) for a room/match.</summary>
         /// <remarks>The name can't be changed once it's set by the server.</remarks>
-        public new string Name
-        {
-            get
-            {
+        public new string Name {
+            get {
                 return this.name;
             }
 
-            internal set
-            {
+            internal set {
                 this.name = value;
             }
         }
 
         private bool isOffline;
 
-        public bool IsOffline
-        {
-            get
-            {
+        public bool IsOffline {
+            get {
                 return isOffline;
             }
 
-            private set
-            {
+            private set {
                 isOffline = value;
             }
         }
@@ -87,15 +77,12 @@ namespace Photon.Realtime
         /// As part of RoomInfo this can't be set.
         /// As part of a Room (which the player joined), the setter will update the server and all clients.
         /// </remarks>
-        public new bool IsOpen
-        {
-            get
-            {
+        public new bool IsOpen {
+            get {
                 return this.isOpen;
             }
 
-            set
-            {
+            set {
                 if (value != this.isOpen)
                 {
                     if (!this.isOffline)
@@ -118,15 +105,12 @@ namespace Photon.Realtime
         /// As part of RoomInfo this can't be set.
         /// As part of a Room (which the player joined), the setter will update the server and all clients.
         /// </remarks>
-        public new bool IsVisible
-        {
-            get
-            {
+        public new bool IsVisible {
+            get {
                 return this.isVisible;
             }
 
-            set
-            {
+            set {
                 if (value != this.isVisible)
                 {
                     if (!this.isOffline)
@@ -147,15 +131,12 @@ namespace Photon.Realtime
         /// As part of RoomInfo this can't be set.
         /// As part of a Room (which the player joined), the setter will update the server and all clients.
         /// </remarks>
-        public new byte MaxPlayers
-        {
-            get
-            {
+        public new byte MaxPlayers {
+            get {
                 return this.maxPlayers;
             }
 
-            set
-            {
+            set {
                 if (value != this.maxPlayers)
                 {
                     if (!this.isOffline)
@@ -169,10 +150,8 @@ namespace Photon.Realtime
         }
 
         /// <summary>The count of players in this Room (using this.Players.Count).</summary>
-        public new byte PlayerCount
-        {
-            get
-            {
+        public new byte PlayerCount {
+            get {
                 if (this.Players == null)
                 {
                     return 0;
@@ -186,15 +165,12 @@ namespace Photon.Realtime
         private Dictionary<int, Player> players = new Dictionary<int, Player>();
 
         /// <summary>While inside a Room, this is the list of players who are also in that room.</summary>
-        public Dictionary<int, Player> Players
-        {
-            get
-            {
+        public Dictionary<int, Player> Players {
+            get {
                 return this.players;
             }
 
-            private set
-            {
+            private set {
                 this.players = value;
             }
         }
@@ -206,18 +182,15 @@ namespace Photon.Realtime
         /// The corresponding feature in Photon is called "Slot Reservation" and can be found in the doc pages.
         /// Define expected players in the methods: <see cref="LoadBalancingClient.OpCreateRoom"/>, <see cref="LoadBalancingClient.OpJoinRoom"/> and <see cref="LoadBalancingClient.OpJoinRandomRoom"/>.
         /// </remarks>
-        public string[] ExpectedUsers
-        {
+        public string[] ExpectedUsers {
             get { return this.expectedUsers; }
         }
 
         /// <summary>Player Time To Live. How long any player can be inactive (due to disconnect or leave) before the user gets removed from the playerlist (freeing a slot).</summary>
-        public int PlayerTtl
-        {
+        public int PlayerTtl {
             get { return this.playerTtl; }
 
-            set
-            {
+            set {
                 if (value != this.playerTtl)
                 {
                     if (!this.isOffline)
@@ -231,12 +204,10 @@ namespace Photon.Realtime
         }
 
         /// <summary>Room Time To Live. How long a room stays available (and in server-memory), after the last player becomes inactive. After this time, the room gets persisted or destroyed.</summary>
-        public int EmptyRoomTtl
-        {
+        public int EmptyRoomTtl {
             get { return this.emptyRoomTtl; }
 
-            set
-            {
+            set {
                 if (value != this.emptyRoomTtl)
                 {
                     if (!this.isOffline)
@@ -260,15 +231,12 @@ namespace Photon.Realtime
         /// This list is defined when creating the room and can't be changed afterwards. Compare: LoadBalancingClient.OpCreateRoom()
         /// </summary>
         /// <remarks>You could name properties that are not set from the beginning. Those will be synced with the lobby when added later on.</remarks>
-        public string[] PropertiesListedInLobby
-        {
-            get
-            {
+        public string[] PropertiesListedInLobby {
+            get {
                 return this.propertiesListedInLobby;
             }
 
-            private set
-            {
+            private set {
                 this.propertiesListedInLobby = value;
             }
         }
@@ -276,10 +244,8 @@ namespace Photon.Realtime
         /// <summary>
         /// Gets if this room uses autoCleanUp to remove all (buffered) RPCs and instantiated GameObjects when a player leaves.
         /// </summary>
-        public bool AutoCleanUp
-        {
-            get
-            {
+        public bool AutoCleanUp {
+            get {
                 return this.autoCleanUp;
             }
         }
@@ -389,7 +355,7 @@ namespace Photon.Realtime
 
                 // invoking callbacks
                 this.LoadBalancingClient.InRoomCallbackTargets.OnRoomPropertiesUpdate(propertiesToSet);
-               
+
             }
             else
             {

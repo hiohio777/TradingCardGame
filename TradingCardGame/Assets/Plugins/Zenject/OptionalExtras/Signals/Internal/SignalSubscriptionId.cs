@@ -15,13 +15,11 @@ namespace Zenject
             _callback = callback;
         }
 
-        public BindingId SignalId
-        {
+        public BindingId SignalId {
             get { return _signalId; }
         }
 
-        public object Callback
-        {
+        public object Callback {
             get { return _callback; }
         }
 
@@ -52,12 +50,12 @@ namespace Zenject
                 && Equals(Callback, that.Callback);
         }
 
-        public static bool operator == (SignalSubscriptionId left, SignalSubscriptionId right)
+        public static bool operator ==(SignalSubscriptionId left, SignalSubscriptionId right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator != (SignalSubscriptionId left, SignalSubscriptionId right)
+        public static bool operator !=(SignalSubscriptionId left, SignalSubscriptionId right)
         {
             return !left.Equals(right);
         }

@@ -20,31 +20,25 @@ namespace Zenject
         [SerializeField]
         List<ScriptableObjectInstaller> _lateScriptableObjectInstallers = new List<ScriptableObjectInstaller>();
 
-        public IEnumerable<MonoInstaller> LateInstallers
-        {
+        public IEnumerable<MonoInstaller> LateInstallers {
             get { return _lateInstallers; }
-            set
-            {
+            set {
                 _lateInstallers.Clear();
                 _lateInstallers.AddRange(value);
             }
         }
 
-        public IEnumerable<MonoInstaller> LateInstallerPrefabs
-        {
+        public IEnumerable<MonoInstaller> LateInstallerPrefabs {
             get { return _lateInstallerPrefabs; }
-            set
-            {
+            set {
                 _lateInstallerPrefabs.Clear();
                 _lateInstallerPrefabs.AddRange(value);
             }
         }
 
-        public IEnumerable<ScriptableObjectInstaller> LateScriptableObjectInstallers
-        {
+        public IEnumerable<ScriptableObjectInstaller> LateScriptableObjectInstallers {
             get { return _lateScriptableObjectInstallers; }
-            set
-            {
+            set {
                 _lateScriptableObjectInstallers.Clear();
                 _lateScriptableObjectInstallers.AddRange(value);
             }
@@ -57,15 +51,12 @@ namespace Zenject
         DiContainer _container;
         readonly List<MonoBehaviour> _injectableMonoBehaviours = new List<MonoBehaviour>();
 
-        public string DecoratedContractName
-        {
+        public string DecoratedContractName {
             get { return _decoratedContractName; }
         }
 
-        public override DiContainer Container
-        {
-            get
-            {
+        public override DiContainer Container {
+            get {
                 Assert.IsNotNull(_container);
                 return _container;
             }

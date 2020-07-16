@@ -3,9 +3,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Zenject.Internal;
 using ModestTree;
 using UnityEngine;
+using Zenject.Internal;
 
 namespace Zenject
 {
@@ -38,18 +38,15 @@ namespace Zenject
             _instantiateCallback = instantiateCallback;
         }
 
-        public GameObjectCreationParameters GameObjectCreationParameters
-        {
+        public GameObjectCreationParameters GameObjectCreationParameters {
             get { return _gameObjectBindInfo; }
         }
 
-        public Type ArgumentTarget
-        {
+        public Type ArgumentTarget {
             get { return _argumentTarget; }
         }
 
-        public List<TypeValuePair> ExtraArguments
-        {
+        public List<TypeValuePair> ExtraArguments {
             get { return _extraArguments; }
         }
 

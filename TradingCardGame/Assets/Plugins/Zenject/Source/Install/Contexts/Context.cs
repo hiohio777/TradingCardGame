@@ -7,7 +7,6 @@ using ModestTree;
 using UnityEngine;
 using UnityEngine.Serialization;
 #if UNITY_EDITOR
-using UnityEditor;
 #endif
 
 namespace Zenject
@@ -28,42 +27,34 @@ namespace Zenject
         List<InstallerBase> _normalInstallers = new List<InstallerBase>();
         List<Type> _normalInstallerTypes = new List<Type>();
 
-        public IEnumerable<MonoInstaller> Installers
-        {
+        public IEnumerable<MonoInstaller> Installers {
             get { return _monoInstallers; }
-            set
-            {
+            set {
                 _monoInstallers.Clear();
                 _monoInstallers.AddRange(value);
             }
         }
 
-        public IEnumerable<MonoInstaller> InstallerPrefabs
-        {
+        public IEnumerable<MonoInstaller> InstallerPrefabs {
             get { return _installerPrefabs; }
-            set
-            {
+            set {
                 _installerPrefabs.Clear();
                 _installerPrefabs.AddRange(value);
             }
         }
 
-        public IEnumerable<ScriptableObjectInstaller> ScriptableObjectInstallers
-        {
+        public IEnumerable<ScriptableObjectInstaller> ScriptableObjectInstallers {
             get { return _scriptableObjectInstallers; }
-            set
-            {
+            set {
                 _scriptableObjectInstallers.Clear();
                 _scriptableObjectInstallers.AddRange(value);
             }
         }
 
         // Unlike other installer types this has to be set through code
-        public IEnumerable<Type> NormalInstallerTypes
-        {
+        public IEnumerable<Type> NormalInstallerTypes {
             get { return _normalInstallerTypes; }
-            set
-            {
+            set {
                 Assert.That(value.All(x => x != null && x.DerivesFrom<InstallerBase>()));
 
                 _normalInstallerTypes.Clear();
@@ -72,18 +63,15 @@ namespace Zenject
         }
 
         // Unlike other installer types this has to be set through code
-        public IEnumerable<InstallerBase> NormalInstallers
-        {
+        public IEnumerable<InstallerBase> NormalInstallers {
             get { return _normalInstallers; }
-            set
-            {
+            set {
                 _normalInstallers.Clear();
                 _normalInstallers.AddRange(value);
             }
         }
 
-        public abstract DiContainer Container
-        {
+        public abstract DiContainer Container {
             get;
         }
         public abstract IEnumerable<GameObject> GetRootGameObjects();
@@ -128,11 +116,11 @@ namespace Zenject
 
                 // We'd like to do this but this is actually a valid case sometimes
                 // (eg. loading an asset bundle with a scene containing a scene context when inside unity editor)
-//#if UNITY_EDITOR
+                //#if UNITY_EDITOR
                 //Assert.That(PrefabUtility.GetPrefabType(installerPrefab.gameObject) == PrefabType.Prefab,
-                    //"Found non-prefab with name '{0}' in the InstallerPrefabs property of Context '{1}'.  You should use the property 'Installer' for this instead",
-                    //installerPrefab.name, this.name);
-//#endif
+                //"Found non-prefab with name '{0}' in the InstallerPrefabs property of Context '{1}'.  You should use the property 'Installer' for this instead",
+                //installerPrefab.name, this.name);
+                //#endif
                 Assert.That(installerPrefab.GetComponent<MonoInstaller>() != null,
                     "Expected to find component with type 'MonoInstaller' on given installer prefab '{0}'", installerPrefab.name);
             }
@@ -304,29 +292,29 @@ namespace Zenject
                 switch (bindType)
                 {
                     case ZenjectBinding.BindTypes.Self:
-                    {
-                        Container.Bind(componentType).WithId(identifier).FromInstance(component);
-                        break;
-                    }
+                        {
+                            Container.Bind(componentType).WithId(identifier).FromInstance(component);
+                            break;
+                        }
                     case ZenjectBinding.BindTypes.BaseType:
-                    {
-                        Container.Bind(componentType.BaseType()).WithId(identifier).FromInstance(component);
-                        break;
-                    }
+                        {
+                            Container.Bind(componentType.BaseType()).WithId(identifier).FromInstance(component);
+                            break;
+                        }
                     case ZenjectBinding.BindTypes.AllInterfaces:
-                    {
-                        Container.Bind(componentType.Interfaces()).WithId(identifier).FromInstance(component);
-                        break;
-                    }
+                        {
+                            Container.Bind(componentType.Interfaces()).WithId(identifier).FromInstance(component);
+                            break;
+                        }
                     case ZenjectBinding.BindTypes.AllInterfacesAndSelf:
-                    {
-                        Container.Bind(componentType.Interfaces().Concat(new[] { componentType }).ToArray()).WithId(identifier).FromInstance(component);
-                        break;
-                    }
+                        {
+                            Container.Bind(componentType.Interfaces().Concat(new[] { componentType }).ToArray()).WithId(identifier).FromInstance(component);
+                            break;
+                        }
                     default:
-                    {
-                        throw Assert.CreateException();
-                    }
+                        {
+                            throw Assert.CreateException();
+                        }
                 }
             }
         }

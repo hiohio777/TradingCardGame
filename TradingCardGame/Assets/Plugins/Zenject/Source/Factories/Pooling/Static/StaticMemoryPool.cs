@@ -27,20 +27,16 @@ namespace Zenject
 #endif
         }
 
-        public Action<TValue> OnDespawnedMethod
-        {
+        public Action<TValue> OnDespawnedMethod {
             set { _onDespawnedMethod = value; }
         }
 
-        public int NumTotal
-        {
+        public int NumTotal {
             get { return NumInactive + NumActive; }
         }
 
-        public int NumActive
-        {
-            get
-            {
+        public int NumActive {
+            get {
 #if ZEN_MULTITHREADING
                 lock (_locker)
 #endif
@@ -50,10 +46,8 @@ namespace Zenject
             }
         }
 
-        public int NumInactive
-        {
-            get
-            {
+        public int NumInactive {
+            get {
 #if ZEN_MULTITHREADING
                 lock (_locker)
 #endif
@@ -63,8 +57,7 @@ namespace Zenject
             }
         }
 
-        public Type ItemType
-        {
+        public Type ItemType {
             get { return typeof(TValue); }
         }
 
@@ -212,8 +205,7 @@ namespace Zenject
             _onSpawnMethod = onSpawnMethod;
         }
 
-        public Action<TValue> OnSpawnMethod
-        {
+        public Action<TValue> OnSpawnMethod {
             set { _onSpawnMethod = value; }
         }
 
@@ -252,8 +244,7 @@ namespace Zenject
             _onSpawnMethod = onSpawnMethod;
         }
 
-        public Action<TParam1, TValue> OnSpawnMethod
-        {
+        public Action<TParam1, TValue> OnSpawnMethod {
             set { _onSpawnMethod = value; }
         }
 
@@ -292,8 +283,7 @@ namespace Zenject
             _onSpawnMethod = onSpawnMethod;
         }
 
-        public Action<TParam1, TParam2, TValue> OnSpawnMethod
-        {
+        public Action<TParam1, TParam2, TValue> OnSpawnMethod {
             set { _onSpawnMethod = value; }
         }
 
@@ -332,8 +322,7 @@ namespace Zenject
             _onSpawnMethod = onSpawnMethod;
         }
 
-        public Action<TParam1, TParam2, TParam3, TValue> OnSpawnMethod
-        {
+        public Action<TParam1, TParam2, TParam3, TValue> OnSpawnMethod {
             set { _onSpawnMethod = value; }
         }
 
@@ -382,8 +371,7 @@ namespace Zenject
 #if !NET_4_6
             ModestTree.Util.
 #endif
-            Action<TParam1, TParam2, TParam3, TParam4, TValue> OnSpawnMethod
-        {
+            Action<TParam1, TParam2, TParam3, TParam4, TValue> OnSpawnMethod {
             set { _onSpawnMethod = value; }
         }
 
@@ -432,8 +420,7 @@ namespace Zenject
 #if !NET_4_6
             ModestTree.Util.
 #endif
-            Action<TParam1, TParam2, TParam3, TParam4, TParam5, TValue> OnSpawnMethod
-        {
+            Action<TParam1, TParam2, TParam3, TParam4, TParam5, TValue> OnSpawnMethod {
             set { _onSpawnMethod = value; }
         }
 
@@ -482,8 +469,7 @@ namespace Zenject
 #if !NET_4_6
             ModestTree.Util.
 #endif
-            Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue> OnSpawnMethod
-        {
+            Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue> OnSpawnMethod {
             set { _onSpawnMethod = value; }
         }
 
@@ -532,8 +518,7 @@ namespace Zenject
 #if !NET_4_6
             ModestTree.Util.
 #endif
-            Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue> OnSpawnMethod
-        {
+            Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue> OnSpawnMethod {
             set { _onSpawnMethod = value; }
         }
 

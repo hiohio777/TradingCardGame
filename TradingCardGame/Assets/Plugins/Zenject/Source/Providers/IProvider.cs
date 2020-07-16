@@ -6,13 +6,11 @@ namespace Zenject
     // The given InjectContext values here should always be non-null
     public interface IProvider
     {
-        bool TypeVariesBasedOnMemberType
-        {
+        bool TypeVariesBasedOnMemberType {
             get;
         }
 
-        bool IsCached
-        {
+        bool IsCached {
             get;
         }
 

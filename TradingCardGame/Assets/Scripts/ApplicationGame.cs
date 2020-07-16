@@ -1,10 +1,11 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using System.Collections;
+using UnityEngine;
 using Zenject;
 
 public class ApplicationGame : MonoBehaviour
 {
     private ILoaderDataGame gameDataManager;
+    private PanelsMenager panelsMenager;
 
     [Inject]
     public void Inject(ILoaderDataGame gameDataManager)
@@ -12,20 +13,27 @@ public class ApplicationGame : MonoBehaviour
         this.gameDataManager = gameDataManager;
     }
 
-    public void StartMainScen()
+    public void StartGame()
     {
-        SceneManager.LoadScene(ScenesEnum.MainScene.ToString());
+        StartCoroutine(Wait());
     }
 
     private void Start()
     {
         gameDataManager.Load(this);
+        panelsMenager = GetComponent<PanelsMenager>();
 
     }
 
     private void OnApplicationQuit()
     {
-        Debug.Log("Quitting application");
         gameDataManager.Save();
+        Debug.Log("Quitting application");
+    }
+
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1);
+        panelsMenager.OpenPanel(PanelNameEnum.MainMenu);
     }
 }

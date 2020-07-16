@@ -127,12 +127,12 @@ namespace Zenject
         }
 
         public DiContainer(DiContainer parentContainer, bool isValidating)
-            : this(new [] { parentContainer }, isValidating)
+            : this(new[] { parentContainer }, isValidating)
         {
         }
 
         public DiContainer(DiContainer parentContainer)
-            : this(new [] { parentContainer }, false)
+            : this(new[] { parentContainer }, false)
         {
         }
 
@@ -145,23 +145,19 @@ namespace Zenject
         // set explicitly here as well which is useful in particular in unit tests
         // Note however that if you want child containers to use this same value you have
         // to bind it as well
-        public ZenjectSettings Settings
-        {
+        public ZenjectSettings Settings {
             get { return _settings; }
-            set
-            {
+            set {
                 _settings = value;
                 Rebind<ZenjectSettings>().FromInstance(value);
             }
         }
 
-        internal SingletonMarkRegistry SingletonMarkRegistry
-        {
+        internal SingletonMarkRegistry SingletonMarkRegistry {
             get { return _singletonMarkRegistry; }
         }
 
-        public IEnumerable<IProvider> AllProviders
-        {
+        public IEnumerable<IProvider> AllProviders {
             // Distinct is necessary since the same providers can be used with multiple contracts
             get { return _providers.Values.SelectMany(x => x).Select(x => x.Provider).Distinct(); }
         }
@@ -225,10 +221,8 @@ namespace Zenject
 
 #if !NOT_UNITY3D
         // This might be null in some rare cases like when used in ZenjectUnitTestFixture
-        Transform ContextTransform
-        {
-            get
-            {
+        Transform ContextTransform {
+            get {
                 if (!_hasLookedUpContextTransform)
                 {
                     _hasLookedUpContextTransform = true;
@@ -249,24 +243,20 @@ namespace Zenject
         // When true, this will throw exceptions whenever we create new game objects
         // This is helpful when used in places like EditorWindowKernel where we can't
         // assume that there is a "scene" to place objects
-        public bool AssertOnNewGameObjects
-        {
+        public bool AssertOnNewGameObjects {
             get;
             set;
         }
 
 #if !NOT_UNITY3D
 
-        public Transform InheritedDefaultParent
-        {
+        public Transform InheritedDefaultParent {
             get { return _inheritedDefaultParent; }
         }
 
-        public Transform DefaultParent
-        {
+        public Transform DefaultParent {
             get { return _explicitDefaultParent; }
-            set
-            {
+            set {
                 _explicitDefaultParent = value;
                 // Need to use a flag because null is a valid explicit default parent
                 _hasExplicitDefaultParent = true;
@@ -274,20 +264,16 @@ namespace Zenject
         }
 #endif
 
-        public DiContainer[] ParentContainers
-        {
+        public DiContainer[] ParentContainers {
             get { return _containerLookups[(int)InjectSources.Parent]; }
         }
 
-        public DiContainer[] AncestorContainers
-        {
+        public DiContainer[] AncestorContainers {
             get { return _containerLookups[(int)InjectSources.AnyParent]; }
         }
 
-        public bool ChecksForCircularDependencies
-        {
-            get
-            {
+        public bool ChecksForCircularDependencies {
+            get {
 #if ZEN_MULTITHREADING
                 // When multithreading is supported we can't use a static field to track the lookup
                 // TODO: We could look at the inject context though
@@ -298,8 +284,7 @@ namespace Zenject
             }
         }
 
-        public bool IsValidating
-        {
+        public bool IsValidating {
             get { return _isValidating; }
         }
 
@@ -309,16 +294,13 @@ namespace Zenject
         // during bind phase.  This is important since Resolve and Instantiate
         // make use of the bindings, so if the bindings are not complete then
         // unexpected behaviour can occur
-        public bool IsInstalling
-        {
+        public bool IsInstalling {
             get { return _isInstalling; }
             set { _isInstalling = value; }
         }
 
-        public IEnumerable<BindingId> AllContracts
-        {
-            get
-            {
+        public IEnumerable<BindingId> AllContracts {
+            get {
                 FlushBindings();
                 return _providers.Keys;
             }
@@ -932,7 +914,7 @@ namespace Zenject
             {
                 GetProviderMatches(context, matches);
 
-                if (matches.Count > 0 )
+                if (matches.Count > 0)
                 {
                     return matches.Select(
                         x => x.Provider.GetInstanceType(context))

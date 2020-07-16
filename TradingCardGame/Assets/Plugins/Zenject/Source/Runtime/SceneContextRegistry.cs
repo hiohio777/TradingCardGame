@@ -8,8 +8,7 @@ namespace Zenject
     {
         readonly Dictionary<Scene, SceneContext> _map = new Dictionary<Scene, SceneContext>();
 
-        public IEnumerable<SceneContext> SceneContexts
-        {
+        public IEnumerable<SceneContext> SceneContexts {
             get { return _map.Values; }
         }
 

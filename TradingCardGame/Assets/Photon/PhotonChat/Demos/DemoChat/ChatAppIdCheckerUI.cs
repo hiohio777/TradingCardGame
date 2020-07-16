@@ -22,7 +22,7 @@ public class ChatAppIdCheckerUI : MonoBehaviour
 
     public void Update()
     {
-		if (string.IsNullOrEmpty(PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat))
+        if (string.IsNullOrEmpty(PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat))
         {
             if (Description != null)
             {

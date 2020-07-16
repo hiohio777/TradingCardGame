@@ -6,9 +6,9 @@ using System.Linq;
 using ModestTree;
 using ModestTree.Util;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 using Zenject.Internal;
-using UnityEngine.Events;
 
 namespace Zenject
 {
@@ -50,55 +50,44 @@ namespace Zenject
         bool _hasInstalled;
         bool _hasResolved;
 
-        public override DiContainer Container
-        {
+        public override DiContainer Container {
             get { return _container; }
         }
 
-        public bool HasResolved
-        {
+        public bool HasResolved {
             get { return _hasResolved; }
         }
 
-        public bool HasInstalled
-        {
+        public bool HasInstalled {
             get { return _hasInstalled; }
         }
 
-        public bool IsValidating
-        {
-            get
-            {
+        public bool IsValidating {
+            get {
                 return ProjectContext.Instance.Container.IsValidating;
             }
         }
 
-        public IEnumerable<string> ContractNames
-        {
+        public IEnumerable<string> ContractNames {
             get { return _contractNames; }
-            set
-            {
+            set {
                 _contractNames.Clear();
                 _contractNames.AddRange(value);
             }
         }
 
-        public IEnumerable<string> ParentContractNames
-        {
-            get
-            {
+        public IEnumerable<string> ParentContractNames {
+            get {
                 var result = new List<string>();
                 result.AddRange(_parentContractNames);
                 return result;
             }
-            set
-            {
+            set {
                 _parentContractNames = value.ToList();
             }
         }
 
-        public bool ParentNewObjectsUnderSceneContext
-        {
+        public bool ParentNewObjectsUnderSceneContext {
             get { return _parentNewObjectsUnderSceneContext; }
             set { _parentNewObjectsUnderSceneContext = value; }
         }

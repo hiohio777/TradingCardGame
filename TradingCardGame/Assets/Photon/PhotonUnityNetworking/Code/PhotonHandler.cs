@@ -28,10 +28,8 @@ namespace Photon.Pun
     {
 
         private static PhotonHandler instance;
-        internal static PhotonHandler Instance
-        {
-            get
-            {
+        internal static PhotonHandler Instance {
+            get {
                 if (instance == null)
                 {
                     instance = FindObjectOfType<PhotonHandler>();

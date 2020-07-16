@@ -32,28 +32,23 @@ namespace Zenject
             _instantiateCallback = instantiateCallback;
         }
 
-        public bool IsCached
-        {
+        public bool IsCached {
             get { return false; }
         }
 
-        public bool TypeVariesBasedOnMemberType
-        {
+        public bool TypeVariesBasedOnMemberType {
             get { return false; }
         }
 
-        protected DiContainer Container
-        {
+        protected DiContainer Container {
             get { return _container; }
         }
 
-        protected Type ComponentType
-        {
+        protected Type ComponentType {
             get { return _componentType; }
         }
 
-        protected abstract bool ShouldToggleActive
-        {
+        protected abstract bool ShouldToggleActive {
             get;
         }
 
@@ -84,10 +79,10 @@ namespace Zenject
             if (!_container.IsValidating || TypeAnalyzer.ShouldAllowDuringValidation(_componentType))
             {
                 if (_componentType == typeof(Transform))
-                    // Treat transform as a special case because it's the one component that's always automatically added
-                    // Otherwise, calling AddComponent below will fail and return null
-                    // This is nice to allow doing things like
-                    //      Container.Bind<Transform>().FromNewComponentOnNewGameObject();
+                // Treat transform as a special case because it's the one component that's always automatically added
+                // Otherwise, calling AddComponent below will fail and return null
+                // This is nice to allow doing things like
+                //      Container.Bind<Transform>().FromNewComponentOnNewGameObject();
                 {
                     instance = gameObj.transform;
                 }

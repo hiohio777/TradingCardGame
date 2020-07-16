@@ -9,8 +9,7 @@ namespace Zenject
             SignalBindInfo = signalBindInfo;
         }
 
-        protected SignalDeclarationBindInfo SignalBindInfo
-        {
+        protected SignalDeclarationBindInfo SignalBindInfo {
             get; private set;
         }
 

@@ -1,6 +1,5 @@
-﻿using Photon.Pun;
-using System;
-using System.Collections;
+﻿using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 public class RatingBattelScene : BaseBattelScene
@@ -77,7 +76,7 @@ public class RatingBattelScene : BaseBattelScene
     {
         CreatPlayerPerson();
 
-        SetBackScene(ScenesEnum.RatingBattelScenes);
+        SetBackScene(PanelNameEnum.RatingBattelScenes);
         backButton.interactable = false;
         backButton.onClick.RemoveAllListeners();
         backButton.onClick.AddListener(DisconnectedBattle);

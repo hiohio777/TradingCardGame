@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
-using Zenject.Internal;
-using ModestTree;
-using Assert = ModestTree.Assert;
 using System.Linq;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using UnityEngine;
+using Zenject.Internal;
+using Assert = ModestTree.Assert;
 
 namespace Zenject
 {
@@ -17,20 +16,16 @@ namespace Zenject
         bool _hasEndedInstall;
         bool _hasStartedInstall;
 
-        protected DiContainer Container
-        {
-            get
-            {
+        protected DiContainer Container {
+            get {
                 Assert.That(_hasStartedInstall,
                     "Must call PreInstall() before accessing ZenjectIntegrationTestFixture.Container!");
                 return _sceneContext.Container;
             }
         }
 
-        protected SceneContext SceneContext
-        {
-            get
-            {
+        protected SceneContext SceneContext {
+            get {
                 Assert.That(_hasStartedInstall,
                     "Must call PreInstall() before accessing ZenjectIntegrationTestFixture.SceneContext!");
                 return _sceneContext;

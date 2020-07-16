@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class CardFactory : FactoryBase<Card>, ICardFactory<ICard>
 {
     private readonly ISFXFactory specificityFactory;
 
-    public CardFactory(ISFXFactory specificityFactory) => 
+    public CardFactory(ISFXFactory specificityFactory) =>
         this.specificityFactory = specificityFactory;
 
     public List<ICard> GetCards(List<ICardData> cardsData) => GetCards(cardsData, new Vector3(1, 1, 1));

@@ -46,7 +46,7 @@ public class PhotonUnityNetwork : MonoBehaviourPunCallbacks
     {
         isConnecting = false;
         Debug.Log($"DisconnectCause: {cause}");
-        if(battelScene != null) battelScene.DisconnectedBattle();
+        if (battelScene != null) battelScene.DisconnectedBattle();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)

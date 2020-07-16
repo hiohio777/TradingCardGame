@@ -18,36 +18,30 @@ namespace Zenject
             factoryBindInfo.ProviderFunc = null;
         }
 
-        protected DiContainer BindContainer
-        {
+        protected DiContainer BindContainer {
             get; private set;
         }
 
-        protected FactoryBindInfo FactoryBindInfo
-        {
+        protected FactoryBindInfo FactoryBindInfo {
             get; private set;
         }
 
-        protected Func<DiContainer, IProvider> ProviderFunc
-        {
+        protected Func<DiContainer, IProvider> ProviderFunc {
             get { return FactoryBindInfo.ProviderFunc; }
             set { FactoryBindInfo.ProviderFunc = value; }
         }
 
-        protected BindInfo BindInfo
-        {
+        protected BindInfo BindInfo {
             get;
             private set;
         }
 
-        protected object SubIdentifier
-        {
+        protected object SubIdentifier {
             get;
             private set;
         }
 
-        protected Type ContractType
-        {
+        protected Type ContractType {
             get { return typeof(TContract); }
         }
 

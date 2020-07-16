@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public interface INetworkManager
+﻿public interface INetworkManager
 {
     void SendToSaveDecks(string decksJsonString);
     void SendToSaveData(string decksJsonString);

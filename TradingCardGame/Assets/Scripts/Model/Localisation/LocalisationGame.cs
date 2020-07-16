@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
 using Newtonsoft.Json;
+using UnityEngine;
 
 public class LocalisationGame
 {
@@ -32,6 +32,8 @@ public class LocalisationGame
 
         foreach (var item in arrayDir)
             Localisations.Add(item.Name.Replace(".json", ""));
+
+        ChangeLanguage(PlayerPrefs.GetString("Language", "english"));
     }
 
     public string GetLocalisationString(string key)

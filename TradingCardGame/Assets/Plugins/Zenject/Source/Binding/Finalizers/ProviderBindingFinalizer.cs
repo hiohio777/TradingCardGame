@@ -14,13 +14,11 @@ namespace Zenject
             BindInfo = bindInfo;
         }
 
-        public BindingInheritanceMethods BindingInheritanceMethod
-        {
+        public BindingInheritanceMethods BindingInheritanceMethod {
             get { return BindInfo.BindingInheritanceMethod; }
         }
 
-        protected BindInfo BindInfo
-        {
+        protected BindInfo BindInfo {
             get;
             private set;
         }

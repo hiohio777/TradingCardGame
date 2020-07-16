@@ -100,13 +100,13 @@ namespace Zenject
             switch (Random.Range(0, 3))
             {
                 case 0:
-                {
-                    return ctx.Container.Instantiate<Foo1>();
-                }
+                    {
+                        return ctx.Container.Instantiate<Foo1>();
+                    }
                 case 1:
-                {
-                    return ctx.Container.Instantiate<Foo2>();
-                }
+                    {
+                        return ctx.Container.Instantiate<Foo2>();
+                    }
             }
 
             return ctx.Container.Instantiate<Foo3>();
@@ -426,10 +426,8 @@ namespace Zenject
 
         public class Bar : IBar
         {
-            public Foo Foo
-            {
-                get
-                {
+            public Foo Foo {
+                get {
                     return null;
                 }
             }

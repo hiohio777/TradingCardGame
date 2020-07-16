@@ -37,7 +37,7 @@ public class BaseCardsPanal : MonoBehaviour
 
     protected virtual void OnClickCard(ICard card) => clickCard.Invoke(card);
 
-    protected void LastPages(int count) 
+    protected void LastPages(int count)
     {
         CheckPages(count);
         currentPage = countPages;

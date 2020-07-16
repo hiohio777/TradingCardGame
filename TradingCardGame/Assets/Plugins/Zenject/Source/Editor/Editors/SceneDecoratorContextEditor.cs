@@ -1,14 +1,7 @@
 #if !ODIN_INSPECTOR
 
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using UnityEditor.SceneManagement;
-using UnityEngine.SceneManagement;
 using UnityEditor;
-using UnityEditorInternal;
-using UnityEngine;
-using ModestTree;
 
 namespace Zenject
 {
@@ -18,10 +11,8 @@ namespace Zenject
     {
         SerializedProperty _decoratedContractNameProperty;
 
-        protected override string[] PropertyNames
-        {
-            get
-            {
+        protected override string[] PropertyNames {
+            get {
                 return base.PropertyNames.Concat(new string[]
                     {
                         "_lateInstallers",
@@ -32,10 +23,8 @@ namespace Zenject
             }
         }
 
-        protected override string[] PropertyDisplayNames
-        {
-            get
-            {
+        protected override string[] PropertyDisplayNames {
+            get {
                 return base.PropertyDisplayNames.Concat(new string[]
                     {
                         "Late Installers",
@@ -46,10 +35,8 @@ namespace Zenject
             }
         }
 
-        protected override string[] PropertyDescriptions
-        {
-            get
-            {
+        protected override string[] PropertyDescriptions {
+            get {
                 return base.PropertyDescriptions.Concat(new string[]
                     {
                         "Drag any MonoInstallers that you have added to your Scene Hierarchy here. They'll be installed after the target installs its bindings",

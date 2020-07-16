@@ -7,7 +7,6 @@ using System.Linq;
 using UnityEngine;
 #endif
 
-using Zenject.Internal;
 
 namespace Zenject
 {
@@ -22,31 +21,25 @@ namespace Zenject
             BindContainer = bindContainer;
         }
 
-        protected DiContainer BindContainer
-        {
+        protected DiContainer BindContainer {
             get; private set;
         }
 
-        protected BindStatement BindStatement
-        {
+        protected BindStatement BindStatement {
             get;
             private set;
         }
 
-        protected IBindingFinalizer SubFinalizer
-        {
+        protected IBindingFinalizer SubFinalizer {
             set { BindStatement.SetFinalizer(value); }
         }
 
-        protected IEnumerable<Type> AllParentTypes
-        {
+        protected IEnumerable<Type> AllParentTypes {
             get { return BindInfo.ContractTypes.Concat(BindInfo.ToTypes); }
         }
 
-        protected IEnumerable<Type> ConcreteTypes
-        {
-            get
-            {
+        protected IEnumerable<Type> ConcreteTypes {
+            get {
                 if (BindInfo.ToChoice == ToChoices.Self)
                 {
                     return BindInfo.ContractTypes;

@@ -151,8 +151,8 @@ public class DeckEditorPanel : MonoBehaviour, IEditorDeckPanel
     {
         Action act = () =>
         {
-            userDecks.Decks.Remove(deck); 
-            userDecks.SaveDecks(); 
+            userDecks.Decks.Remove(deck);
+            userDecks.SaveDecks();
             ExitEditor();
         };
         MessagePanel.MessageWithChoice(transform, "remove_deck", act);

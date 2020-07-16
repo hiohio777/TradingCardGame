@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ModestTree;
 using UnityEngine;
-using UnityEditor;
-using UnityEngine.Profiling;
-using Zenject;
 
 namespace Zenject.MemoryPoolMonitor
 {
@@ -45,18 +42,15 @@ namespace Zenject.MemoryPoolMonitor
             _window = window;
         }
 
-        public float HeaderTop
-        {
+        public float HeaderTop {
             get { return _settings.HeaderHeight + _settings.FilterHeight; }
         }
 
-        public float TotalWidth
-        {
+        public float TotalWidth {
             get { return _window.position.width; }
         }
 
-        public float TotalHeight
-        {
+        public float TotalHeight {
             get { return _window.position.height; }
         }
 
@@ -74,10 +68,8 @@ namespace Zenject.MemoryPoolMonitor
             return texture;
         }
 
-        Texture2D RowBackground1
-        {
-            get
-            {
+        Texture2D RowBackground1 {
+            get {
                 if (_rowBackground1 == null)
                 {
                     _rowBackground1 = CreateColorTexture(_settings.RowBackground1);
@@ -87,10 +79,8 @@ namespace Zenject.MemoryPoolMonitor
             }
         }
 
-        Texture2D RowBackground2
-        {
-            get
-            {
+        Texture2D RowBackground2 {
+            get {
                 if (_rowBackground2 == null)
                 {
                     _rowBackground2 = CreateColorTexture(_settings.RowBackground2);
@@ -100,10 +90,8 @@ namespace Zenject.MemoryPoolMonitor
             }
         }
 
-        Texture2D RowBackgroundHighlighted
-        {
-            get
-            {
+        Texture2D RowBackgroundHighlighted {
+            get {
                 if (_rowBackgroundHighlighted == null)
                 {
                     _rowBackgroundHighlighted = CreateColorTexture(_settings.RowBackgroundHighlighted);
@@ -113,10 +101,8 @@ namespace Zenject.MemoryPoolMonitor
             }
         }
 
-        Texture2D RowBackgroundSelected
-        {
-            get
-            {
+        Texture2D RowBackgroundSelected {
+            get {
                 if (_rowBackgroundSelected == null)
                 {
                     _rowBackgroundSelected = CreateColorTexture(_settings.RowBackgroundSelected);
@@ -126,10 +112,8 @@ namespace Zenject.MemoryPoolMonitor
             }
         }
 
-        Texture2D LineTexture
-        {
-            get
-            {
+        Texture2D LineTexture {
+            get {
                 if (_lineTexture == null)
                 {
                     _lineTexture = CreateColorTexture(_settings.LineColor);
@@ -170,7 +154,7 @@ namespace Zenject.MemoryPoolMonitor
 
             //if (poolType.Namespace == "Zenject")
             //{
-                //return false;
+            //return false;
             //}
 
             if (_actualFilter.IsEmpty())
@@ -275,15 +259,15 @@ namespace Zenject.MemoryPoolMonitor
             switch (Event.current.GetTypeForControl(_controlID))
             {
                 case EventType.ScrollWheel:
-                {
-                    _scrollPosition = Mathf.Clamp(_scrollPosition + Event.current.delta.y * _settings.ScrollSpeed, 0, TotalHeight);
-                    break;
-                }
+                    {
+                        _scrollPosition = Mathf.Clamp(_scrollPosition + Event.current.delta.y * _settings.ScrollSpeed, 0, TotalHeight);
+                        break;
+                    }
                 case EventType.MouseDown:
-                {
-                    _selectedPoolType = TryGetPoolTypeUnderMouse();
-                    break;
-                }
+                    {
+                        _selectedPoolType = TryGetPoolTypeUnderMouse();
+                        break;
+                    }
             }
         }
 
@@ -409,51 +393,51 @@ namespace Zenject.MemoryPoolMonitor
             switch (index)
             {
                 case 0:
-                {
-                    GUI.Label(bounds, GetName(pool), _settings.ContentNameTextStyle);
-                    break;
-                }
+                    {
+                        GUI.Label(bounds, GetName(pool), _settings.ContentNameTextStyle);
+                        break;
+                    }
                 case 1:
-                {
-                    GUI.Label(bounds, pool.NumTotal.ToString(), _settings.ContentNumberTextStyle);
-                    break;
-                }
+                    {
+                        GUI.Label(bounds, pool.NumTotal.ToString(), _settings.ContentNumberTextStyle);
+                        break;
+                    }
                 case 2:
-                {
-                    GUI.Label(bounds, pool.NumActive.ToString(), _settings.ContentNumberTextStyle);
-                    break;
-                }
+                    {
+                        GUI.Label(bounds, pool.NumActive.ToString(), _settings.ContentNumberTextStyle);
+                        break;
+                    }
                 case 3:
-                {
-                    GUI.Label(bounds, pool.NumInactive.ToString(), _settings.ContentNumberTextStyle);
-                    break;
-                }
+                    {
+                        GUI.Label(bounds, pool.NumInactive.ToString(), _settings.ContentNumberTextStyle);
+                        break;
+                    }
                 case 4:
-                {
-                    var buttonBounds = new Rect(
-                        bounds.x + _settings.ButtonMargin, bounds.y, bounds.width - _settings.ButtonMargin, bounds.height);
-
-                    if (GUI.Button(buttonBounds, "Clear"))
                     {
-                        pool.Clear();
+                        var buttonBounds = new Rect(
+                            bounds.x + _settings.ButtonMargin, bounds.y, bounds.width - _settings.ButtonMargin, bounds.height);
+
+                        if (GUI.Button(buttonBounds, "Clear"))
+                        {
+                            pool.Clear();
+                        }
+                        break;
                     }
-                    break;
-                }
                 case 5:
-                {
-                    var buttonBounds = new Rect(
-                        bounds.x, bounds.y, bounds.width - 15.0f, bounds.height);
-
-                    if (GUI.Button(buttonBounds, "Expand"))
                     {
-                        pool.ExpandBy(5);
+                        var buttonBounds = new Rect(
+                            bounds.x, bounds.y, bounds.width - 15.0f, bounds.height);
+
+                        if (GUI.Button(buttonBounds, "Expand"))
+                        {
+                            pool.ExpandBy(5);
+                        }
+                        break;
                     }
-                    break;
-                }
                 default:
-                {
-                    throw Assert.CreateException();
-                }
+                    {
+                        throw Assert.CreateException();
+                    }
             }
         }
 
@@ -499,21 +483,21 @@ namespace Zenject.MemoryPoolMonitor
                 case 4:
                 case 5:
                 case 0:
-                {
-                    return GetName(left).CompareTo(GetName(right));
-                }
+                    {
+                        return GetName(left).CompareTo(GetName(right));
+                    }
                 case 1:
-                {
-                    return left.NumTotal.CompareTo(right.NumTotal);
-                }
+                    {
+                        return left.NumTotal.CompareTo(right.NumTotal);
+                    }
                 case 2:
-                {
-                    return left.NumActive.CompareTo(right.NumActive);
-                }
+                    {
+                        return left.NumActive.CompareTo(right.NumActive);
+                    }
                 case 3:
-                {
-                    return left.NumInactive.CompareTo(right.NumInactive);
-                }
+                    {
+                        return left.NumInactive.CompareTo(right.NumInactive);
+                    }
             }
 
             throw Assert.CreateException();

@@ -26,8 +26,7 @@ namespace Zenject
             _installerType = installerType;
         }
 
-        protected DiContainer Container
-        {
+        protected DiContainer Container {
             get { return _container; }
         }
 

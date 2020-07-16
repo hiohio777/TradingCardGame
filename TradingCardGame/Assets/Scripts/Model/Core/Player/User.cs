@@ -54,7 +54,7 @@ public class UserData
         Ram = ram;
     }
 
-    public string Login { get; private set; }
+    public string Login { get; private set; } = string.Empty;
     public int Gold { get; private set; }
     public int Ram { get; private set; }
 }

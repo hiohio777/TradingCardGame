@@ -21,13 +21,11 @@ namespace Zenject
         {
         }
 
-        public static Thread UnityMainThread
-        {
+        public static Thread UnityMainThread {
             get; set;
         }
 
-        public static Regex ProfilePattern
-        {
+        public static Regex ProfilePattern {
             get;
             set;
         }

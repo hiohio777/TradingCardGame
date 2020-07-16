@@ -19,8 +19,7 @@ namespace Zenject
             SetDefaults();
         }
 
-        public BindingId SignalId
-        {
+        public BindingId SignalId {
             get { return _signalId; }
         }
 

@@ -73,33 +73,27 @@ namespace Zenject
 #endif
         }
 
-        protected DiContainer Container
-        {
+        protected DiContainer Container {
             get { return _container; }
         }
 
-        public IEnumerable<TContract> InactiveItems
-        {
+        public IEnumerable<TContract> InactiveItems {
             get { return _inactiveItems; }
         }
 
-        public int NumTotal
-        {
+        public int NumTotal {
             get { return NumInactive + NumActive; }
         }
 
-        public int NumInactive
-        {
+        public int NumInactive {
             get { return _inactiveItems.Count; }
         }
 
-        public int NumActive
-        {
+        public int NumActive {
             get { return _activeCount; }
         }
 
-        public Type ItemType
-        {
+        public Type ItemType {
             get { return typeof(TContract); }
         }
 
@@ -238,32 +232,32 @@ namespace Zenject
             switch (_settings.ExpandMethod)
             {
                 case PoolExpandMethods.Disabled:
-                {
-                    throw new PoolExceededFixedSizeException(
-                        "Pool factory '{0}' exceeded its fixed size of '{1}'!"
-                        .Fmt(GetType(), _inactiveItems.Count));
-                }
+                    {
+                        throw new PoolExceededFixedSizeException(
+                            "Pool factory '{0}' exceeded its fixed size of '{1}'!"
+                            .Fmt(GetType(), _inactiveItems.Count));
+                    }
                 case PoolExpandMethods.OneAtATime:
-                {
-                    ExpandBy(1);
-                    break;
-                }
-                case PoolExpandMethods.Double:
-                {
-                    if (NumTotal == 0)
                     {
                         ExpandBy(1);
+                        break;
                     }
-                    else
+                case PoolExpandMethods.Double:
                     {
-                        ExpandBy(NumTotal);
+                        if (NumTotal == 0)
+                        {
+                            ExpandBy(1);
+                        }
+                        else
+                        {
+                            ExpandBy(NumTotal);
+                        }
+                        break;
                     }
-                    break;
-                }
                 default:
-                {
-                    throw Assert.CreateException();
-                }
+                    {
+                        throw Assert.CreateException();
+                    }
             }
         }
 

@@ -8,38 +8,32 @@ namespace Zenject
     [NoReflectionBaking]
     public class GameObjectCreationParameters
     {
-        public string Name
-        {
+        public string Name {
             get;
             set;
         }
 
-        public string GroupName
-        {
+        public string GroupName {
             get;
             set;
         }
 
-        public Transform ParentTransform
-        {
+        public Transform ParentTransform {
             get;
             set;
         }
 
-        public Func<InjectContext, Transform> ParentTransformGetter
-        {
+        public Func<InjectContext, Transform> ParentTransformGetter {
             get;
             set;
         }
 
-        public Vector3? Position
-        {
+        public Vector3? Position {
             get;
             set;
         }
 
-        public Quaternion? Rotation
-        {
+        public Quaternion? Rotation {
             get;
             set;
         }

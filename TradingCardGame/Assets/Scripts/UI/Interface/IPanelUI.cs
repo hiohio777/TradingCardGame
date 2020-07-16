@@ -3,8 +3,9 @@ using UnityEngine;
 
 public interface IPanelUI
 {
-    MainMenuPanelsEnum TypePanel { get; }
-    Transform TransformPanel{ get; }
+    event Action<PanelNameEnum> OpenSubPanel;
+    PanelNameEnum Name { get; }
+
     void SetParent(Transform parent);
     void Enable();
     void Disable();

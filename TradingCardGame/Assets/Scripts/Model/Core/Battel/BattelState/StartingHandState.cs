@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 public class StartingHandState : IBattelState
 {
@@ -7,7 +6,7 @@ public class StartingHandState : IBattelState
     private IBattelStateData battel;
 
     public StartingHandState()
-    {}
+    { }
 
     public void Request(IBattelStateData battel)
     {

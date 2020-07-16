@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof (ChatGui))]
+[RequireComponent(typeof(ChatGui))]
 public class NamePickGui : MonoBehaviour
 {
     private const string UserNamePlayerPref = "NamePickUserName";
@@ -36,7 +36,7 @@ public class NamePickGui : MonoBehaviour
     {
         ChatGui chatNewComponent = FindObjectOfType<ChatGui>();
         chatNewComponent.UserName = this.idInput.text.Trim();
-		chatNewComponent.Connect();
+        chatNewComponent.Connect();
         enabled = false;
 
         PlayerPrefs.SetString(NamePickGui.UserNamePlayerPref, chatNewComponent.UserName);

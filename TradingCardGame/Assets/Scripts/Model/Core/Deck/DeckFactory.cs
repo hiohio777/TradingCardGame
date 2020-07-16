@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DeckFactory : IDeckFactory
-{ 
+{
     private readonly Stack<DeckUI> buffer = new Stack<DeckUI>();
 
     public void ClearBuffer() => buffer.Clear();

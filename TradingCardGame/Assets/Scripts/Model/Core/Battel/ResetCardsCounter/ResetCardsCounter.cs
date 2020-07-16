@@ -26,7 +26,7 @@ public class ResetCardsCounter : ICardResetCounter, ICardResetCounterUI
 
     public void OnClear()
     {
-        Clear.Invoke(); 
+        Clear.Invoke();
         carrentCount = 0;
     }
 

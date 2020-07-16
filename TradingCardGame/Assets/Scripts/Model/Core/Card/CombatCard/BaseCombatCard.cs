@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using Unity.Mathematics;
-using UnityEngine;
 
 public abstract class BaseCombatCard : ICombatCard
 {
@@ -29,11 +27,11 @@ public abstract class BaseCombatCard : ICombatCard
 
     public int Initiative { get => initiative; set { parameters.ShowInitiative(value, value - initiative); initiative = value; } }
     public int Attack { get => attack; set { parameters.ShowAttack(value, value - attack); attack = value; } }
-    public int Defense { get => defense; set {parameters.ShowDefense(value, value - defense); defense = value; } }
+    public int Defense { get => defense; set { parameters.ShowDefense(value, value - defense); defense = value; } }
     public int Health { get => health; set { parameters.ShowHealth(value, value - health); health = value; } }
     public int MaxCountAttackers { get => maxCountAttackers; set => maxCountAttackers = value; }
     public int CountRound { get; set; } = 0;
-    public TypeDamegeEnum TypeReceivedDamege { get; private set; } 
+    public TypeDamegeEnum TypeReceivedDamege { get; private set; }
 
     public bool BuffInitiative(int initiativeBaff)
     {

@@ -41,7 +41,7 @@ public class CardsPanelEditDeckUI : BaseCardsPanal
             return;
         }
 
-        if(deck.IsInitiativeCards(card.CardData))
+        if (deck.IsInitiativeCards(card.CardData))
         {
             card.Status = StatusCardEnum.not_available;
             return;

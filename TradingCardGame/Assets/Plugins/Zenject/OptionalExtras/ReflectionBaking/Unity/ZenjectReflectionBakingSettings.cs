@@ -23,33 +23,27 @@ namespace Zenject.ReflectionBaking
         [SerializeField]
         List<string> _namespacePatterns = null;
 
-        public List<string> NamespacePatterns
-        {
+        public List<string> NamespacePatterns {
             get { return _namespacePatterns; }
         }
 
-        public List<string> IncludeAssemblies
-        {
+        public List<string> IncludeAssemblies {
             get { return _includeAssemblies; }
         }
 
-        public List<string> ExcludeAssemblies
-        {
+        public List<string> ExcludeAssemblies {
             get { return _excludeAssemblies; }
         }
 
-        public bool IsEnabledInEditor
-        {
+        public bool IsEnabledInEditor {
             get { return _isEnabledInEditor; }
         }
 
-        public bool IsEnabledInBuilds
-        {
+        public bool IsEnabledInBuilds {
             get { return _isEnabledInBuilds; }
         }
 
-        public bool AllGeneratedAssemblies
-        {
+        public bool AllGeneratedAssemblies {
             get { return _allGeneratedAssemblies; }
         }
     }

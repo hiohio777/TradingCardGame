@@ -14,10 +14,9 @@ namespace Photon.Chat
     using System.Collections.Generic;
     using ExitGames.Client.Photon;
 
-    #if SUPPORTED_UNITY || NETFX_CORE
-    using Hashtable = ExitGames.Client.Photon.Hashtable;
+#if SUPPORTED_UNITY || NETFX_CORE
     using SupportClass = ExitGames.Client.Photon.SupportClass;
-    #endif
+#endif
 
 
     /// <summary>Central class of the Photon Chat API to connect, handle channels and messages.</summary>
@@ -54,8 +53,7 @@ namespace Photon.Chat
         private string chatRegion = "EU";
 
         /// <summary>Settable only before you connect! Defaults to "EU".</summary>
-        public string ChatRegion
-        {
+        public string ChatRegion {
             get { return this.chatRegion; }
             set { this.chatRegion = value; }
         }
@@ -68,8 +66,7 @@ namespace Photon.Chat
         /// <summary>
         /// Checks if this client is ready to send messages.
         /// </summary>
-        public bool CanChat
-        {
+        public bool CanChat {
             get { return this.State == ChatState.ConnectedToFrontEnd && this.HasPeer; }
         }
         /// <summary>
@@ -82,8 +79,7 @@ namespace Photon.Chat
             return this.CanChat && this.PublicChannels.ContainsKey(channelName) && !this.PublicChannelsUnsubscribing.Contains(channelName);
         }
 
-        private bool HasPeer
-        {
+        private bool HasPeer {
             get { return this.chatPeer != null; }
         }
 
@@ -101,14 +97,11 @@ namespace Photon.Chat
         /// <remarks>
         /// This value wraps AuthValues.UserId.
         /// It's not a nickname and we assume users with the same userID are the same person.</remarks>
-        public string UserId
-        {
-            get
-            {
+        public string UserId {
+            get {
                 return (this.AuthValues != null) ? this.AuthValues.UserId : null;
             }
-            private set
-            {
+            private set {
                 if (this.AuthValues == null)
                 {
                     this.AuthValues = new AuthenticationValues();
@@ -160,11 +153,9 @@ namespace Photon.Chat
         public bool UseBackgroundWorkerForSending { get; set; }
 
         /// <summary>Exposes the TransportProtocol of the used PhotonPeer. Settable while not connected.</summary>
-        public ConnectionProtocol TransportProtocol
-        {
+        public ConnectionProtocol TransportProtocol {
             get { return this.chatPeer.TransportProtocol; }
-            set
-            {
+            set {
                 if (this.chatPeer == null || this.chatPeer.PeerState != PeerStateValue.Disconnected)
                 {
                     this.listener.DebugReturn(DebugLevel.WARNING, "Can't set TransportProtocol. Disconnect first! " + ((this.chatPeer != null) ? "PeerState: " + this.chatPeer.PeerState : "The chatPeer is null."));
@@ -183,8 +174,7 @@ namespace Photon.Chat
         /// You only need to set the SocketImplementationConfig once, after creating a PhotonPeer
         /// and before connecting. If you switch the TransportProtocol, the correct implementation is being used.
         /// </remarks>
-        public Dictionary<ConnectionProtocol, Type> SocketImplementationConfig
-        {
+        public Dictionary<ConnectionProtocol, Type> SocketImplementationConfig {
             get { return this.chatPeer.SocketImplementationConfig; }
         }
 
@@ -257,13 +247,13 @@ namespace Photon.Chat
             this.PrivateChannels.Clear();
             this.PublicChannelsUnsubscribing.Clear();
 
-            #if UNITY_WEBGL
+#if UNITY_WEBGL
             if (this.TransportProtocol == ConnectionProtocol.Tcp || this.TransportProtocol == ConnectionProtocol.Udp)
             {
                 this.listener.DebugReturn(DebugLevel.WARNING, "WebGL requires WebSockets. Switching TransportProtocol to WebSocketSecure.");
                 this.TransportProtocol = ConnectionProtocol.WebSocketSecure;
             }
-            #endif
+#endif
 
             this.NameServerAddress = this.chatPeer.NameServerAddress;
             bool isConnecting = this.chatPeer.Connect();
@@ -274,11 +264,11 @@ namespace Photon.Chat
 
             if (this.UseBackgroundWorkerForSending)
             {
-                #if UNITY_SWITCH
+#if UNITY_SWITCH
                 SupportClass.StartBackgroundCalls(this.SendOutgoingInBackground, this.msDeltaForServiceCalls);  // as workaround, we don't name the Thread.
-                #else
+#else
                 SupportClass.StartBackgroundCalls(this.SendOutgoingInBackground, this.msDeltaForServiceCalls, "ChatClient Service Thread");
-                #endif
+#endif
             }
 
             return isConnecting;
@@ -920,8 +910,7 @@ namespace Photon.Chat
         /// This affects the callbacks to IChatClientListener.DebugReturn.
         /// Default Level: Error.
         /// </remarks>
-        public DebugLevel DebugOut
-        {
+        public DebugLevel DebugOut {
             set { this.chatPeer.DebugOut = value; }
             get { return this.chatPeer.DebugOut; }
         }
@@ -1046,9 +1035,9 @@ namespace Photon.Chat
                         default:
                             // unexpected disconnect, we log warning and stacktrace
                             string stacktrace = string.Empty;
-                            #if DEBUG && !NETFX_CORE
+#if DEBUG && !NETFX_CORE
                             stacktrace = new System.Diagnostics.StackTrace(true).ToString();
-                            #endif
+#endif
                             this.listener.DebugReturn(DebugLevel.WARNING, string.Format("Got a unexpected Disconnect in ChatState: {0}. Server: {1} Trace: {2}", this.State, this.chatPeer.ServerAddress, stacktrace));
                             break;
                     }
@@ -1088,13 +1077,13 @@ namespace Photon.Chat
             }
         }
 
-        #if SDK_V4
+#if SDK_V4
         void IPhotonPeerListener.OnMessage(object msg)
         {
             // in v4 interface IPhotonPeerListener
             return;
         }
-        #endif
+#endif
 
         #endregion
 
@@ -1365,13 +1354,13 @@ namespace Photon.Chat
                 this.listener.DebugReturn(DebugLevel.INFO, "Connecting to frontend " + this.FrontendAddress);
             }
 
-            #if UNITY_WEBGL
+#if UNITY_WEBGL
             if (this.TransportProtocol == ConnectionProtocol.Tcp || this.TransportProtocol == ConnectionProtocol.Udp)
             {
                 this.listener.DebugReturn(DebugLevel.WARNING, "WebGL requires WebSockets. Switching TransportProtocol to WebSocketSecure.");
                 this.TransportProtocol = ConnectionProtocol.WebSocketSecure;
             }
-            #endif
+#endif
 
             if (!this.chatPeer.Connect(this.FrontendAddress, ChatAppName))
             {

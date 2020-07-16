@@ -1,12 +1,9 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
 
-public abstract class PanelUI : MonoBehaviour, IPanelUI
+public abstract class PanelUI : MonoBehaviour
 {
-    public MainMenuPanelsEnum TypePanel => typePanel;
-    public Transform TransformPanel => transform;
-    [SerializeField] private MainMenuPanelsEnum typePanel;
+    public event Action<PanelNameEnum> OpenSubPanel;
 
     public void SetParent(Transform parent)
     {
@@ -14,14 +11,18 @@ public abstract class PanelUI : MonoBehaviour, IPanelUI
         Disable();
     }
 
-    public void Enable()
+    public virtual void Enable()
     {
         gameObject.SetActive(true);
     }
 
-    public void Disable()
+    public virtual void Disable()
     {
         gameObject.SetActive(false);
     }
 
+    protected void OnOpenSubPanel(PanelNameEnum Name)
+    {
+        OpenSubPanel.Invoke(Name);
+    }
 }

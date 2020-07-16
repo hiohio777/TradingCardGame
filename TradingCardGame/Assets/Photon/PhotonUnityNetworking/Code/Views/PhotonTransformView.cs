@@ -104,7 +104,7 @@ namespace Photon.Pun
                         this.m_Distance = Vector3.Distance(transform.position, this.m_NetworkPosition);
                     }
 
-                   
+
                 }
 
                 if (this.m_SynchronizeRotation)

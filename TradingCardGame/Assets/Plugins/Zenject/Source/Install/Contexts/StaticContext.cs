@@ -17,15 +17,12 @@ namespace Zenject
             _container = null;
         }
 
-        public static bool HasContainer
-        {
+        public static bool HasContainer {
             get { return _container != null; }
         }
 
-        public static DiContainer Container
-        {
-            get
-            {
+        public static DiContainer Container {
+            get {
                 if (_container == null)
                 {
                     _container = new DiContainer();

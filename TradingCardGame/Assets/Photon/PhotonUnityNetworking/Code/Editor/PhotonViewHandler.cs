@@ -11,27 +11,27 @@
 
 namespace Photon.Pun
 {
-	using System.Collections.Generic;
+    using System.Collections.Generic;
     using UnityEditor;
-	using UnityEngine;
+    using UnityEngine;
     using Debug = UnityEngine.Debug;
 
 
     [InitializeOnLoad]
-	public class PhotonViewHandler : EditorWindow
-	{
-		static PhotonViewHandler()
-		{
+    public class PhotonViewHandler : EditorWindow
+    {
+        static PhotonViewHandler()
+        {
             // called once per change (per key-press in inspectors) and once after play-mode ends.
-			#if (UNITY_2018 || UNITY_2018_1_OR_NEWER)
-			EditorApplication.hierarchyChanged += OnHierarchyChanged;
-			#else
+#if (UNITY_2018 || UNITY_2018_1_OR_NEWER)
+            EditorApplication.hierarchyChanged += OnHierarchyChanged;
+#else
 			EditorApplication.hierarchyWindowChanged += OnHierarchyChanged;
-			#endif
-		}
+#endif
+        }
 
 
-		internal static void OnHierarchyChanged()
+        internal static void OnHierarchyChanged()
         {
             // set prefabs to viewID 0 if needed
             // organize resource PVs in a list per viewID
@@ -133,7 +133,7 @@ namespace Photon.Pun
             {
                 if (PunSceneViews.Instance.Views.ContainsKey(view.ViewID))
                 {
-                    Debug.LogError("ViewIDs should no longer have duplicates! "+view.ViewID, view);  
+                    Debug.LogError("ViewIDs should no longer have duplicates! " + view.ViewID, view);
                     continue;
                 }
 
@@ -155,7 +155,7 @@ namespace Photon.Pun
         {
             return view.ViewID >= MinSceneViewId(view);
         }
-	}
+    }
 
     /// <summary>
     /// Stores a PhotonView instances per viewId (key). Instance is used as cache storage in-Editor.
@@ -166,10 +166,8 @@ namespace Photon.Pun
         public Dictionary<int, PhotonView> Views = new Dictionary<int, PhotonView>();
 
         private static PunSceneViews instanceField;
-        public static PunSceneViews Instance
-        {
-            get
-            {
+        public static PunSceneViews Instance {
+            get {
                 if (instanceField != null)
                 {
                     return instanceField;

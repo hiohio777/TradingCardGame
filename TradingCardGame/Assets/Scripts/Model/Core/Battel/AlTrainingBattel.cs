@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -32,7 +31,7 @@ public class AlTrainingBattel : IAlTrainingBattel
     private void CreatStarteHand(IBattelPerson enemy)
     {
         var cardReserv = new List<string>();
-         for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++)
             cardReserv.Add(enemy.DeckCards[i].Name);
 
         enemy.Report = JsonConvert.SerializeObject(cardReserv);

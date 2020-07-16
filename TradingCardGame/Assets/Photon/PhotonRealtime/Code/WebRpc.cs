@@ -19,10 +19,9 @@ namespace Photon.Realtime
     using System.Collections.Generic;
     using ExitGames.Client.Photon;
 
-    #if SUPPORTED_UNITY || NETFX_CORE
-    using Hashtable = ExitGames.Client.Photon.Hashtable;
+#if SUPPORTED_UNITY || NETFX_CORE
     using SupportClass = ExitGames.Client.Photon.SupportClass;
-    #endif
+#endif
 
 
     /// <summary>Reads an operation response of a WebRpc and provides convenient access to most common values.</summary>
@@ -44,16 +43,14 @@ namespace Photon.Realtime
         /// </remarks>
         public int ResultCode { get; private set; }
         [System.Obsolete("Use ResultCode instead")]
-        public int ReturnCode
-        {
+        public int ReturnCode {
             get { return ResultCode; }
         }
 
         /// <summary>Might be empty or null.</summary>
         public string Message { get; private set; }
         [System.Obsolete("Use Message instead")]
-        public string DebugMessage
-        {
+        public string DebugMessage {
             get { return Message; }
         }
 
@@ -108,8 +105,7 @@ namespace Photon.Realtime
         /// <summary>
         /// Indicates whether to forward HTTP request to web service or not.
         /// </summary>
-        public bool HttpForward
-        {
+        public bool HttpForward {
             get { return (WebhookFlags & HttpForwardConst) != 0; }
             set {
                 if (value)
@@ -118,7 +114,7 @@ namespace Photon.Realtime
                 }
                 else
                 {
-                    WebhookFlags = (byte) (WebhookFlags & ~(1 << 0));
+                    WebhookFlags = (byte)(WebhookFlags & ~(1 << 0));
                 }
             }
         }
@@ -126,8 +122,7 @@ namespace Photon.Realtime
         /// <summary>
         /// Indicates whether to send AuthCookie of actor in the HTTP request to web service or not.
         /// </summary>
-        public bool SendAuthCookie
-        {
+        public bool SendAuthCookie {
             get { return (WebhookFlags & SendAuthCookieConst) != 0; }
             set {
                 if (value)
@@ -144,8 +139,7 @@ namespace Photon.Realtime
         /// <summary>
         /// Indicates whether to send HTTP request synchronously or asynchronously to web service.
         /// </summary>
-        public bool SendSync
-        {
+        public bool SendSync {
             get { return (WebhookFlags & SendSyncConst) != 0; }
             set {
                 if (value)
@@ -162,8 +156,7 @@ namespace Photon.Realtime
         /// <summary>
         /// Indicates whether to send serialized game state in HTTP request to web service or not.
         /// </summary>
-        public bool SendState
-        {
+        public bool SendState {
             get { return (WebhookFlags & SendStateConst) != 0; }
             set {
                 if (value)

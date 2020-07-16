@@ -28,29 +28,24 @@ namespace Zenject
         [SerializeField]
         BindTypes _bindType = BindTypes.Self;
 
-        public bool UseSceneContext
-        {
+        public bool UseSceneContext {
             get { return _useSceneContext; }
         }
 
-        public Context Context
-        {
+        public Context Context {
             get { return _context; }
             set { _context = value; }
         }
 
-        public Component[] Components
-        {
+        public Component[] Components {
             get { return _components; }
         }
 
-        public string Identifier
-        {
+        public string Identifier {
             get { return _identifier; }
         }
 
-        public BindTypes BindType
-        {
+        public BindTypes BindType {
             get { return _bindType; }
         }
 

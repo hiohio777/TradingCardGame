@@ -16,18 +16,15 @@ namespace Zenject
             MaxSize = int.MaxValue;
         }
 
-        public PoolExpandMethods ExpandMethod
-        {
+        public PoolExpandMethods ExpandMethod {
             get; set;
         }
 
-        public int InitialSize
-        {
+        public int InitialSize {
             get; set;
         }
 
-        public int MaxSize
-        {
+        public int MaxSize {
             get; set;
         }
     }

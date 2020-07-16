@@ -16,14 +16,12 @@ namespace Zenject
             _identifier = identifier;
         }
 
-        public Type Type
-        {
+        public Type Type {
             get { return _type; }
             set { _type = value; }
         }
 
-        public object Identifier
-        {
+        public object Identifier {
             get { return _identifier; }
             set { _identifier = value; }
         }

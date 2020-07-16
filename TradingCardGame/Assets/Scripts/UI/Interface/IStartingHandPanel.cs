@@ -1,4 +1,4 @@
-﻿public interface IStartingHandPanel 
+﻿public interface IStartingHandPanel
 {
     void OnNewStartingHand();
 }

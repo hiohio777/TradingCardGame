@@ -1,1 +1,1 @@
-﻿public class BattelMenuButton : BaseGameButton<TypeBattelEnum> {}
+﻿public class BattelMenuButton : BaseGameButton<TypeBattelEnum> { }

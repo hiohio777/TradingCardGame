@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Data;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "TokensScriptableObject", menuName = "Data/Token", order = 53)]
 public class TokenScriptableObject : ScriptableObject, ITokenData

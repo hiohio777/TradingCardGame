@@ -12,7 +12,7 @@ public class CardUIParameters : ICardUIParameters
     public IBuffUIParametersFactory buffUIFactory;
     private ICardData cardData;
 
-    public void ShowInitiative(int count, int change = 0) 
+    public void ShowInitiative(int count, int change = 0)
     {
         if (count == cardData.Initiative) initiative.color = @default;
         else if (count > cardData.Initiative) initiative.color = debuff;
@@ -21,7 +21,7 @@ public class CardUIParameters : ICardUIParameters
         initiative.text = count.ToString();
         if (change != 0) DisplayChange(initiative, change, change < 0);
     }
-    
+
     public void ShowAttack(int count, int change = 0) => Display(attack, cardData.Attack, count, change);
     public void ShowDefense(int count, int change = 0) => Display(defense, cardData.Defense, count, change);
     public void ShowHealth(int count, int change = 0) => Display(health, cardData.Health, count, change);

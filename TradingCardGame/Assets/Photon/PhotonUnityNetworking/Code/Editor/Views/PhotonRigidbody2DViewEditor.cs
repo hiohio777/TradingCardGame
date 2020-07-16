@@ -15,7 +15,7 @@ namespace Photon.Pun
     using UnityEngine;
 
 
-    [CustomEditor(typeof (PhotonRigidbody2DView))]
+    [CustomEditor(typeof(PhotonRigidbody2DView))]
     public class PhotonRigidbody2DViewEditor : Editor
     {
         public override void OnInspectorGUI()

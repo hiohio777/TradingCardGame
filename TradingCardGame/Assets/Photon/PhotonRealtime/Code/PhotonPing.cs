@@ -15,27 +15,23 @@
 namespace Photon.Realtime
 {
     using System;
-    using System.Collections;
-    using System.Threading;
 
-    #if NETFX_CORE
+#if NETFX_CORE
     using System.Diagnostics;
     using Windows.Foundation;
     using Windows.Networking;
     using Windows.Networking.Sockets;
     using Windows.Storage.Streams;
-    #endif
+#endif
 
-    #if !NO_SOCKET && !NETFX_CORE
-    using System.Collections.Generic;
-    using System.Diagnostics;
+#if !NO_SOCKET && !NETFX_CORE
     using System.Net.Sockets;
-    #endif
+#endif
 
-    #if UNITY_WEBGL
+#if UNITY_WEBGL
     // import WWW class
     using UnityEngine;
-    #endif
+#endif
 
     /// <summary>
     /// Abstract implementation of PhotonPing, ase for pinging servers to find the "Best Region".
@@ -79,7 +75,7 @@ namespace Photon.Realtime
     }
 
 
-    #if !NETFX_CORE && !NO_SOCKET
+#if !NETFX_CORE && !NO_SOCKET
     /// <summary>Uses C# Socket class from System.Net.Sockets (as Unity usually does).</summary>
     /// <remarks>Incompatible with Windows 8 Store/Phone API.</remarks>
     public class PingMono : PhotonPing
@@ -115,7 +111,7 @@ namespace Photon.Realtime
 
                 this.PingBytes[this.PingBytes.Length - 1] = this.PingId;
                 this.sock.Send(this.PingBytes);
-                this.PingBytes[this.PingBytes.Length - 1] = (byte)(this.PingId+1);  // this buffer is re-used for the result/receive. invalidate the result now.
+                this.PingBytes[this.PingBytes.Length - 1] = (byte)(this.PingId + 1);  // this buffer is re-used for the result/receive. invalidate the result now.
             }
             catch (Exception e)
             {
@@ -180,10 +176,10 @@ namespace Photon.Realtime
         }
 
     }
-    #endif
+#endif
 
 
-    #if NETFX_CORE
+#if NETFX_CORE
     /// <summary>Windows store API implementation of PhotonPing, based on DatagramSocket for UDP.</summary>
     public class PingWindowsStore : PhotonPing
     {
@@ -277,10 +273,10 @@ namespace Photon.Realtime
             }
         }
     }
-    #endif
+#endif
 
 
-    #if NATIVE_SOCKETS
+#if NATIVE_SOCKETS
 	/// <summary>Abstract base class to provide proper resource management for the below native ping implementations</summary>
 	public abstract class PingNative : PhotonPing
 	{
@@ -371,7 +367,7 @@ namespace Photon.Realtime
         }
     }
 
-    #if NATIVE_SOCKETS && NATIVE_SOCKETS_STATIC
+#if NATIVE_SOCKETS && NATIVE_SOCKETS_STATIC
     /// <summary>Uses static linked native Photon socket library via DllImport("__Internal") attribute (as done by Unity iOS and Unity Switch).</summary>
     public class PingNativeStatic : PingNative
     {
@@ -439,11 +435,11 @@ namespace Photon.Realtime
             GC.SuppressFinalize(this);
         }
     }
-    #endif
-    #endif
+#endif
+#endif
 
 
-    #if UNITY_WEBGL
+#if UNITY_WEBGL
     public class PingHttp : PhotonPing
     {
         private WWW webRequest;
@@ -473,5 +469,5 @@ namespace Photon.Realtime
             this.webRequest.Dispose();
         }
     }
-    #endif
+#endif
 }

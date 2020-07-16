@@ -12,18 +12,15 @@ namespace Zenject
         List<ReorderableList> _installersLists;
         List<SerializedProperty> _installersProperties;
 
-        protected abstract string[] PropertyDisplayNames
-        {
+        protected abstract string[] PropertyDisplayNames {
             get;
         }
 
-        protected abstract string[] PropertyNames
-        {
+        protected abstract string[] PropertyNames {
             get;
         }
 
-        protected abstract string[] PropertyDescriptions
-        {
+        protected abstract string[] PropertyDescriptions {
             get;
         }
 

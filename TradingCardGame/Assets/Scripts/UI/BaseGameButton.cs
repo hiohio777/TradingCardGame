@@ -11,5 +11,5 @@ public abstract class BaseGameButton<T> : MonoBehaviour
     public void SetActive(bool active) => gameObject.SetActive(active);
     public void SetListener(Action<T> clicKButton) => this.clicKButton = clicKButton;
     protected virtual void Awake() => GetComponent<Button>().onClick.AddListener(OnClick);
-    protected virtual void OnClick() => clicKButton.Invoke(identifier);
+    protected virtual void OnClick() => clicKButton?.Invoke(identifier);
 }

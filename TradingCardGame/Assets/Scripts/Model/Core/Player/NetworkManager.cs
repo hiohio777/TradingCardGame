@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using UnityEngine;
 
@@ -8,7 +6,7 @@ public class NetworkManager : INetworkManager
 {
     private readonly string path = $"{Application.dataPath}/StreamingAssets/userdata.json";
 
-    public NetworkManager(){ }
+    public NetworkManager() { }
 
     public void SendToSaveDecks(string decksJsonString)
     {
@@ -31,7 +29,7 @@ public class NetworkManager : INetworkManager
             jsonString = sr.ReadToEnd();
         }
 
-        if(jsonString == null || jsonString == string.Empty)
+        if (jsonString == null || jsonString == string.Empty)
             throw new System.Exception("Не удалось получить данные!");
 
         return jsonString;

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 [CreateAssetMenu(fileName = "CardScriptable", menuName = "Data/Card", order = 51)]
 public class CardScriptable : ScriptableObject, ICardData

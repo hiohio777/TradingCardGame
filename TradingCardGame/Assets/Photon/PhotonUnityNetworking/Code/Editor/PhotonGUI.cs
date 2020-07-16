@@ -9,8 +9,8 @@
 // ----------------------------------------------------------------------------
 
 
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 namespace Photon.Pun
 {
@@ -20,10 +20,8 @@ namespace Photon.Pun
 
         static GUIStyle m_DefaultTitleStyle;
 
-        public static GUIStyle DefaultTitleStyle
-        {
-            get
-            {
+        public static GUIStyle DefaultTitleStyle {
+            get {
                 if (m_DefaultTitleStyle == null)
                 {
                     m_DefaultTitleStyle = new GUIStyle();
@@ -43,10 +41,8 @@ namespace Photon.Pun
 
         static GUIStyle m_DefaultContainerStyle;
 
-        public static GUIStyle DefaultContainerStyle
-        {
-            get
-            {
+        public static GUIStyle DefaultContainerStyle {
+            get {
                 if (m_DefaultContainerStyle == null)
                 {
                     m_DefaultContainerStyle = new GUIStyle();
@@ -62,10 +58,8 @@ namespace Photon.Pun
 
         static GUIStyle m_DefaultAddButtonStyle;
 
-        public static GUIStyle DefaultAddButtonStyle
-        {
-            get
-            {
+        public static GUIStyle DefaultAddButtonStyle {
+            get {
                 if (m_DefaultAddButtonStyle == null)
                 {
                     m_DefaultAddButtonStyle = new GUIStyle();
@@ -81,10 +75,8 @@ namespace Photon.Pun
 
         static GUIStyle m_DefaultRemoveButtonStyle;
 
-        public static GUIStyle DefaultRemoveButtonStyle
-        {
-            get
-            {
+        public static GUIStyle DefaultRemoveButtonStyle {
+            get {
                 if (m_DefaultRemoveButtonStyle == null)
                 {
                     m_DefaultRemoveButtonStyle = new GUIStyle();
@@ -101,10 +93,8 @@ namespace Photon.Pun
 
         static GUIStyle m_DefaultContainerRowStyle;
 
-        public static GUIStyle DefaultContainerRowStyle
-        {
-            get
-            {
+        public static GUIStyle DefaultContainerRowStyle {
+            get {
                 if (m_DefaultContainerRowStyle == null)
                 {
                     m_DefaultContainerRowStyle = new GUIStyle();
@@ -121,10 +111,8 @@ namespace Photon.Pun
 
         static GUIStyle m_FoldoutBold;
 
-        public static GUIStyle FoldoutBold
-        {
-            get
-            {
+        public static GUIStyle FoldoutBold {
+            get {
                 if (m_FoldoutBold == null)
                 {
                     m_FoldoutBold = new GUIStyle(EditorStyles.foldout);
@@ -137,10 +125,8 @@ namespace Photon.Pun
 
         static GUIStyle m_RichLabel;
 
-        public static GUIStyle RichLabel
-        {
-            get
-            {
+        public static GUIStyle RichLabel {
+            get {
                 if (m_RichLabel == null)
                 {
                     m_RichLabel = new GUIStyle(GUI.skin.label);
@@ -157,11 +143,11 @@ namespace Photon.Pun
 
         internal static string GetIconPath(string iconFileName)
         {
-            string _thisIconPath = PhotonNetwork.FindAssetPath ("PhotonGUI");
+            string _thisIconPath = PhotonNetwork.FindAssetPath("PhotonGUI");
 
             if (string.IsNullOrEmpty(_thisIconPath))
             {
-                _thisIconPath = "Assets/Photon/PhotonUnityNetworking/Code/Editor/"+iconFileName;
+                _thisIconPath = "Assets/Photon/PhotonUnityNetworking/Code/Editor/" + iconFileName;
             }
             else
             {
@@ -170,31 +156,27 @@ namespace Photon.Pun
 
             return _thisIconPath;
         }
-        
+
         static Texture2D m_HelpIcon;
 
-        public static Texture2D HelpIcon
-        {
-            get
-            {
+        public static Texture2D HelpIcon {
+            get {
                 if (m_HelpIcon == null)
                 {
                     m_HelpIcon = AssetDatabase.LoadAssetAtPath(GetIconPath("help.png"), typeof(Texture2D)) as Texture2D;
                 }
 
-                
+
                 return m_HelpIcon;
             }
         }
-        
-        
+
+
         static Texture2D m_CopyIcon;
         static Texture2D m_CopyIconPro;
-        
-        public static Texture2D CopyIcon
-        {
-            get
-            {
+
+        public static Texture2D CopyIcon {
+            get {
                 if (EditorGUIUtility.isProSkin)
                 {
                     if (m_CopyIconPro == null)
@@ -204,7 +186,7 @@ namespace Photon.Pun
 
                     return m_CopyIconPro;
                 }
-                
+
                 if (m_CopyIcon == null)
                 {
                     m_CopyIcon = AssetDatabase.LoadAssetAtPath(GetIconPath("CopyIcon.png"), typeof(Texture2D)) as Texture2D;

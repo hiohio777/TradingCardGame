@@ -11,8 +11,7 @@ namespace Zenject
     {
         DiContainer _container;
 
-        protected DiContainer Container
-        {
+        protected DiContainer Container {
             get { return _container; }
         }
 

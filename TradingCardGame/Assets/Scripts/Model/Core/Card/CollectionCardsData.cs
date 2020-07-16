@@ -28,7 +28,7 @@ public class CollectionCardsData : ICollectionCardsData
         foreach (var item in names)
         {
             var card = GetCard(item);
-            if(card == null) throw new Exception($"Запрашиваемой карты не существует! {item}");
+            if (card == null) throw new Exception($"Запрашиваемой карты не существует! {item}");
             temp.Add(card);
         }
 

@@ -8,8 +8,7 @@ namespace Zenject
         int NumActive { get; }
         int NumInactive { get; }
 
-        Type ItemType
-        {
+        Type ItemType {
             get;
         }
 

@@ -41,18 +41,15 @@ namespace Zenject
         }
 #endif
 
-        public int TickPriority
-        {
+        public int TickPriority {
             get; private set;
         }
 
-        public bool IsAsync
-        {
+        public bool IsAsync {
             get { return _isAsync; }
         }
 
-        public BindingId BindingId
-        {
+        public BindingId BindingId {
             get { return _bindingId; }
         }
 

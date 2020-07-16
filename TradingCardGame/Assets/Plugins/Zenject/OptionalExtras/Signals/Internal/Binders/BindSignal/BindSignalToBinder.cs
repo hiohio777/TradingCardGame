@@ -18,8 +18,7 @@ namespace Zenject
             _bindStatement = container.StartBinding();
         }
 
-        protected SignalBindingBindInfo SignalBindInfo
-        {
+        protected SignalBindingBindInfo SignalBindInfo {
             get { return _signalBindInfo; }
         }
 

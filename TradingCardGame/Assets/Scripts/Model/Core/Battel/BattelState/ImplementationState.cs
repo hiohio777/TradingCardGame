@@ -7,7 +7,7 @@ public class ImplementationState : IBattelState
     {
         battel.OnInteractableButtonNextTurn(false);
 
-        new ImplementationAbility(battel, () => battel.OnNextTurn() ).Execute();
+        new ImplementationAbility(battel, () => battel.OnNextTurn()).Execute();
     }
 
     public void Request(IBattelStateData battel)
@@ -27,7 +27,7 @@ public abstract class BattelStateMachine
 
     public void Request(IBattelStateData battel)
     {
-       
+
     }
 
     public void ReportReadinessPlayer(Action report)
