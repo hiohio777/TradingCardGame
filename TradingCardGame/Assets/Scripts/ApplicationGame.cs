@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class ApplicationGame : MonoBehaviour
@@ -11,9 +12,15 @@ public class ApplicationGame : MonoBehaviour
         this.gameDataManager = gameDataManager;
     }
 
+    public void StartMainScen()
+    {
+        SceneManager.LoadScene(ScenesEnum.MainScene.ToString());
+    }
+
     private void Start()
     {
-        gameDataManager.Load();
+        gameDataManager.Load(this);
+
     }
 
     private void OnApplicationQuit()

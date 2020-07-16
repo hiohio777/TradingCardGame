@@ -3,25 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
-public class DecksPanel : BaseCollectionPanelUI, ICollectionPanelUI
+public class DecksPanel : BaseCollectionPanelUI, ICollectionPanelUI, IInitializable
 {
     private IDeckFactory deckFactory;
     private IFractionsData fractions;
     private IUserData userDecks;
     private IEditorDeckPanel editorDeck;
-    private List<IDeck> decks = new List<IDeck>();
+    private List<IDeck> decks = new List<IDeck>(); 
 
     [SerializeField] private Transform panel = null;
     [SerializeField] private Button newDeckButton = null;
     [SerializeField] private int maxDeck = 4;
     private Transform parent;
 
-    public ICollectionPanelUI Initialize(IDeckFactory deckFactory, IFractionsData fractions,
+    [Inject]
+    public void InjectMetod(IDeckFactory deckFactory, IFractionsData fractions,
         IUserData userDecks, IEditorDeckPanel editorDeck)
     {
-        (this.deckFactory, this.fractions, this.userDecks, this.editorDeck) = (deckFactory, fractions, userDecks, editorDeck);
-        return this;
+        (this.deckFactory, this.fractions, this.userDecks, this.editorDeck)
+        = (deckFactory, fractions, userDecks, editorDeck);
+    }
+
+    public void Initialize()
+    {
+
     }
 
     public override void Build(Transform parent)

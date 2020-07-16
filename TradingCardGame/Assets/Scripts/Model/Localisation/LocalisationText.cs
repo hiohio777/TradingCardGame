@@ -4,19 +4,14 @@ using UnityEngine.UI;
 public class LocalisationText : MonoBehaviour
 {
     [SerializeField] private string Key;
-    private Text TextComponent;
+    public Text text;
 
-    public Color Color { set => TextComponent.color = value; }
+    public Color Color { set => text.color = value; }
 
     public void SetKey(string newKey)
     {
         Key = newKey;
         SetLocalisationString();
-    }
-
-    private void Awake()
-    {
-        TextComponent = GetComponent<Text>();
     }
 
     private void Start()
@@ -26,5 +21,5 @@ public class LocalisationText : MonoBehaviour
     }
 
     private void OnDestroy() => LocalisationGame.Instance.LanguageChanged -= SetLocalisationString;
-    private void SetLocalisationString() => TextComponent.text = LocalisationGame.Instance.GetLocalisationString(Key);
+    private void SetLocalisationString() => text.text = LocalisationGame.Instance.GetLocalisationString(Key);
 }

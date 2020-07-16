@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Key: 
+  text: {fileID: 5264891339042432901}
 --- !u!114 &5271925120767295858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,3 +106,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e9630c17305b24d9e9388d2cca0774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  localisationText: {fileID: 8186652886238456364}

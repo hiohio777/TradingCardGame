@@ -1,11 +1,12 @@
 using Zenject;
 using UnityEngine;
-using System.Collections;
 
 public class TestInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
+        Debug.Log("---InstallBindings");
+
         Container.Bind<INetworkManager>().To<NetworkManager>().AsSingle();
         Container.Bind<ISettingsData>().To<SettingsData>().AsSingle();
         Container.Bind<IFractionsData>().To<FractionsData>().AsSingle();
@@ -21,6 +22,7 @@ public class TestInstaller : MonoInstaller
         Container.Bind<IAbilityFactory>().To<AbilityFactory>().AsSingle();
         Container.Bind<ICardFactory<ICard>>().To<CardFactory>().AsSingle();
         Container.Bind<ICardFactory<IAttackCard>>().To<BattelCardFactory>().AsSingle();
+        Container.Bind<IDeckFactory>().To<DeckFactory>().AsSingle();
         Container.Bind<IAlTrainingBattel>().To<AlTrainingBattel>().AsSingle();
 
         Container.Bind(typeof(IBattel), typeof(IBattelStateData)).To<BattelData>().AsSingle();
@@ -32,17 +34,21 @@ public class TestInstaller : MonoInstaller
         // UI
         Container.Bind<IEditorDeckPanel>().FromComponentInNewPrefabResource($"CollectionScene/DeckEditorPanel").AsTransient();
 
-        Container.BindInterfacesTo<ArenaPanel>().FromComponentInNewPrefabResource($"MainScene/ArenaPanel").AsSingle();
-        Container.BindInterfacesTo<CompanyPanel>().FromComponentInNewPrefabResource($"MainScene/CompanyPanel").AsSingle();
-        Container.BindInterfacesTo<ShopPanel>().FromComponentInNewPrefabResource($"MainScene/ShopPanel").AsSingle();
-        Container.BindInterfacesTo<SettingsPanel>().FromComponentInNewPrefabResource($"MainScene/SettingsPanel").AsSingle();
+        Container.Bind<MainScene>().FromComponentInNewPrefabResource($"MainScene/MainScene").AsSingle();
+        Container.Bind<IPanelUI>().To<ArenaPanel>().FromComponentInNewPrefabResource($"MainScene/ArenaPanel").AsSingle();
+        Container.Bind<IPanelUI>().To<CompanyPanel>().FromComponentInNewPrefabResource($"MainScene/CompanyPanel").AsSingle();
+        Container.Bind<IPanelUI>().To<ShopPanel>().FromComponentInNewPrefabResource($"MainScene/ShopPanel").AsSingle();
+        Container.Bind<IPanelUI>().To<SettingsPanel>().FromComponentInNewPrefabResource($"MainScene/SettingsPanel").AsSingle();
 
-        // Игровые сцены
-        Container.BindInterfacesAndSelfTo<MainScene>().FromComponentInNewPrefabResource($"MainScene/MainScene").AsSingle().NonLazy();
+        //Container.BindInterfacesTo<CollectionScene>().FromComponentInNewPrefabResource($"CollectionScene/CollectionScene").AsSingle();
+        Container.Bind<ICollectionPanelUI>().To<DecksPanel>().FromComponentInNewPrefabResource($"CollectionScene/DecksPanel").AsSingle();
+        Container.Bind<ICollectionPanelUI>().To<CardsCollectionPanel>().FromComponentInNewPrefabResource($"CollectionScene/CardsCollectionPanel").AsSingle();
+        Container.Bind<ICollectionPanelUI>().To<StatisticsPanel>().FromComponentInNewPrefabResource($"CollectionScene/StatisticsPanel").AsSingle();
 
+        
 
         Container.Bind<ApplicationGame>().FromComponentInNewPrefabResource($"ApplicationGame").AsSingle().NonLazy();
-        
+
         //Container.Bind<>().To<>().AsSingle();
         //Container.Bind<>().To<>().AsSingle();
 

@@ -8,7 +8,7 @@ public class NetworkManager : INetworkManager
 {
     private readonly string path = $"{Application.dataPath}/StreamingAssets/userdata.json";
 
-    public NetworkManager() { }
+    public NetworkManager(){ }
 
     public void SendToSaveDecks(string decksJsonString)
     {

@@ -5,26 +5,25 @@ using UnityEngine.UI;
 
 public class LanguageButton : MonoBehaviour, IPointerClickHandler
 {
+    [SerializeField] private LocalisationText localisationText;
     private Action<string> clicK;
     private string nameLanguage;
-    private Text nameLanguageText; 
     private static LanguageButton current;
 
     public LanguageButton Initialize(string nameLanguage, Action<string> clicK)
     {
-        GetComponent<LocalisationText>().SetKey(this.nameLanguage = nameLanguage);
-        nameLanguageText = GetComponent<Text>();
+        localisationText.SetKey(this.nameLanguage = nameLanguage);
         Disable();
         this.clicK = clicK;
 
         return this;
     }
 
-    public void Disable() => nameLanguageText.color = Color.gray;
+    public void Disable() => localisationText.text.color = Color.gray;
     public void Enable()
     {
         current = this;
-        nameLanguageText.color = Color.green;
+        localisationText.text.color = Color.green;
     }
 
     public void OnPointerClick(PointerEventData eventData)

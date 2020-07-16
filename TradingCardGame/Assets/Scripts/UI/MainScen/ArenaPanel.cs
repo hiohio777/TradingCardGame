@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class ArenaPanel : PanelUI, IPanelUI, IInitializable
@@ -27,12 +28,6 @@ public class ArenaPanel : PanelUI, IPanelUI, IInitializable
             MessagePanel.SimpleMessage(transform, "no_decks");
             return;
         }
-
-        //switch (typeBattel)
-        //{
-        //    case TypeBattelEnum.training: startNewScene.Invoke(ScenesEnum.TrainingBattelScenes); break;
-        //    case TypeBattelEnum.common: startNewScene.Invoke(ScenesEnum.CommonBattelScenes); break;
-        //    case TypeBattelEnum.rating: startNewScene.Invoke(ScenesEnum.RatingBattelScenes); break;
-        //}
+        SceneManager.LoadScene(typeBattel.ToString());
     }
 }

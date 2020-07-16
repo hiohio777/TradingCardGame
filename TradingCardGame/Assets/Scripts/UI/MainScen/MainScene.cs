@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
-public class MainScene : BaseScene, IInitializable
+public class MainScene : BaseScene, IInitializable 
 {
     private List<IPanelUI> panels;
     private IPanelUI current;
@@ -29,8 +29,8 @@ public class MainScene : BaseScene, IInitializable
         collectionSceneButton.onClick.AddListener(StartCollectionScene);
 
         backMainMenuButton.onClick.AddListener(() => SetActiveMainMenu(true));
-        backMainMenuButton.transform.SetParent(null, false);
-
+        backMainMenuButton.transform.SetParent(null, false); 
+        
         if (currentEnum != MainMenuPanelsEnum.def)
             OnSelectButton(currentEnum);
     }
@@ -52,7 +52,7 @@ public class MainScene : BaseScene, IInitializable
 
     private void StartCollectionScene()
     {
-        StartNewScen(ScenesEnum.CollectionScene);
+        SceneManager.LoadScene(ScenesEnum.CollectionScene.ToString());
     }
     private void QuitGame()
     {

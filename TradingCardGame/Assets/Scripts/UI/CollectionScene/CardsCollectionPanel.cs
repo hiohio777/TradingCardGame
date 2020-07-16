@@ -1,19 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
-public class CardsCollectionPanel : BaseCollectionPanelUI, ICollectionPanelUI
+public class CardsCollectionPanel : BaseCollectionPanelUI, ICollectionPanelUI, IInitializable
 {
     private IFractionsData fractions;
+    private ICollectionCardsData collection;
+    private ICardFactory<ICard> cardFactory;
 
     [SerializeField] private CardsPanelUI cardsPanel = null;
 
-    public ICollectionPanelUI Initialize(ICardFactory<ICard> cardFactory, ICollectionCardsData collection, IFractionsData fractions)
+    [Inject]
+    public void InjectMetod(ICardFactory<ICard> cardFactory, ICollectionCardsData collection, IFractionsData fractions)
     {
-        this.fractions = fractions;
-        cardsPanel.Build(cardFactory, collection, OnClickCard, fractions);
+        (this.cardFactory, this.collection, this.fractions) = (cardFactory, collection, fractions);
+    }
 
-        return this;
+    public void Initialize()
+    {
+        cardsPanel.Build(cardFactory, collection, OnClickCard, fractions);
     }
 
     public override void Enable(FractionsMenu fractionMenu)

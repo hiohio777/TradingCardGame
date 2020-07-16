@@ -1,6 +1,6 @@
 ﻿public enum ScenesEnum
 {
-    MainScenes,
+    MainScene,
     CollectionScene,
     TrainingBattelScenes,
     CommonBattelScenes,

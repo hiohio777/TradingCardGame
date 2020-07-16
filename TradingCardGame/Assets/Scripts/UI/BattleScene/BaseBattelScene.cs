@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public abstract class BaseBattelScene : BaseScene
@@ -13,7 +14,7 @@ public abstract class BaseBattelScene : BaseScene
     protected bool isStartBattel = false;
 
     [SerializeField] protected Button backButton = null, buttonFinishBattel = null, buttonNextTurn = null;
-    private ScenesEnum carrentScene = ScenesEnum.MainScenes;
+    private ScenesEnum carrentScene = ScenesEnum.MainScene;
 
     protected BaseBattelScene Initialize(IBattel battel, IUserData player,
               BattelFieldFactory battelFieldFactory)
@@ -65,7 +66,8 @@ public abstract class BaseBattelScene : BaseScene
 
     public abstract void FinishBattel();
     protected virtual void OnLeaveBattle() =>
-        StartNewScen(carrentScene);
+        SceneManager.LoadScene(carrentScene.ToString());
+
     protected void SetInteractableButtonNextTurn(bool active) =>
         buttonNextTurn.interactable = active;
     protected void SetBackScene(ScenesEnum scene) =>

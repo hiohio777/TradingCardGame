@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
-public class CollectionScene : BaseScene
+public class CollectionScene : BaseScene, IInitializable
 {
     private List<ICollectionPanelUI> panels;
     private ICollectionPanelUI currentPanel;
+    private IFractionsData fractions;
 
     [SerializeField] private FractionsMenu fractionMenu = null;
     [SerializeField] private Transform mainMenu = null;
@@ -15,21 +18,24 @@ public class CollectionScene : BaseScene
     [SerializeField] private List<CollectionButton> menuButtons = null;
     private CollectionButton currentButton;
 
-    public CollectionScene Initialize(IFractionsData fractions, Func<List<ICollectionPanelUI>> creatorPanels)
+    [Inject]
+    public void InjectMetod(IFractionsData fractions, List<ICollectionPanelUI> panels)
     {
-        panels = creatorPanels.Invoke();
+        (this.fractions, this.panels) = (fractions, panels);
+    }
+
+    public void Initialize()
+    {
         panels.ForEach(x => x.Build(transform));
 
         menuButtons.ForEach(x => x.AddListener(OnSelectPanel));
         mainMenu.SetAsLastSibling();
 
-        backMainMenuButton.onClick.AddListener(() => StartNewScen(ScenesEnum.MainScenes));
+        backMainMenuButton.onClick.AddListener(() => SceneManager.LoadScene(ScenesEnum.MainScene.ToString()));
         backMainMenuButton.transform.SetAsLastSibling();
 
         fractionMenu.Initialize(fractions.Fractions);
         OnSelectPanel(CollectionPanelsEnum.Decks);
-
-        return this;
     }
 
     private void OnSelectPanel(CollectionPanelsEnum type)
@@ -37,7 +43,7 @@ public class CollectionScene : BaseScene
         currentPanel?.Disable();
         (currentPanel = panels.Where(x => x.TypePanel == type).FirstOrDefault())?.Enable(fractionMenu);
 
-        if(currentButton != null) currentButton.SetActive(false);
+        if (currentButton != null) currentButton.SetActive(false);
         (currentButton = menuButtons.Where(x => x.TypePanal == type).FirstOrDefault()).SetActive(true);
     }
 }

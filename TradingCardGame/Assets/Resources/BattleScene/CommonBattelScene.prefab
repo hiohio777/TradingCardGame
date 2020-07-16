@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85ac4007d14e320438c791494e6511ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timerNextTurn: {fileID: 0}
   backButton: {fileID: 6721096832562244810}
   buttonFinishBattel: {fileID: 5657267494271292862}
   buttonNextTurn: {fileID: 1225329689767912790}

@@ -31,12 +31,6 @@ public class AttackCard : Card, IAttackCard, IPointerClickHandler
         }
     }
 
-    public void ReturnCardToPlace(Action execute = null, float time = 0.3f)
-    {
-        View.SetSortingOrder(Warrior.Id);
-        Moving.SetPosition(View.Position).Run(0.3f, () => { View.SetSortingOrder(0); execute.Invoke(); });
-    }
-
     // Карта совершает анимацию и показывает специфект способности
     public void ExecuteAbility(EventTriggerEnum trigger, IBattelBase battel, Action finish)
     {

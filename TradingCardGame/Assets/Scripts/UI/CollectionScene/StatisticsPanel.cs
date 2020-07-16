@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
-public class StatisticsPanel : BaseCollectionPanelUI, ICollectionPanelUI
+public class StatisticsPanel : BaseCollectionPanelUI, ICollectionPanelUI, IInitializable
 {
     [SerializeField] private Text countVictory, countDefeat, countSeriesVictories;
     private IStatistics statistics;
 
-    public ICollectionPanelUI Initialize(IStatistics statistics)
+    [Inject]
+    public void InjectMetod(IStatistics statistics)
     {
         this.statistics = statistics;
-        return this;
+    }
+
+    public void Initialize()
+    {
+        
     }
 
     sealed public override void Enable(FractionsMenu fractionMenu)
