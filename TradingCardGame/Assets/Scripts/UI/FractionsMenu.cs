@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class FractionsMenu : MonoBehaviour
 {
@@ -8,15 +9,15 @@ public class FractionsMenu : MonoBehaviour
     private readonly List<FractionsButton> buttons = new List<FractionsButton>();
     private FractionsButton currentButton;
 
-    public FractionsMenu Initialize(List<IFraction> fractions)
+    [Inject]
+    public void Initialize(IFractionsData fractions)
     {
-        foreach (var item in fractions)
+        foreach (var item in fractions.Fractions)
         {
             var button = Instantiate(Resources.Load<FractionsButton>("FractionsButton"));
             button.Assing(transform, item, Select);
             buttons.Add(button);
         }
-        return this;
     }
 
     public FractionsMenu SetActiveBattons(List<IFraction> fractions)

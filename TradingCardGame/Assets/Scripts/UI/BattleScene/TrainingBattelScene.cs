@@ -22,7 +22,7 @@ public class TrainingBattelScene : BaseBattelScene
         Battel.IsMasterClient = true;
         CreatPlayerPerson();
         alTraining.CreatEnemyPerson(Battel.Enemy);
-        SetBackScene(PanelNameEnum.TrainingBattelScenes);
+        //SetBackScene(PanelNameEnum.TrainingBattelScenes);
         CreatBattelField();
     }
 

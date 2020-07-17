@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using Zenject;
 
-public class StatisticsPanel : BaseCollectionPanelUI, ICollectionPanelUI, IInitializable
+public class StatisticsPanel : BaseCollectionPanelUI, ICollectionPanelUI
 {
     [SerializeField] private Text countVictory, countDefeat, countSeriesVictories;
     private IStatistics statistics;

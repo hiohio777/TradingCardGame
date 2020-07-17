@@ -3,40 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
-public class DeckEditorPanel : MonoBehaviour, IEditorDeckPanel
+public class DeckEditorPanel : PanelUI, IPanelUI, IDeckEditorPanel
 {
     private Action back;
 
     private IFractionsData fractions;
     private IUserData userDecks;
     private IDeckData editableDeck, deck;
+    private ICardFactory<ICard> cardFactory;
+    private ICollectionCardsData collection;
+    private FractionsMenu fractionMenu;
+    private ReturnButton returnButton;
     private bool isNewDeck = false; // true - Создание новой колоды, false - Редактирование существующей колоды
 
-    [SerializeField] private FractionsMenu fractionMenu = null;
-    [SerializeField] private Button backButton = null, selectPanelButton = null, removeDeckButton = null;
-    [SerializeField] private CardsPanelEditDeckUI cardsPanel = null;
-    [SerializeField] private List<CardsDeckPanelUI> cardsDeckPanels = null;
+    [SerializeField] private Button exitButton, selectPanelButton, removeDeckButton;
+    [SerializeField] private CardsPanelEditDeckUI cardsPanel;
+    [SerializeField] private List<CardsDeckPanelUI> cardsDeckPanels;
     private CardsDeckPanelUI currentCardsDeckPanels;
 
-    public IEditorDeckPanel Initialize(ICardFactory<ICard> cardFactory, ICollectionCardsData collection,
-        IFractionsData fractions, IUserData userDecks)
+    [Inject]
+    public void Initialize(ICardFactory<ICard> cardFactory, ICollectionCardsData collection,
+        IFractionsData fractions, IUserData userDecks, FractionsMenu fractionMenu, ReturnButton returnButton) =>
+        (this.cardFactory, this.collection, this.fractions, this.userDecks, this.fractionMenu, this.returnButton)
+        = (cardFactory, collection, fractions, userDecks, fractionMenu, returnButton);
+
+    protected override void Initialize()
     {
-        (this.fractions, this.userDecks) = (fractions, userDecks);
-
-        fractionMenu.Initialize(fractions.Fractions);
-        fractionMenu.SetListener(SelectFraction);
-
-        backButton.onClick.AddListener(OnBack);
         selectPanelButton.onClick.AddListener(SelectPanel);
         removeDeckButton.onClick.AddListener(RemoveDeck);
+        exitButton.onClick.AddListener(OnExit);
 
         cardsPanel.Build(cardFactory, collection, AddCardWithDeck, fractions);
         cardsDeckPanels.ForEach(x => x.Build(cardFactory, RemoveCardfromDeck));
-
-        gameObject.SetActive(false);
-
-        return this;
     }
 
     public void StartEditDeck(Action back)
@@ -63,24 +63,17 @@ public class DeckEditorPanel : MonoBehaviour, IEditorDeckPanel
 
     private void StartEditDeck()
     {
+        base.Enable();
+        returnButton.SetActive(false);
         cardsPanel.SetDeck(editableDeck);
 
         cardsDeckPanels.ForEach(x => x.SetDeck(editableDeck));
         SelectPanel(TypeInitiativeEnum.veryFast);
 
+        fractionMenu.transform.SetParent(transform, false);
+        fractionMenu.SetListener(SelectFraction);
         fractionMenu.SetActiveBattons(new List<IFraction>() { fractions.CurrentFraction, fractions.GetFraction("neutral") });
         fractionMenu.SetSelecedButton(fractions.GetFraction(editableDeck.Fraction));
-
-        gameObject.SetActive(true);
-    }
-
-    private void Disable()
-    {
-        cardsPanel.DestroyCardUI();
-        cardsDeckPanels.ForEach(x => x.DestroyCardUI());
-
-        fractions.CurrentFraction = fractions.GetFraction(editableDeck.Fraction);
-        gameObject.SetActive(false);
     }
 
     private void SelectFraction(object fraction) =>
@@ -88,12 +81,13 @@ public class DeckEditorPanel : MonoBehaviour, IEditorDeckPanel
 
     private void AddCardWithDeck(ICard card)
     {
-        if (editableDeck.AddCard(card.CardData) == false) return;
+        if (editableDeck.AddCard(card.CardData))
+        {
+            SelectPanel(card.CardData.TypeInitiative);
+            currentCardsDeckPanels.AddCard(card.CardData);
 
-        SelectPanel(card.CardData.TypeInitiative);
-        currentCardsDeckPanels.AddCard(card.CardData);
-
-        cardsPanel.UpdatePanel();
+            cardsPanel.UpdatePanel();
+        }
     }
 
     private void RemoveCardfromDeck(ICard card)
@@ -104,7 +98,11 @@ public class DeckEditorPanel : MonoBehaviour, IEditorDeckPanel
 
     private void SelectPanel(TypeInitiativeEnum typePanel)
     {
-        if (currentCardsDeckPanels != null) currentCardsDeckPanels.Disable();
+        if (currentCardsDeckPanels != null)
+        {
+            currentCardsDeckPanels.Disable();
+        }
+
         currentCardsDeckPanels = cardsDeckPanels.Where(x => x.TypePanel == typePanel).First();
         currentCardsDeckPanels.Enable();
     }
@@ -116,34 +114,36 @@ public class DeckEditorPanel : MonoBehaviour, IEditorDeckPanel
         else
             SelectPanel(currentCardsDeckPanels.TypePanel + 1);
     }
-    private void OnBack()
+    private void OnExit()
     {
         if (editableDeck.Cards.Count < CardsDeckPanelUI.maxCardsDeck)
         {
             MessagePanel.MessageWithChoice(transform, "deck_not_assembled", ExitEditor);
             return;
         }
-
-        if (isNewDeck) ExitEditor_NewDeck();
-        else ExitEditor_EdingDeck();
-    }
-
-    private void ExitEditor_NewDeck()
-    {
-        Action actSaveNewDeck = () => { userDecks.Decks.Add(editableDeck); userDecks.SaveDecks(); ExitEditor(); };
-        MessagePanel.MessageWithChoice(transform, "save_new_deck", actSaveNewDeck, ExitEditor);
-    }
-
-    private void ExitEditor_EdingDeck()
-    {
-        Action act = () => { deck.PutClon(editableDeck); userDecks.SaveDecks(); ExitEditor(); };
-        if (CheckDeckChanges()) act.Invoke();
-        else MessagePanel.MessageWithChoice(transform, "save_changes", act, ExitEditor);
+        if (isNewDeck) 
+        {
+            Action actSaveNewDeck = () => { userDecks.Decks.Add(editableDeck); userDecks.SaveDecks(); ExitEditor(); };
+            MessagePanel.MessageWithChoice(transform, "save_new_deck", actSaveNewDeck, ExitEditor);
+        }
+        else 
+        {
+            Action act = () => { deck.PutClon(editableDeck); userDecks.SaveDecks(); ExitEditor(); };
+            if (CheckDeckChanges()) act.Invoke();
+            else MessagePanel.MessageWithChoice(transform, "save_changes", act, ExitEditor);
+        }
     }
 
     private void ExitEditor()
     {
-        Disable();
+        cardsPanel.DestroyCardUI();
+        cardsDeckPanels.ForEach(x => x.DestroyCardUI());
+        fractions.CurrentFraction = fractions.GetFraction(editableDeck.Fraction);
+
+        base.Disable();
+        cardFactory.ClearBuffer();
+        returnButton.SetActive(true);
+
         back.Invoke();
     }
 

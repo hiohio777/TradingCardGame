@@ -5,20 +5,21 @@ using Zenject;
 
 public class ArenaPanel : PanelUI, IPanelUI
 {
-    public PanelNameEnum Name { get; } = PanelNameEnum.Arena;
-    private IUserData decksCollection;
+    private IUserData user;
     [SerializeField] private List<BattelMenuButton> menuButtons = null;
 
     [Inject]
-    public void InjectMetod(IUserData decksCollection)
+    public void InjectMetod(IUserData user)
     {
-        this.decksCollection = decksCollection;
+        this.user = user;
         menuButtons.ForEach(x => x.SetListener(OnSelectBattel));
     }
 
-    private void OnSelectBattel(TypeBattelEnum typeBattel)
+    protected override void Initialize() { }
+
+    private void OnSelectBattel(object sender, TypeBattelEnum typeBattel)
     {
-        if (decksCollection.Decks.Count == 0)
+        if (user.Decks.Count == 0)
         {
             MessagePanel.SimpleMessage(transform, "no_decks");
             return;

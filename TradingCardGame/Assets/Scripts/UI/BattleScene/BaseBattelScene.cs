@@ -12,7 +12,7 @@ public abstract class BaseBattelScene : BaseScene
     protected bool isStartBattel = false;
 
     [SerializeField] protected Button backButton = null, buttonFinishBattel = null, buttonNextTurn = null;
-    private PanelNameEnum carrentScene = PanelNameEnum.MainScene;
+    private PanelNameEnum carrentScene = PanelNameEnum.MainMenu;
 
     protected BaseBattelScene Initialize(IBattel battel, IUserData player,
               BattelFieldFactory battelFieldFactory)

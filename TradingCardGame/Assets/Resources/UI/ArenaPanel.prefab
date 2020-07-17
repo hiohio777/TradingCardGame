@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63fbd8ca7f33bbd4ebbaca71fbd66fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typePanel: 0
+  namePanel: 3
   menuButtons:
   - {fileID: 9189023932039891062}
   - {fileID: 2801732952658198080}
@@ -211,6 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Key: arena
+  text: {fileID: 0}
 --- !u!1 &4491116107617364771
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identifier: 0
+  button: {fileID: 0}
 --- !u!1 &4673095321912110322
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,6 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identifier: 1
+  button: {fileID: 0}
 --- !u!1 &6611605857481220041
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identifier: 2
+  button: {fileID: 0}
 --- !u!1 &8413824585749645003
 GameObject:
   m_ObjectHideFlags: 0

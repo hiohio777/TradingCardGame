@@ -1,1 +1,1 @@
-﻿public class ReturnButton : BaseGameButton<bool> { }
+﻿public class ReturnButton : BaseGameButton { }

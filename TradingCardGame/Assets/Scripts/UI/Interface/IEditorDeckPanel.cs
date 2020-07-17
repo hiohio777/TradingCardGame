@@ -1,6 +1,6 @@
 ﻿using System;
 
-public interface IEditorDeckPanel
+public interface IDeckEditorPanel
 {
     void StartEditDeck(IDeckData deck, Action back);
     void StartEditDeck(Action back);

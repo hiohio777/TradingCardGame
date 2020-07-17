@@ -4,46 +4,42 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class DecksPanel : BaseCollectionPanelUI, ICollectionPanelUI, IInitializable
+public class CollectionPanel : PanelUI, IPanelUI
 {
     private IDeckFactory deckFactory;
     private IFractionsData fractions;
     private IUserData userDecks;
-    private IEditorDeckPanel editorDeck;
+    private IDeckEditorPanel editorDeck;
     private List<IDeck> decks = new List<IDeck>();
+    private FractionsMenu fractionMenu;
 
-    [SerializeField] private Transform panel = null;
-    [SerializeField] private Button newDeckButton = null;
+    [SerializeField] private CollectionMenu menu;
+    [SerializeField] private Transform panel;
+    [SerializeField] private Button newDeckButton;
     [SerializeField] private int maxDeck = 4;
-    private Transform parent;
 
     [Inject]
-    public void InjectMetod(IDeckFactory deckFactory, IFractionsData fractions,
-        IUserData userDecks, IEditorDeckPanel editorDeck)
+    public void InjectMetod(IDeckFactory deckFactory, IFractionsData fractions, CollectionMenu menu,
+        IUserData userDecks, IDeckEditorPanel editorDeck, FractionsMenu fractionMenu) =>
+        (this.deckFactory, this.fractions, this.menu, this.userDecks, this.editorDeck, this.fractionMenu)
+        = (deckFactory, fractions, menu, userDecks, editorDeck, fractionMenu);
+
+    protected override void Initialize()
     {
-        (this.deckFactory, this.fractions, this.userDecks, this.editorDeck)
-        = (deckFactory, fractions, userDecks, editorDeck);
+        fractionMenu.transform.SetAsLastSibling();
+        menu.AssignButton(0);
+        menu.transform.SetAsLastSibling();
+        newDeckButton.onClick.AddListener(OnCreatNewDeck);
     }
 
-    public void Initialize()
+    public override void Enable()
     {
+        base.Enable();
 
-    }
-
-    public override void Build(Transform parent)
-    {
-        this.parent = parent;
-        base.Build(parent);
-    }
-
-    public override void Enable(FractionsMenu fractionMenu)
-    {
-        if (parent != null) parent.gameObject.SetActive(true);
-
+        menu.transform.SetParent(transform, false);
+        fractionMenu.transform.SetParent(transform, false);
         if (fractions.CurrentFraction.Name == "neutral")
             fractions.CurrentFraction = fractions.Fractions[0];
-
-        base.Enable(fractionMenu);
         fractionMenu.SetActiveBattons(fractions.Fractions.Where(x => x.Name != "neutral").ToList()).SetListener(SelectFraction);
         fractionMenu.SetSelecedButton(fractions.CurrentFraction);
     }
@@ -68,19 +64,12 @@ public class DecksPanel : BaseCollectionPanelUI, ICollectionPanelUI, IInitializa
     private void OnCreatNewDeck()
     {
         Disable();
-        parent.gameObject.SetActive(false);
-
-        editorDeck.StartEditDeck(() => Enable(fractionMenu));
+        editorDeck.StartEditDeck(() => Enable());
     }
 
     private void SelectDeck(IDeck deck)
     {
         Disable();
-        parent.gameObject.SetActive(false);
-
-        editorDeck.StartEditDeck(deck.DeckData, () => Enable(fractionMenu));
+        editorDeck.StartEditDeck(deck.DeckData, () => Enable());
     }
-
-    private void OnEnable() => newDeckButton.onClick.AddListener(OnCreatNewDeck);
-    private void OnDisable() => newDeckButton.onClick.RemoveListener(OnCreatNewDeck);
 }

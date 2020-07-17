@@ -40,6 +40,8 @@ public class Card : MonoBehaviour, ICard, IPointerClickHandler
     {
         if (statusUI != null)
             statusUI.StatusCard = StatusCardEnum.normal;
+        cardBase.Destroy();
+        moving.Destroy();
         gameObject.SetActive(false);
         // Поместить\вернуть в буфер для переиспользования
         buffered?.Invoke(this);

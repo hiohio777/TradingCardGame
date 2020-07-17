@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c05149eee33d64d90491c332ad659e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typePanel: 3
+  namePanel: 2
   languageText: {fileID: 1269044317927707568}
   languagePanel: {fileID: 8204355868071725507}
 --- !u!1 &5538373195650755004
@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Key: settings
+  text: {fileID: 0}
 --- !u!1 &6211995265177523501
 GameObject:
   m_ObjectHideFlags: 0

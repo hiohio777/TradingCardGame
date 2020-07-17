@@ -6,26 +6,28 @@ public class PanelsMenager : MonoBehaviour
 {
     private List<IPanelUI> panels;
     private readonly Stack<IPanelUI> panelsStack = new Stack<IPanelUI>();
-    private BaseGameButton<bool> returnButton;
+    private ReturnButton returnButton;
 
     [Inject]
-    public void InjectMetod(List<IPanelUI> panels, BaseGameButton<bool> returnButton)
+    public void InjectMetod(List<IPanelUI> panels, ReturnButton returnButton)
     {
         (this.panels, this.returnButton) = (panels, returnButton);
+
         panels.ForEach(x => Customize(x));
+
         returnButton.SetListener(ToReturn);
         returnButton.transform.SetParent(transform, false);
         returnButton.transform.SetAsLastSibling();
         returnButton.SetActive(false);
     }
 
-    public void OpenPanel(PanelNameEnum childName)
+    public void OpenPanel(object sender, PanelNameEnum panelName)
     {
         if (panelsStack.Count > 0)
             panelsStack.Peek().Disable();
         foreach (var item in panels)
         {
-            if (item.Name == childName)
+            if (item.Name == panelName)
             {
                 panelsStack.Push(item);
                 returnButton.SetActive(true);
@@ -42,7 +44,7 @@ public class PanelsMenager : MonoBehaviour
         panel.Disable();
     }
 
-    private void ToReturn(bool s)
+    private void ToReturn(object sender)
     {
         panelsStack.Pop().Disable();
         panelsStack.Peek().Enable();

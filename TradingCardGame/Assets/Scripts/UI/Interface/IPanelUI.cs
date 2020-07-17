@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface IPanelUI
 {
-    event Action<PanelNameEnum> OpenSubPanel;
+    event Action<object, PanelNameEnum> OpenSubPanel;
     PanelNameEnum Name { get; }
 
     void SetParent(Transform parent);

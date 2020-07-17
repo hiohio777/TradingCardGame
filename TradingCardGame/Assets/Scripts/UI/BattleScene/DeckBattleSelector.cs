@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,7 +31,7 @@ public class DeckBattleSelector : MonoBehaviour, IDeckBattleSelector
         if (fractions.CurrentFraction.Name == "neutral")
             fractions.CurrentFraction = fractions.Fractions[0];
 
-        fractionMenu.Initialize(fractions.Fractions.Where(x => x.Name != "neutral").ToList()).SetListener(SelectFraction);
+       // fractionMenu.Initialize(fractions.Fractions.Where(x => x.Name != "neutral").ToList()).SetListener(SelectFraction);
         fractionMenu.SetSelecedButton(fractions.CurrentFraction);
 
         return this;

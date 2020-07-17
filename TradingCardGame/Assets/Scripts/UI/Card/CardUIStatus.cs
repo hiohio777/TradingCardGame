@@ -7,20 +7,9 @@ public class CardUIStatus : MonoBehaviour
     public StatusCardEnum statusCard = StatusCardEnum.normal;
 
     [SerializeField] private LocalisationText status = null;
-    private Image image;
-
-    public static CardUIStatus CreatPrefab(Transform parent) =>
-       Instantiate(Resources.Load<CardUIStatus>($"Card/CardUIStatus")).Build(parent);
+    [SerializeField] private Image image;
 
     public void DestroyUI() => Destroy(gameObject);
-
-    private CardUIStatus Build(Transform parent)
-    {
-        transform.SetParent(parent, false);
-        image = GetComponent<Image>();
-        gameObject.SetActive(false);
-        return this;
-    }
 
     private void SetStatus(StatusCardEnum statusCard)
     {

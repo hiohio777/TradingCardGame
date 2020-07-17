@@ -16,6 +16,13 @@ public class MovingCard : MonoBehaviour, IMovingCard
 
     public void SetRotations(float rotation) => currentRotation = rotation;
 
+    public void Destroy()
+    {
+        Stop();
+        currentRotation = 0;
+        StopAllCoroutines();
+    }
+
     public IMovingCard SetWaitTime(float waitTime = 0, float waitAfterTime = 0)
     {
         (this.waitTime, this.waitAfterTime) = (waitTime, waitAfterTime);
@@ -136,13 +143,6 @@ public class MovingCard : MonoBehaviour, IMovingCard
         yield return new WaitForSeconds(waitAfterTime);
         waitAfterTime = 0;
         Stop();
-    }
-
-    private void OnDisable()
-    {
-        Stop();
-        currentRotation = 0;
-        StopAllCoroutines();
     }
 
     private void Stop()

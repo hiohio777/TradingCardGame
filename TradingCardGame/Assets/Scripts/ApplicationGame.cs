@@ -34,6 +34,6 @@ public class ApplicationGame : MonoBehaviour
     private IEnumerator Wait()
     {
         yield return new WaitForSeconds(1);
-        panelsMenager.OpenPanel(PanelNameEnum.MainMenu);
+        panelsMenager.OpenPanel(this, PanelNameEnum.MainMenu);
     }
 }

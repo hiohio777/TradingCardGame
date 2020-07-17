@@ -211,6 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Key: company
+  text: {fileID: 0}
 --- !u!1 &3057972216877484676
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,7 +720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d073b648971ac814181cfddf0711b0fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typePanel: 1
+  namePanel: 4
 --- !u!1 &7510755303870697024
 GameObject:
   m_ObjectHideFlags: 0

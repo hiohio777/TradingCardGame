@@ -428,7 +428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0acec59f423a98e45be3071b1c9b8df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typePanel: 2
+  namePanel: 1
 --- !u!1 &5895361162831314616
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,3 +599,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Key: shop
+  text: {fileID: 0}

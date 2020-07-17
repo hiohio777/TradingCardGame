@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public class CardsCollectionPanel : BaseCollectionPanelUI, ICollectionPanelUI, IInitializable
+public class CardsCollectionPanel : BaseCollectionPanelUI, ICollectionPanelUI
 {
     private IFractionsData fractions;
     private ICollectionCardsData collection;

@@ -46,7 +46,7 @@ public class CardBase : MonoBehaviour
         frame.gameObject.SetActive(isSelected);
         return this;
     }
-    private void OnDisable()
+    public void Destroy()
     {
         frame.gameObject.SetActive(false);
         SetParent(null);
@@ -57,7 +57,7 @@ public class CardBase : MonoBehaviour
     {
         canvasCard = GetComponent<Canvas>();
         canvasCard.worldCamera = Camera.main;
-        _transform = transform;
+        _transform = canvasCard.transform;
         frame.gameObject.SetActive(false);
     }
 }

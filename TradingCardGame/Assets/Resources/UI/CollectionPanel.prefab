@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 4001857246189546203}
   - component: {fileID: 4526226487168445227}
   m_Layer: 5
-  m_Name: DecksPanel
+  m_Name: CollectionPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,7 +169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953d07cb1a83eb74e924f10171a4d833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typePanel: 1
+  namePanel: 5
+  menu: {fileID: 0}
   panel: {fileID: 7636724406880314547}
   newDeckButton: {fileID: 1343583903010285477}
   maxDeck: 4
@@ -265,6 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Key: decks
+  text: {fileID: 0}
 --- !u!1 &4962930394185298506
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,6 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Key: creat_new_deck
+  text: {fileID: 0}
 --- !u!1 &4963657673621884037
 GameObject:
   m_ObjectHideFlags: 0
