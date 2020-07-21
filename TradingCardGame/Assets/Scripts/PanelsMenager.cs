@@ -9,7 +9,7 @@ public class PanelsMenager : MonoBehaviour
     private ReturnButton returnButton;
 
     [Inject]
-    public void InjectMetod(List<IPanelUI> panels, ReturnButton returnButton)
+    public void InjectMetod(List<IPanelUI> panels, ReturnButton returnButton, CollectionMenu collectionMenu)
     {
         (this.panels, this.returnButton) = (panels, returnButton);
 
@@ -19,12 +19,26 @@ public class PanelsMenager : MonoBehaviour
         returnButton.transform.SetParent(transform, false);
         returnButton.transform.SetAsLastSibling();
         returnButton.SetActive(false);
+
+        collectionMenu.SetListener(OpenPanel);
     }
 
-    public void OpenPanel(object sender, PanelNameEnum panelName)
+    public void OpenSubPanel(object sender, PanelNameEnum panelName)
     {
         if (panelsStack.Count > 0)
             panelsStack.Peek().Disable();
+        FindAndOpenPanel(panelName);
+    }
+
+    private void OpenPanel(object sender, PanelNameEnum panelName)
+    {
+        if (panelsStack.Count > 0)
+            panelsStack.Pop().Disable();
+        FindAndOpenPanel(panelName);
+    }
+
+    private void FindAndOpenPanel(PanelNameEnum panelName)
+    {
         foreach (var item in panels)
         {
             if (item.Name == panelName)
@@ -40,7 +54,7 @@ public class PanelsMenager : MonoBehaviour
     private void Customize(IPanelUI panel)
     {
         panel.SetParent(transform);
-        panel.OpenSubPanel += OpenPanel;
+        panel.OpenSubPanel += OpenSubPanel;
         panel.Disable();
     }
 
@@ -59,6 +73,6 @@ public class PanelsMenager : MonoBehaviour
 
     private void OnDisable()
     {
-        panels.ForEach(x => x.OpenSubPanel -= OpenPanel);
+        panels.ForEach(x => x.OpenSubPanel -= OpenSubPanel);
     }
 }

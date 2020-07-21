@@ -28,6 +28,7 @@ public class CardFactory : FactoryBase<Card>, ICardFactory<ICard>
         else
         {
             card = UnityEngine.Object.Instantiate(Resources.Load<Card>($"Card/CardUI")).Initial(Buffered, specificityFactory);
+            conteiner.Add(card);
         }
 
         card.Build(cardData, scale);

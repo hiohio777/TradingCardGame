@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 public class ReserveState : IBattelState
 {
@@ -47,10 +48,8 @@ public class ReserveState : IBattelState
         if (current == null) return;
 
         ClearClickListener();
-        battel.Player.PlaceAttackCell(current, cell);
+        battel.Player.PlaceAttackCell(current, cell, true, FinishPutCardFromReserve);
         battel.Player.ReservCards.ReservLocation();
-
-        current.PlaceAttackCell(cell, FinishPutCardFromReserve);
     }
 
     private void FinishPutCardFromReserve()

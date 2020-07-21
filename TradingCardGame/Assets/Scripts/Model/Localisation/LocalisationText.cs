@@ -15,7 +15,7 @@ public class LocalisationText : MonoBehaviour
         SetLocalisationString();
     }
 
-    private void Start()
+    private void Awake()
     {
         text = GetComponent<Text>();
         LocalisationGame.Instance.LanguageChanged += SetLocalisationString;

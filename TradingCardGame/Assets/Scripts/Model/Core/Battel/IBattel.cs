@@ -13,7 +13,7 @@ public interface IBattelBase
 
 public interface IBattel : IBattelBase
 {
-    event Action NextTurn;
+    event Action<object> NextTurn;
     event Action<BattelStateEnum> AssignBattelState;
     event Action<bool> InteractableButtonNextTurn;
     event Action FinishBattel;

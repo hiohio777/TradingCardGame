@@ -6,6 +6,7 @@ public interface IUserData
     string Login { get; }
     int Gold { get; }
     int Ram { get; }
+    TypeBattelEnum CurrentTypeBattel { get; set; }
     void SetActionSaveDecks(Action SaveDecks);
 
     List<IDeckData> Decks { get; }

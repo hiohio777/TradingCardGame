@@ -38,12 +38,18 @@ public class CardBase : MonoBehaviour
         canvasCard.sortingOrder = oldSortingOrder;
         return this;
     }
+    private bool isSelected;
     public CardBase Frame(bool isSelected) => Frame(isSelected, Color.green);
     public CardBase Frame(bool isSelected, Color color)
     {
-        SetSortingOrder(isSelected ? +200 : -200);
-        frame.color = color;
-        frame.gameObject.SetActive(isSelected);
+        if (this.isSelected != isSelected)
+        {
+            this.isSelected = isSelected;
+            if (isSelected) canvasCard.sortingOrder += 150;
+            else canvasCard.sortingOrder -= 150;
+            frame.color = color;
+            frame.gameObject.SetActive(isSelected);
+        }
         return this;
     }
     public void Destroy()

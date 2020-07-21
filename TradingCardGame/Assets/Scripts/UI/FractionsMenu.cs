@@ -5,6 +5,7 @@ using Zenject;
 
 public class FractionsMenu : MonoBehaviour
 {
+    [SerializeField] private GameObject prefabButton;
     private Action<IFraction> clickHandler;
     private readonly List<FractionsButton> buttons = new List<FractionsButton>();
     private FractionsButton currentButton;
@@ -14,7 +15,7 @@ public class FractionsMenu : MonoBehaviour
     {
         foreach (var item in fractions.Fractions)
         {
-            var button = Instantiate(Resources.Load<FractionsButton>("FractionsButton"));
+            var button = Instantiate(prefabButton).GetComponent<FractionsButton>();
             button.Assing(transform, item, Select);
             buttons.Add(button);
         }

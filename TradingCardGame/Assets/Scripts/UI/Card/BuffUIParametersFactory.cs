@@ -5,8 +5,12 @@
         BuffUIParameters buffParam;
 
         if (buffer.Count > 0) buffParam = buffer.Pop();
-        else buffParam = BuffUIParameters.CreatPrefab(Buffered);
-
+        else 
+        {
+            buffParam = BuffUIParameters.CreatPrefab(Buffered);
+            conteiner.Add(buffParam);
+        }
+        
         return buffParam;
     }
 }

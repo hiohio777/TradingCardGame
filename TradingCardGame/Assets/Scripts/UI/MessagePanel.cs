@@ -11,10 +11,10 @@ public class MessagePanel : MonoBehaviour
     private Action actNO;
 
     public static MessagePanel SimpleMessage(Transform parent, string text) =>
-    Instantiate(Resources.Load<MessagePanel>("SimpleMessage")).Build(parent, text);
+    Instantiate(Resources.Load<MessagePanel>("UI/SimpleMessage")).Build(parent, text);
 
     public static MessagePanel MessageWithChoice(Transform parent, string text, Action actOK = null, Action actNO = null) =>
-    Instantiate(Resources.Load<MessagePanel>("MessageWithChoice")).Build(parent, text, actOK, actNO);
+    Instantiate(Resources.Load<MessagePanel>("UI/MessageWithChoice")).Build(parent, text, actOK, actNO);
 
     private MessagePanel Build(Transform parent, string text, Action actOK = null, Action actNO = null)
     {

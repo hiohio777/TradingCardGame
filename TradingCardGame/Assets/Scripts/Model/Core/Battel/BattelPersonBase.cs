@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BattelPersonBase : IBattelPerson
 {
-    public event Action<byte> SetLive;
+    public event Action<int> SetLive;
     public event Action<bool> SetFortune;
     public string Name { get; private set; }
     public IFraction Fraction { get; private set; }
@@ -15,11 +15,11 @@ public abstract class BattelPersonBase : IBattelPerson
     public List<ICellBattel> Cell { get; set; }
     public IBattelPerson EnemyPerson { get; set; }
     public bool Fortune { get => fortune; set { fortune = value; SetFortune?.Invoke(fortune); } }
-    public byte Live { get => live; set { live = value; SetLive?.Invoke(live); } }
+    public int Live { get => live; set { live = value; SetLive?.Invoke(live); } }
     public string Report { get; set; }
 
     public List<ICardData> DeckCards { get; set; }
-    private byte live;
+    private int live;
     private bool fortune;
 
     protected static byte сountCardsHand = 6; //Количество карт в руке
@@ -63,11 +63,11 @@ public abstract class BattelPersonBase : IBattelPerson
 
     public abstract void NewStartingHand();
 
-    public void PlaceAttackCell(IAttackCard card, ICellBattel cell, Action finish = null)
+    public void PlaceAttackCell(IAttackCard card, ICellBattel cell, bool isMoving = true, Action finish = null)
     {
         AttackCards.Add(card);
         ReservCards.Remove(card);
-        card.PlaceAttackCell(cell, finish);
+        card.PlaceAttackCell(cell, isMoving, finish);
     }
 
     protected void CreatCard(ICardData cardData, Vector3 position)

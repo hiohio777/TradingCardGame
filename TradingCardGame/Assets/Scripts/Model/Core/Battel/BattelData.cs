@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BattelData : IBattel, IBattelStateData
 {
-    public event Action NextTurn;
+    public event Action<object> NextTurn;
     public event Action<BattelStateEnum> AssignBattelState;
     public event Action<bool> InteractableButtonNextTurn;
     public event Action FinishBattel;
@@ -114,21 +114,21 @@ public class BattelData : IBattel, IBattelStateData
 
     public void OnNextTurn()
     {
-        NextTurn.Invoke();
+        NextTurn.Invoke(this);
     }
 
     public void OnDisplayBattelState(BattelStateEnum typeState)
     {
-        AssignBattelState.Invoke(typeState);
+        AssignBattelState?.Invoke(typeState);
     }
 
     public void OnSendReportRPC(string data)
     {
-        SendReportRPC.Invoke(data);
+        SendReportRPC?.Invoke(data);
     }
 
     public void OnActiveTimerBattel(bool active)
     {
-        ActiveTimerBattel.Invoke(active);
+        ActiveTimerBattel?.Invoke(active);
     }
 }

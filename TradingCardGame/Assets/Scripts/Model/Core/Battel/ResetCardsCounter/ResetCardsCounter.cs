@@ -51,8 +51,8 @@ public class ResetCardsCounter : ICardResetCounter, ICardResetCounterUI
     {
         foreach (var attackCard in person.AttackCards)
         {
-            attackCard.Destroy();
             person.DeckCards.Add(attackCard.Combat.CardData);
+            attackCard.DestroyUI();
         }
         person.AttackCards.Clear();
         person.ShuffleCards(person.DeckCards); //Перетасовать

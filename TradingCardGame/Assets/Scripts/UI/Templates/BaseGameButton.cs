@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BaseGameButton<T> : MonoBehaviour
+public abstract class BaseGameButton<T> : MonoBehaviour
 {
     private Action<BaseGameButton<T>, T> clicKButton;
     public T Identifier { get => identifier; set => identifier = value; }
@@ -21,13 +21,15 @@ public class BaseGameButton<T> : MonoBehaviour
     }
 }
 
-public class BaseGameButton : MonoBehaviour
+public abstract class BaseGameButton : MonoBehaviour
 {
     private Action<BaseGameButton> clicKButton;
     [HideInInspector] public Button button;
+    public bool Interactable { get => button.interactable; set => button.interactable = value; }
 
     public virtual void SetActive(bool active) => gameObject.SetActive(active);
     public void SetListener(Action<BaseGameButton> clicKButton) => this.clicKButton = clicKButton;
+    public void ClearListener() => this.clicKButton = null;
     protected virtual void OnClick() => clicKButton?.Invoke(this);
 
     private void Awake()

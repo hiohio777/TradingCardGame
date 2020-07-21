@@ -16,6 +16,7 @@ public class BuffUIParameters : MonoBehaviour, IBuffUIParameters
     {
         var prefab = Instantiate(Resources.Load<BuffUIParameters>($"Card/BuffUIParameters"));
         (prefab.buffered, prefab._transform) = (buffered, prefab.transform);
+
         return prefab;
     }
 
@@ -72,5 +73,11 @@ public class BuffUIParameters : MonoBehaviour, IBuffUIParameters
         }
 
         Destroy();
+    }
+
+    private void Awake()
+    {
+        var canvas = GetComponent<Canvas>();
+        canvas.worldCamera = Camera.main;
     }
 }

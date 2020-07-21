@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public interface IBattelPerson
 {
-    event Action<byte> SetLive;
+    event Action<int> SetLive;
     event Action<bool> SetFortune;
     string Name { get; }
     IFraction Fraction { get; }
@@ -17,12 +17,12 @@ public interface IBattelPerson
     bool Fortune { get; set; }
     string Report { get; set; }
     bool IsReadyContinue { get; set; }
-    byte Live { get; set; }
+    int Live { get; set; }
     IBattelPerson EnemyPerson { get; set; }
 
     void Creat(string name, string fraction, List<string> cards, byte live = 10);
     void NewStartingHand();
     void BringCardsToBattlefield(float animationTime, Action actEndRelocation);
     void ShuffleCards(List<ICardData> cards);
-    void PlaceAttackCell(IAttackCard card, ICellBattel cell, Action finish = null);
+    void PlaceAttackCell(IAttackCard card, ICellBattel cell, bool isMoving = true, Action finish = null);
 }

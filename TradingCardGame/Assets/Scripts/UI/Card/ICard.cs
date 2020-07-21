@@ -12,6 +12,6 @@ public interface ICard
     void ClearClickListener();
 
     void StartSFX(TypeSpecificityEnum type, Action actFinish);
-    void Destroy();
+    void DestroyUI();
     void Build(ICardData cardData, Vector3 scale);
 }

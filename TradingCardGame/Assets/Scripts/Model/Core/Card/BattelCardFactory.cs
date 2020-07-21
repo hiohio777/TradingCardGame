@@ -7,6 +7,7 @@ public class BattelCardFactory : FactoryBase<Card>, ICardFactory<IAttackCard>
     private readonly ISFXFactory specificityFactory;
     private readonly IBuffUIParametersFactory buffUIFactory;
 
+
     public BattelCardFactory(ISFXFactory specificityFactory, IAbilityFactory abilityFactory, IBuffUIParametersFactory buffUIFactory) =>
         (this.abilityFactory, this.specificityFactory, this.buffUIFactory) = (abilityFactory, specificityFactory, buffUIFactory);
 
@@ -33,6 +34,7 @@ public class BattelCardFactory : FactoryBase<Card>, ICardFactory<IAttackCard>
             card = UnityEngine.Object.Instantiate(Resources.Load<AttackCard>($"Card/AttackCard"));
             card.Initial(Buffered, specificityFactory);
             card.combatUI.buffUIFactory = buffUIFactory;
+            conteiner.Add(card);
         }
 
         ICombatCard combat;
@@ -47,6 +49,7 @@ public class BattelCardFactory : FactoryBase<Card>, ICardFactory<IAttackCard>
                 combat = new CombatCardСommon(card.combatUI, cardData, card.StartSFX); break;
         }
 
+        combat.AttackCard = card;
         card.Build(cardData, scale, combat, ability);
         return card;
     }

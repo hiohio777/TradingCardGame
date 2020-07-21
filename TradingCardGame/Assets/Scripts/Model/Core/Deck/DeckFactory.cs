@@ -29,7 +29,10 @@ public class DeckFactory : IDeckFactory
         DeckUI deckUI;
 
         if (buffer.Count > 0) deckUI = buffer.Pop();
-        else deckUI = DeckUI.CreatPrefab();
+        else
+        {
+            deckUI = UnityEngine.Object.Instantiate(Resources.Load<DeckUI>($"Deck/DeckUI"));
+        }
 
         deckUI.Build(parent, deck, Buffered);
 

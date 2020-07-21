@@ -12,6 +12,10 @@ public class User : IUserData
     public string Login => userData.Login;
     public int Gold => userData.Gold;
     public int Ram => userData.Ram;
+
+    // Game Settings
+    public TypeBattelEnum CurrentTypeBattel { get; set; } = TypeBattelEnum.training;
+
     public void SetActionSaveDecks(Action SaveDecksAct)
         => this.SaveDecksAct = SaveDecksAct;
 

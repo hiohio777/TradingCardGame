@@ -28,7 +28,7 @@ public class PunRPMenager : MonoBehaviourPunCallbacks
         base.OnDisable();
     }
 
-    public void PassTimerValueRPC() => photonView.RPC("PassTimerValue", RpcTarget.All);
+    public void PassTimerValueRPC(object sender) => photonView.RPC("PassTimerValue", RpcTarget.All);
 
     private void ToCallRPC(string nameRPC)
     {

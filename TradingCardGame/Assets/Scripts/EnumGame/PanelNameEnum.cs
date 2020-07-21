@@ -5,11 +5,10 @@
     Settings,
     Arena,
     Company,
-    Collection,
-    Decks,
+    CollectionDecks,
     CollectionCards,
     Statistics,
     EditorDeck,
-    RatingBattelScenes,
+    Battel,
 }
 

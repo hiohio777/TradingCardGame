@@ -181,8 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0351afa2fc7114dadd37014d4b0a9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  identifier: 8
-  button: {fileID: 0}
+  identifier: 7
+  interactable: 1
 --- !u!1 &2080559762923170290
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,9 +369,8 @@ GameObject:
   - component: {fileID: 1011207757433193078}
   - component: {fileID: 2588186899213734011}
   - component: {fileID: 7073227294318210606}
-  - component: {fileID: 7022013943378114291}
   m_Layer: 5
-  m_Name: Cards
+  m_Name: CardsCollection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -446,22 +445,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0351afa2fc7114dadd37014d4b0a9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  identifier: 7
-  button: {fileID: 0}
---- !u!114 &7022013943378114291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2944871771159129611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a0351afa2fc7114dadd37014d4b0a9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  identifier: 0
-  button: {fileID: 0}
+  identifier: 6
+  interactable: 1
 --- !u!1 &5093874767509366618
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +460,7 @@ GameObject:
   - component: {fileID: 9089834045640360206}
   - component: {fileID: 2147858684429056884}
   m_Layer: 5
-  m_Name: Decks
+  m_Name: CollectionDecks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -550,8 +535,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0351afa2fc7114dadd37014d4b0a9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  identifier: 6
-  button: {fileID: 0}
+  identifier: 5
+  interactable: 1
 --- !u!1 &9093805946245004729
 GameObject:
   m_ObjectHideFlags: 0

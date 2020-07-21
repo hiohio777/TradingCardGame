@@ -49,7 +49,7 @@ public class WarriorCards
             else
             {
                 // Назначить второй атакующей
-                attacker.Moving.SetPosition(new Vector3(View.Position.x + x2, View.Position.y - y2, 0)).Run(0.3f, () => Final(0));
+                attacker.Moving.SetPosition(new Vector3(View.Position.x + x2, View.Position.y - y2, 0)).Run(0.3f, () => Final(2));
             }
         }
         else
@@ -64,7 +64,7 @@ public class WarriorCards
 
     public void RemoveAttacker()
     {
-        var enemies = EnemyPerson.Cell[AttackTargetID].Unit.Warrior.Enemies;
+        var enemies = AttackTargetUnit.Warrior.Enemies;
         enemies.Remove(this);
 
         if (enemies.Count > 0)
@@ -79,16 +79,4 @@ public class WarriorCards
         Moving.SetPosition(Cell.Position).Run(0.3f, () => View.Frame(false).SetSortingOrder(0));
     }
     #endregion
-
-    // Карта выходит на поле боя в ячеку с idCell
-    public void PlaceAttackCell(ICellBattel cell, Action finish)
-    {
-        Cell = cell;
-        Action finishTemp = () =>
-        {
-            View.SetScale(new Vector3(1, 1, 1)).Frame(false);
-            finish.Invoke();
-        };
-        Moving.SetPosition(Cell.Position).Run(0.3f, finishTemp);
-    }
 }

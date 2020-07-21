@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class DeathCards : QueueHendler
 {
@@ -19,9 +20,14 @@ public class DeathCards : QueueHendler
     {
         var health = current.Combat.Health;
         if (health > 0)
+        {
             current.ExecuteAbility(EventTriggerEnum.ResponsekDamage, battel, () => { RunQueue(current); });
-        else if (health == 0) FinalDeathCard(current);
-        else DeathAbility(current);
+        }
+        else
+        {
+            if (health == 0) FinalDeathCard(current);
+            else DeathAbility(current);
+        }
     }
 
     protected override void Finish() => actionFinish.Invoke();

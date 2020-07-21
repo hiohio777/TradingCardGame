@@ -14,9 +14,6 @@ public class DeckUI : MonoBehaviour, IDeckUI, IPointerClickHandler
     private Action onClick;
     private IDeck deck;
 
-    public static DeckUI CreatPrefab() =>
-       Instantiate(Resources.Load<DeckUI>($"Deck/{nameof(DeckUI)}"));
-
     public void Build(Transform parent, IDeck deck, Action<DeckUI> buffered)
     {
         (this.deck, this.buffered) = (deck, buffered);

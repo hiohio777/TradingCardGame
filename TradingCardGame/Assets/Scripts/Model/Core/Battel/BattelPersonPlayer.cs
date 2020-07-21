@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public interface IBattelPersonPlayer : IBattelPerson { }
@@ -14,7 +15,7 @@ public class BattelPersonPlayer : BattelPersonBase, IBattelPersonPlayer
     public override void NewStartingHand()
     {
         //Вернуть карты из руки в колоду
-        ReservCards.ForEach(x => { DeckCards.Add(x.Combat.CardData); x.Destroy(); });
+        ReservCards.ForEach(x => { DeckCards.Add(x.Combat.CardData); x.DestroyUI(); });
         ReservCards.Clear();
 
         ShuffleCards(DeckCards); //Перетасовать
@@ -31,8 +32,8 @@ public class BattelPersonPlayer : BattelPersonBase, IBattelPersonPlayer
             if (Cell[i].IsExist == false)
             {
                 var card = ReservCards[0];
-                PlaceAttackCell(card, Cell[i]);
-                cardAttackList.Add(AttackCards[i]);
+                PlaceAttackCell(card, Cell[i], false);
+                cardAttackList.Add(AttackCards.Last());
             }
         }
 
@@ -45,7 +46,7 @@ public class BattelPersonPlayer : BattelPersonBase, IBattelPersonPlayer
 
         if (cardAttackList.Count > 0)
         {
-            cardAttackList.Relocation(actFinish, 0.5f);
+            cardAttackList.Relocation(actFinish, 0.3f);
         }
         else actFinish?.Invoke();
     }

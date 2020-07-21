@@ -36,7 +36,7 @@ public class Card : MonoBehaviour, ICard, IPointerClickHandler
         gameObject.SetActive(true);
     }
 
-    public virtual void Destroy()
+    public virtual void DestroyUI()
     {
         if (statusUI != null)
             statusUI.StatusCard = StatusCardEnum.normal;

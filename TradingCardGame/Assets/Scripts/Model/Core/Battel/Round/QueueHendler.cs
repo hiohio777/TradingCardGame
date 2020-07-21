@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public abstract class QueueHendler
 {
@@ -28,7 +29,9 @@ public abstract class QueueHendler
             foreach (var card in cards)
                 if (current == null || current.Combat.Initiative > card.Combat.Initiative
                 || (current.Combat.Initiative == card.Combat.Initiative && current.Warrior.FriendPerson.Fortune == false))
+                {
                     current = card;
+                }
             Next(current);
         }
         else Finish();

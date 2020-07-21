@@ -683,7 +683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1066d6e5c1747f34392567e6542465f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  namePanel: 9
+  namePanel: 8
   exitButton: {fileID: 8857961300159804593}
   selectPanelButton: {fileID: 2249605081085850024}
   removeDeckButton: {fileID: 1056269435855640478}

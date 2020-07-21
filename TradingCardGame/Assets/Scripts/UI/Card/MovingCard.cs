@@ -7,8 +7,9 @@ public class MovingCard : MonoBehaviour, IMovingCard
     public bool IsMoving { get; private set; }
 
     private Transform _transform;
-    private Action execute, StartAnimation;
+    private Action execute;
     private float currentRotation = 0;
+    private bool isStartPosition, isStartRotation, isStartScale;
 
     private Vector3 positionTarget;
     private float rotationTarget, scaleTarget;
@@ -18,7 +19,9 @@ public class MovingCard : MonoBehaviour, IMovingCard
 
     public void Destroy()
     {
-        Stop();
+        StopAllCoroutines();
+        IsMoving = false;
+        time = 0.3f; waitTime = 0;
         currentRotation = 0;
         StopAllCoroutines();
     }
@@ -32,21 +35,21 @@ public class MovingCard : MonoBehaviour, IMovingCard
     public IMovingCard SetPosition(Vector3 positionTarget)
     {
         this.positionTarget = positionTarget;
-        StartAnimation += StartPositionTarget;
+        isStartPosition = true;
         return this;
     }
 
     public IMovingCard SetRotation(float rotationTarget)
     {
         this.rotationTarget = rotationTarget;
-        StartAnimation += StartRotationTarget;
+        isStartRotation = true;
         return this;
     }
 
     public IMovingCard SetScale(float scaleTarget)
     {
         this.scaleTarget = scaleTarget;
-        StartAnimation += StartScaleTarget;
+        isStartScale = true;
         return this;
     }
 
@@ -54,7 +57,11 @@ public class MovingCard : MonoBehaviour, IMovingCard
     public void Run(float time, Action execute)
     {
         (this.execute, this.time) = (execute, time);
-        StartAnimation?.Invoke();
+
+        StopAllCoroutines();
+        if (isStartPosition) StartPositionTarget();
+        if (isStartRotation) StartRotationTarget();
+        if (isStartScale) StartScaleTarget();
     }
 
     private void StartPositionTarget()
@@ -88,7 +95,7 @@ public class MovingCard : MonoBehaviour, IMovingCard
             yield return new WaitForFixedUpdate();
         }
 
-        StartAnimation -= StartPositionTarget;
+        isStartPosition = false;
         EndAnimation();
     }
 
@@ -109,7 +116,7 @@ public class MovingCard : MonoBehaviour, IMovingCard
         _transform.localEulerAngles = new Vector3(0, 0, rotationTarget);
         currentRotation = rotationTarget;
 
-        StartAnimation -= StartRotationTarget;
+        isStartRotation = false;
         EndAnimation();
     }
 
@@ -127,15 +134,17 @@ public class MovingCard : MonoBehaviour, IMovingCard
             yield return new WaitForFixedUpdate();
         }
 
-        StartAnimation -= StartScaleTarget;
+        isStartScale = false;
         EndAnimation();
     }
 
     private void EndAnimation()
     {
-        if (StartAnimation == null)
+        if (isStartPosition == false && isStartRotation == false && isStartScale == false)
+        {
             if (waitAfterTime > 0) StartCoroutine(WaitAfter());
             else Stop();
+        }  
     }
 
     private IEnumerator WaitAfter()

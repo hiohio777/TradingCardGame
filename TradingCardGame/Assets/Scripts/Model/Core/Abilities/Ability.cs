@@ -6,7 +6,7 @@ public class Ability : MonoBehaviour, IAbility
 {
     [SerializeField, Header("Фазы срабатывания")] private List<EventTriggerEnum> triggers = new List<EventTriggerEnum>();
     [SerializeField, Space(5), Header("Одноразовая")] private bool oneOff = false;
-    [SerializeField, Space(2), Header("Специфект на карте хозяине абилки")] private TypeSpecificityEnum specificity = TypeSpecificityEnum.Default;
+    [SerializeField, Space(2)] private TypeSpecificityEnum specificity = TypeSpecificityEnum.Default;
 
     [SerializeField, Space(10)] private ConditionsAbility conditionsAbility = null;
     [SerializeField] private EffectAbility effectAbility = null;

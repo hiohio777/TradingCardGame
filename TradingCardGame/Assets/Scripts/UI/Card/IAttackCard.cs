@@ -18,10 +18,11 @@ public interface IAttackCard
     void SetClickListener(Action<IAttackCard> clickAttackCard);
     void ClearClickListener();
 
-    void PlaceAttackCell(ICellBattel cell, Action finish);
+    void PlaceAttackCell(ICellBattel cell, bool isMoving = true, Action finish = null);
     void AddAttacker(IAttackCard current);
     void RemoveAttacker();
 
     void Death(Action finish);
+    void DestroyUI();
     void Destroy();
 }

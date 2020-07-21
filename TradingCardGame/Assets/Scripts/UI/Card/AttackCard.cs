@@ -6,7 +6,7 @@ public class AttackCard : Card, IAttackCard, IPointerClickHandler
 {
     private Action<IAttackCard> click;
 
-    public ITokensPanel Tokens { get; }
+    public ITokensPanel Tokens => tokensPanel;
     public IAbility Ability { get; private set; }
     public WarriorCards Warrior { get; private set; }
 
@@ -48,8 +48,6 @@ public class AttackCard : Card, IAttackCard, IPointerClickHandler
     #region Death
     public void Death(Action finash)
     {
-        View.SetSortingOrder(300);
-
         Action die = () =>
         {
             Warrior.FriendPerson.Live -= 1;
@@ -57,21 +55,32 @@ public class AttackCard : Card, IAttackCard, IPointerClickHandler
             finash.Invoke();
         };
 
-        var deathEndPosition = new Vector3(-1000, 80);
-        Moving.SetPosition(deathEndPosition).SetRotation(300).Run(0.5f, die);
+        View.SetSortingOrder(300);
+        Moving.SetPosition(new Vector3(-1000, 80)).SetRotation(300).Run(0.5f, die);
     }
-    public override void Destroy()
+    public void Destroy()
     {
         Warrior.Cell.Unit = null;
-        Warrior = null;
-        base.Destroy();
+        Ability.Destroy();
+        DestroyUI();
     }
     #endregion
 
     #region Warrior
     public void AddAttacker(IAttackCard current) => Warrior.AddAttacker(current);
     public void RemoveAttacker() => Warrior.RemoveAttacker();
-    public void PlaceAttackCell(ICellBattel cell, Action finish)
-        => Warrior.PlaceAttackCell(cell, finish);
+    public void PlaceAttackCell(ICellBattel cell, bool isMoving = true, Action finish = null)
+    {
+        Warrior.Cell = cell;
+        cell.Unit = this;
+        Action finishTemp = () =>
+        {
+            View.SetScale(new Vector3(1, 1, 1)).Frame(false);
+            finish?.Invoke();
+        };
+        Moving.SetPosition(Warrior.Cell.Position).SetRotation(0);
+        if (isMoving)
+            Moving.Run(0.3f, finishTemp);
+    }
     #endregion
 }

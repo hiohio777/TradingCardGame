@@ -4,7 +4,6 @@ using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
-
 public interface IBattelPersonEnemy : IBattelPerson { }
 public class BattelPersonEnemy : BattelPersonBase, IBattelPersonEnemy
 {

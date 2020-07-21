@@ -34,6 +34,13 @@ public class ApplicationGame : MonoBehaviour
     private IEnumerator Wait()
     {
         yield return new WaitForSeconds(1);
-        panelsMenager.OpenPanel(this, PanelNameEnum.MainMenu);
+        panelsMenager.OpenSubPanel(this, PanelNameEnum.MainMenu);
+    }
+
+    private void Awake()
+    {
+        var canvas = GetComponent<Canvas>();
+        canvas.worldCamera = Camera.main;
+        canvas.sortingLayerName = "Default";
     }
 }
